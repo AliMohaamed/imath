@@ -30,10 +30,24 @@ type SubmitLeadArgs = {
 };
 
 type SubmitLeadResult =
-  | { ok: true; leadId: string }
+  | { ok: true; leadId: string; notificationId: string; deliveryId: string }
   | { ok: false; code: "rate_limited" };
 
+type RecordDeliveryAttemptArgs = {
+  deliveryId: string;
+  status: string;
+  attempts: number;
+  lastAttemptAt: number;
+  errorMessage?: string;
+  externalMessageId?: string;
+};
+
 const submitLeadReference = makeFunctionReference<"mutation", SubmitLeadArgs, SubmitLeadResult>("leads:submit");
+const recordDeliveryAttemptReference = makeFunctionReference<
+  "mutation",
+  RecordDeliveryAttemptArgs,
+  { ok: true }
+>("notifications:recordDeliveryAttempt");
 
 function getClientIp(headers: Headers) {
   const forwardedFor = headers.get("x-forwarded-for");
@@ -53,8 +67,58 @@ function createRateLimitKey(headers: Headers) {
     .digest("hex");
 }
 
+function formatTelegramMessage(params: {
+  parentName: string;
+  studentName: string;
+  studentAge: number;
+  phoneNumber: string;
+  timezone: string;
+  preferredSlots: string[];
+  country: string;
+  currency: string;
+  locale: string;
+}) {
+  return [
+    "New trial request",
+    `Parent: ${params.parentName}`,
+    `Student: ${params.studentName} (${params.studentAge})`,
+    `Phone: ${params.phoneNumber}`,
+    `Timezone: ${params.timezone}`,
+    `Country: ${params.country} - ${params.currency}`,
+    `Locale: ${params.locale.toUpperCase()}`,
+    `Preferred slots: ${params.preferredSlots.join(", ")}`,
+  ].join("\n");
+}
+
+async function sendTelegramNotification(params: {
+  botToken: string;
+  chatId: string;
+  message: string;
+}) {
+  const response = await fetch(`https://api.telegram.org/bot${params.botToken}/sendMessage`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      chat_id: params.chatId,
+      text: params.message,
+    }),
+  });
+
+  const payload = await response.json();
+
+  if (!response.ok || !payload.ok) {
+    throw new Error(payload.description ?? "Telegram delivery failed.");
+  }
+
+  return payload.result?.message_id ? String(payload.result.message_id) : undefined;
+}
+
 export async function POST(request: Request) {
   const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
+  const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
+  const telegramChatId = process.env.TELEGRAM_CHAT_ID;
 
   if (!convexUrl) {
     return NextResponse.json(
@@ -125,6 +189,57 @@ export async function POST(request: Request) {
       },
       { status: 429 }
     );
+  }
+
+  if (telegramBotToken && telegramChatId) {
+    const telegramMessage = formatTelegramMessage({
+      parentName: payload.parentName,
+      studentName: payload.studentName,
+      studentAge: payload.studentAge,
+      phoneNumber: formatPhoneNumber(payload.phoneCountryCode, payload.phoneNumber),
+      timezone: payload.timezone,
+      preferredSlots: payload.preferredSlots,
+      country,
+      currency,
+      locale: payload.locale,
+    });
+
+    let attempts = 0;
+    let delivered = false;
+    let externalMessageId: string | undefined;
+    let errorMessage: string | undefined;
+
+    while (attempts < 2 && !delivered) {
+      attempts += 1;
+
+      try {
+        externalMessageId = await sendTelegramNotification({
+          botToken: telegramBotToken,
+          chatId: telegramChatId,
+          message: telegramMessage,
+        });
+        delivered = true;
+      } catch (error) {
+        errorMessage = error instanceof Error ? error.message : "Telegram delivery failed.";
+      }
+    }
+
+    await client.mutation(recordDeliveryAttemptReference, {
+      deliveryId: result.deliveryId,
+      status: delivered ? "sent" : "failed",
+      attempts,
+      lastAttemptAt: Date.now(),
+      errorMessage: delivered ? undefined : errorMessage,
+      externalMessageId,
+    });
+  } else {
+    await client.mutation(recordDeliveryAttemptReference, {
+      deliveryId: result.deliveryId,
+      status: "skipped",
+      attempts: 0,
+      lastAttemptAt: Date.now(),
+      errorMessage: "Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID.",
+    });
   }
 
   return NextResponse.json(

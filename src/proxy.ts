@@ -15,7 +15,12 @@ import {
 import { routing } from './navigation';
 
 const intlProxy = createMiddleware(routing);
-const isProtectedPage = createRouteMatcher(["/(ar|en)/admin(.*)", "/admin(.*)"]);
+const isProtectedPage = createRouteMatcher([
+  "/(ar|en)/admin",
+  "/(ar|en)/admin/(?!login$)(.*)",
+  "/admin",
+  "/admin/(?!login$)(.*)",
+]);
 
 function applyGeoCookies(request: Request, response: NextResponse) {
   const overrideCountry = request.headers.get("cookie")

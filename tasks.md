@@ -148,10 +148,10 @@
 
 ### Tasks
 
-- [ ] Implement secure admin authentication and protected admin routes.
-- [ ] Build the admin dashboard as a protected App Router area with its own layout and navigation shell.
-- [ ] Create a centralized leads table showing all submitted trial requests.
-- [ ] Display core lead data in the table and detail view:
+- [X] Implement secure admin authentication and protected admin routes.
+- [X] Build the admin dashboard as a protected App Router area with its own layout and navigation shell.
+- [X] Create a centralized leads table showing all submitted trial requests.
+- [X] Display core lead data in the table and detail view:
   - Parent and student names
   - Contact details
   - Age
@@ -161,25 +161,25 @@
   - Country / pricing context
   - Submission date
   - Current status
-- [ ] Implement the lead status pipeline:
+- [X] Implement the lead status pipeline:
   - New Request
   - Trial Scheduled
   - Trial Completed
   - Subscribed
   - Did Not Subscribe
-- [ ] Allow admins to update lead status from the table and/or detail panel.
-- [ ] Add filtering and sorting by status, submission date, country, and subscription outcome.
-- [ ] Support real-time lead updates using Convex so new requests appear without refreshing.
-- [ ] Add in-app notification UI for newly submitted leads.
-- [ ] Use Server Components for data-heavy dashboard screens where possible, with Client Components only for interactive table controls and status updates.
-- [ ] Protect admin routes using the integrated Convex Auth.
-- [ ] Create "Dynamic WhatsApp Action Buttons" in the lead detail view to auto-generate pre-filled messages to parents.
+- [X] Allow admins to update lead status from the table and/or detail panel.
+- [X] Add filtering and sorting by status, submission date, country, and subscription outcome.
+- [X] Support real-time lead updates using Convex so new requests appear without refreshing.
+- [X] Add in-app notification UI for newly submitted leads.
+- [X] Use Server Components for data-heavy dashboard screens where possible, with Client Components only for interactive table controls and status updates.
+- [X] Protect admin routes using the integrated Convex Auth.
+- [X] Create "Dynamic WhatsApp Action Buttons" in the lead detail view to auto-generate pre-filled messages to parents.
 
 ### Done Criteria
 
-- [ ] Admin routes are protected from unauthenticated access.
-- [ ] New leads appear in the dashboard in near real time.
-- [ ] Admins can move leads through the full PRD-defined pipeline.
+- [X] Admin routes are protected from unauthenticated access.
+- [X] New leads appear in the dashboard in near real time.
+- [X] Admins can move leads through the full PRD-defined pipeline.
 
 ## Milestone 6: Notifications & Operational Integrations
 
@@ -187,18 +187,18 @@
 
 ### Tasks
 
-- [ ] Integrate Telegram bot notifications for successful new lead submissions.
-- [ ] Format Telegram messages with the most important lead details for quick action.
-- [ ] Add retry/error handling for Telegram delivery failures.
-- [ ] Surface in-app notifications inside the dashboard when a new lead arrives.
-- [ ] Log notification delivery status for debugging and auditability.
-- [ ] Verify the operational workflow supports manual tutor assignment outside the platform.
+- [X] Integrate Telegram bot notifications for successful new lead submissions.
+- [X] Format Telegram messages with the most important lead details for quick action.
+- [X] Add retry/error handling for Telegram delivery failures.
+- [X] Surface in-app notifications inside the dashboard when a new lead arrives.
+- [X] Log notification delivery status for debugging and auditability.
+- [X] Verify the operational workflow supports manual tutor assignment outside the platform.
 
 ### Done Criteria
 
-- [ ] Each successful lead submission triggers a Telegram notification.
-- [ ] Admin users also receive an in-app notification signal in the dashboard.
-- [ ] Notification failures are visible and debuggable.
+- [X] Each successful lead submission triggers a Telegram notification.
+- [X] Admin users also receive an in-app notification signal in the dashboard.
+- [X] Notification failures are visible and debuggable.
 
 ## Milestone 7: Content, QA, Performance, and Launch Readiness
 
@@ -251,7 +251,7 @@
 - [ ] Parents can browse a bilingual, mobile-first landing page with strong trust signals.
 - [ ] Visitors can open a modal and submit a free trial request without leaving the page.
 - [ ] Pricing adjusts based on detected country and supports manual override.
-- [ ] Leads are stored centrally and visible to admins in real time.
-- [ ] Admins can update leads through the defined lifecycle statuses.
-- [ ] Telegram and in-app notifications alert the team immediately after submission.
+- [X] Leads are stored centrally and visible to admins in real time.
+- [X] Admins can update leads through the defined lifecycle statuses.
+- [X] Telegram and in-app notifications alert the team immediately after submission.
 - [ ] The site meets the PRD's light-mode, performance, and professionalism requirements.

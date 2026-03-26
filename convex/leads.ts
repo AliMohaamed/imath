@@ -76,9 +76,28 @@ export const submit = mutation({
       submittedAt: args.submittedAt,
     });
 
+    const notificationId = await ctx.db.insert("adminNotifications", {
+      leadId,
+      kind: "new_lead",
+      title: `New trial request from ${args.parentName}`,
+      message: `${args.studentName} (${args.studentAge}) - ${args.country ?? "EG"} - ${args.phoneNumber}`,
+      isRead: false,
+      createdAt: args.submittedAt,
+    });
+
+    const deliveryId = await ctx.db.insert("notificationDeliveries", {
+      leadId,
+      channel: "telegram",
+      status: "pending",
+      attempts: 0,
+      createdAt: args.submittedAt,
+    });
+
     return {
       ok: true as const,
       leadId,
+      notificationId,
+      deliveryId,
     };
   },
 });

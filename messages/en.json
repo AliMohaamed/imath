@@ -117,8 +117,8 @@
       "mostPopular": "Most Popular",
       "packageLabel": "{months, plural, one {# Month Package} other {# Months Package}}",
       "priceLabel": "{currency} {price}",
-      "detectedLabel": "Auto-detected for {country} · {currency}",
-      "overrideLabel": "Manual selection: {country} · {currency}",
+      "detectedLabel": "Auto-detected for {country} - {currency}",
+      "overrideLabel": "Manual selection: {country} - {currency}",
       "selectorLabel": "Pricing country",
       "autoOption": "Use detected country ({country})",
       "manualOverrideHint": "You can override the detected country if a VPN or travel location is affecting the pricing context.",
@@ -190,7 +190,7 @@
   },
   "BookingModal": {
     "eyebrow": "Free Trial Request",
-    "title": "Book a Trial and We’ll Contact You Quickly",
+    "title": "Book a Trial and We'll Contact You Quickly",
     "description": "Share a few details about your child and preferred schedule. Our team will review the request and follow up with the next available assessment slot.",
     "close": "Close booking modal",
     "ageOption": "{age} years old",
@@ -257,8 +257,111 @@
       "studentName": "Please enter the student name.",
       "email": "Please enter a valid email address.",
       "phoneNumber": "Please enter a valid phone number.",
-      "previousExperience": "Please choose the student’s previous experience level.",
+      "previousExperience": "Please choose the student's previous experience level.",
       "preferredSlots": "Please select at least one preferred time slot."
+    }
+  },
+  "Admin": {
+    "common": {
+      "eyebrow": "Internal Workspace",
+      "shellTitle": "iMath Admin",
+      "shellDescription": "Review new trial requests, move leads through the pipeline, and follow up quickly.",
+      "headerTitle": "Admin Dashboard",
+      "headerDescription": "Real-time lead visibility for the admissions workflow.",
+      "dashboard": "Dashboard",
+      "login": "Login",
+      "signOut": "Sign Out",
+      "loading": "Loading admin data...",
+      "goToDashboard": "Go to Dashboard"
+    },
+    "login": {
+      "eyebrow": "Secure Access",
+      "title": "Admin Sign In",
+      "description": "Use your authorized admin credentials to access the CRM workspace.",
+      "signIn": "Sign In",
+      "signUp": "Create Account",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "admin@imath.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "confirmPasswordLabel": "Confirm password",
+      "confirmPasswordPlaceholder": "Re-enter your password",
+      "signInHint": "Only authenticated and allowlisted accounts can access the admin dashboard.",
+      "signUpHint": "Account creation is only useful for allowlisted admin emails. Unauthorized accounts will still be blocked from dashboard data.",
+      "continue": "Continue",
+      "createAccount": "Create Admin Account",
+      "submitting": "Submitting...",
+      "alreadySignedInTitle": "You're already signed in",
+      "alreadySignedInDescription": "Continue directly to the dashboard.",
+      "errors": {
+        "passwordMismatch": "The password confirmation does not match.",
+        "generic": "Something went wrong while trying to authenticate."
+      }
+    },
+    "dashboard": {
+      "notifications": {
+        "title": "New lead activity",
+        "description": "{count, plural, one {# new lead needs review.} other {# new leads need review.}}",
+        "clear": "Clear",
+        "markRead": "Mark read"
+      },
+      "filters": {
+        "status": "Status",
+        "country": "Country",
+        "sort": "Sort",
+        "allStatuses": "All statuses",
+        "allCountries": "All countries",
+        "newestFirst": "Newest first",
+        "oldestFirst": "Oldest first",
+        "byStatus": "By status"
+      },
+      "table": {
+        "parent": "Parent",
+        "student": "Student",
+        "country": "Country",
+        "status": "Status",
+        "submitted": "Submitted"
+      },
+      "detail": {
+        "submittedOn": "Submitted on {date}",
+        "student": "Student",
+        "age": "Age {age}",
+        "phone": "Phone",
+        "email": "Email",
+        "noEmail": "No email provided",
+        "previousExperience": "Previous Experience",
+        "timezone": "Timezone",
+        "locale": "Locale",
+        "country": "Country / Currency",
+        "preferredSlots": "Preferred Slots",
+        "statusLabel": "Update status"
+      },
+      "actions": {
+        "whatsapp": "Open WhatsApp",
+        "call": "Call Parent"
+      },
+      "whatsapp": {
+        "messageIntro": "Hello",
+        "messageBody": "We're following up on {studentName}'s request. Current status: {status}."
+      },
+      "delivery": {
+        "title": "Notification delivery log",
+        "description": "Latest Telegram delivery attempts for new lead alerts.",
+        "attempts": "Attempts: {attempts}",
+        "noError": "No delivery error recorded.",
+        "pending": "Pending first attempt"
+      },
+      "ops": {
+        "title": "Operational workflow",
+        "description": "Tutor assignment remains a manual off-platform step after the team reviews the lead, contacts the parent, and confirms the right teacher and time slot."
+      },
+      "states": {
+        "unauthenticated": "Please sign in to view admin data.",
+        "notAuthorizedTitle": "Account Not Authorized",
+        "notAuthorizedDescription": "The signed-in account ({email}) is not included in the admin allowlist.",
+        "empty": "No leads match the current filters.",
+        "selectLead": "Select a lead to view the full details."
+      }
     }
   }
 }

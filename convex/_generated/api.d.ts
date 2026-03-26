@@ -8,8 +8,10 @@
  * @module
  */
 
+import type * as admin from "../admin.js";
 import type * as auth from "../auth.js";
 import type * as leads from "../leads.js";
+import type * as notifications from "../notifications.js";
 
 import type {
   ApiFromModules,
@@ -18,8 +20,10 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  admin: typeof admin;
   auth: typeof auth;
   leads: typeof leads;
+  notifications: typeof notifications;
 }>;
 
 /**
