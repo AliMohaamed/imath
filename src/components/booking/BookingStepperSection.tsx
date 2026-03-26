@@ -225,28 +225,43 @@ export function BookingStepperSection() {
     <section
       id={BOOKING_STEPPER_ID}
       ref={sectionRef}
-      className="scroll-mt-28 bg-white py-24"
+      className="scroll-mt-28 bg-white py-12 md:py-24"
       aria-labelledby="booking-stepper-title"
     >
       <div className="container mx-auto max-w-6xl px-4">
         <div className="grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-8">
-          <aside className="rounded-[2rem] border border-slate-200 bg-slate-50 p-5 md:p-6">
-            <div className="space-y-3">
+          <aside className="rounded-[2rem] border border-slate-200 bg-slate-50 p-5 md:p-6 lg:p-8">
+            <div className="space-y-3 lg:space-y-4">
               <div className="inline-flex rounded-full bg-brand-violet/10 px-4 py-2 text-xs font-black uppercase tracking-wider text-brand-violet">
                 {t("eyebrow")}
               </div>
-              <h2 id="booking-stepper-title" className="text-3xl font-black tracking-tight text-slate-900">
+              <h2 id="booking-stepper-title" className="text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
                 {t("stepper.title")}
               </h2>
-              <p className="text-sm leading-relaxed text-slate-600">
+              <p className="hidden text-sm leading-relaxed text-slate-600 lg:block">
                 {t("stepper.description")}
               </p>
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">
+              
+              {/* Mobile Progress Bar */}
+              <div className="mt-2 space-y-2 lg:hidden">
+                <div className="flex justify-between text-[11px] font-black uppercase tracking-wider text-slate-400">
+                  <span>{t("stepper.steps." + getStepKey(activeStep))}</span>
+                  <span>{activeStep + 1} / {STEP_COUNT}</span>
+                </div>
+                <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
+                  <div 
+                    className="h-full bg-brand-violet transition-all duration-500 ease-out" 
+                    style={{ width: `${((activeStep + 1) / STEP_COUNT) * 100}%` }}
+                  />
+                </div>
+              </div>
+
+              <p className="hidden text-xs font-black uppercase tracking-[0.18em] text-slate-400 lg:block">
                 {t("stepper.progress", { current: Math.min(activeStep + 1, STEP_COUNT), total: STEP_COUNT })}
               </p>
             </div>
 
-            <ol className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-1 lg:space-y-3">
+            <ol className="mt-8 hidden space-y-3 lg:block">
               {[0, 1, 2, 3].map((stepIndex) => {
                 const isActive = stepIndex === activeStep;
                 const isComplete = stepIndex < activeStep || submissionState.status === "success";
@@ -254,25 +269,27 @@ export function BookingStepperSection() {
                   <li
                     key={stepIndex}
                     className={cn(
-                      "flex items-center gap-3 rounded-2xl border px-4 py-3 text-sm",
+                      "flex items-center gap-4 rounded-2xl border px-5 py-4 text-sm transition-all duration-300",
                       isActive
-                        ? "border-brand-violet bg-white text-slate-900 shadow-sm"
-                        : "border-transparent text-slate-500"
+                        ? "border-brand-violet/30 bg-white text-slate-900 shadow-premium"
+                        : "border-transparent text-slate-400"
                     )}
                   >
                     <span
                       className={cn(
-                        "flex h-8 w-8 items-center justify-center rounded-full text-xs font-black",
+                        "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-sm font-black transition-all",
                         isComplete
                           ? "bg-brand-violet text-white"
                           : isActive
-                            ? "bg-brand-violet/10 text-brand-violet"
-                            : "bg-white text-slate-400"
+                            ? "bg-brand-violet/15 text-brand-violet scale-110"
+                            : "bg-white text-slate-300"
                       )}
                     >
-                      {isComplete ? <CheckCircle2 className="h-4 w-4" /> : stepIndex + 1}
+                      {isComplete ? <CheckCircle2 className="h-5 w-5" /> : stepIndex + 1}
                     </span>
-                    <span className="text-xs font-bold sm:text-sm">{t(`stepper.steps.${getStepKey(stepIndex)}`)}</span>
+                    <span className={cn("font-black tracking-tight", isActive ? "opacity-100" : "opacity-60")}>
+                      {t(`stepper.steps.${getStepKey(stepIndex)}`)}
+                    </span>
                   </li>
                 );
               })}

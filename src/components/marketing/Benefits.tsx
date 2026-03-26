@@ -3,7 +3,7 @@ import { Brain, Zap, Target, Award } from "lucide-react";
 import { BookingCtaButton } from '@/components/booking/BookingCtaButton';
 
 export default function Benefits() {
-  const t = useTranslations('Marketing.benefits');
+  const t = useTranslations('Marketing.benefitsSection');
   const benefits = [
     {
       title: t('items.focus.title'),

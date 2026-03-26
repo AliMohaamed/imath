@@ -9,6 +9,7 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import logo from "../../../public/logo.png";
 import { getWhatsAppUrl } from "@/lib/site";
+import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 
 export default function Header() {
   const t = useTranslations('Common');
@@ -24,8 +25,8 @@ export default function Header() {
     router.replace(pathname, { locale: nextLocale });
   };
   const menuAriaLabel = isMenuOpen
-    ? locale === "ar" ? "إغلاق قائمة التنقل" : "Close navigation menu"
-    : locale === "ar" ? "فتح قائمة التنقل" : "Open navigation menu";
+    ? t("navigationMenu.close")
+    : t("navigationMenu.open");
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-slate-200 bg-white/95 shadow-md backdrop-blur-lg">
@@ -51,7 +52,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <button
             onClick={toggleLocale}
-            className="flex items-center gap-2 rounded-full border border-slate-200 px-3 py-2 text-sm font-bold transition-colors hover:bg-muted"
+            className="flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2.5 text-sm font-bold transition-colors hover:bg-muted active:scale-95 sm:px-3 sm:py-2"
             title={locale === "ar" ? t("switchToEnglish") : t("switchToArabic")}
             aria-label={locale === "ar" ? t("switchToEnglish") : t("switchToArabic")}
           >
@@ -88,8 +89,8 @@ export default function Header() {
               <Link href="#how-it-works" onClick={() => setIsMenuOpen(false)} className="rounded-2xl px-4 py-3 hover:bg-slate-50">{t("sections.howItWorks")}</Link>
               <Link href="#pricing" onClick={() => setIsMenuOpen(false)} className="rounded-2xl px-4 py-3 hover:bg-slate-50">{t("sections.pricing")}</Link>
               <Link href="#faq" onClick={() => setIsMenuOpen(false)} className="rounded-2xl px-4 py-3 hover:bg-slate-50">{t("sections.faq")}</Link>
-              <a href={whatsAppUrl} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-full border border-slate-200 px-4 py-3 text-sm font-black text-slate-900">
-                <MessageCircle className="h-4 w-4" />
+              <a href={whatsAppUrl} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-full border border-slate-200 px-4 py-3 text-sm font-black text-slate-900 active:scale-95 transition-transform">
+                <WhatsAppIcon size={18} />
                 {t("contactViaWhatsApp")}
               </a>
               <BookingCtaButton source="header_mobile" className="w-full py-3 bg-brand-orange text-white rounded-full font-black">

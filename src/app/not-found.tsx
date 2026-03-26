@@ -19,19 +19,21 @@ export default function RootNotFound() {
               </div>
             </div>
             <div className="space-y-4">
-              <h1 className="text-4xl font-black text-slate-900">
+              <h1 className="text-4xl font-black text-slate-900 leading-tight">
                 المعادلة غير مكتملة! (404)
+                <span className="block text-2xl opacity-50 font-bold mt-1">Oops! Incomplete Equation</span>
               </h1>
-              <p className="text-lg text-slate-600">
+              <p className="text-lg text-slate-600 leading-relaxed">
                 الصفحة التي تبحث عنها غير موجودة.
+                <span className="block text-base opacity-75">The page you are looking for does not exist.</span>
               </p>
             </div>
             <a
               href="/"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-brand-violet text-white rounded-full font-black text-sm shadow-premium"
+              className="inline-flex items-center gap-2 px-10 py-4 bg-brand-violet text-white rounded-full font-black text-sm shadow-premium active:scale-95 transition-transform"
             >
               <Home className="w-4 h-4" />
-              العودة للرئيسية
+              العودة للرئيسية | Back to Home
             </a>
           </div>
         </div>

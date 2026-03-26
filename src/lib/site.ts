@@ -42,6 +42,7 @@ const SITE_COPY: Record<Locale, SiteCopy> = {
 export const SITE_NAME = "iMath";
 export const SITE_PHONE_NUMBER = "+201018860269";
 export const SITE_EMAIL = "hello@imath.com";
+export const SITE_INSTAGRAM_URL = "https://instagram.com/imath_academy";
 export const DEFAULT_OG_IMAGE = "/logo.png";
 
 function normalizeBaseUrl(value?: string | null) {
@@ -92,3 +93,4 @@ export function getWhatsAppUrl(locale: Locale) {
   const phone = SITE_PHONE_NUMBER.replace(/[^\d]/g, "");
   return `https://wa.me/${phone}?text=${message}`;
 }
+

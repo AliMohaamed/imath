@@ -78,15 +78,24 @@ function formatTelegramMessage(params: {
   currency: string;
   locale: string;
 }) {
+  const title = "<b>🔔 طلب حصة تجريبية جديدة</b>";
+  const separator = "──────────────────";
+  
   return [
-    "New trial request",
-    `Parent: ${params.parentName}`,
-    `Student: ${params.studentName} (${params.studentAge})`,
-    `Phone: ${params.phoneNumber}`,
-    `Timezone: ${params.timezone}`,
-    `Country: ${params.country} - ${params.currency}`,
-    `Locale: ${params.locale.toUpperCase()}`,
-    `Preferred slot: ${params.preferredSlots.map((slot) => formatPreferredSlotValue(slot, params.locale as "ar" | "en")).join(", ")}`,
+    title,
+    separator,
+    `👤 <b>ولي الأمر:</b> ${params.parentName}`,
+    `👶 <b>الطالب:</b> ${params.studentName} (${params.studentAge} سنوات)`,
+    `📞 <b>الهاتف:</b> <code>${params.phoneNumber}</code>`,
+    `🌍 <b>الدولة:</b> ${params.country}`,
+    `💰 <b>العملة:</b> ${params.currency}`,
+    `🗣️ <b>اللغة المفضلة:</b> ${params.locale.toUpperCase()}`,
+    `⏰ <b>توقيت المستخدم:</b> <code>${params.timezone}</code>`,
+    separator,
+    `📅 <b>الموعد المختار:</b>`,
+    ...params.preferredSlots.map((slot) => `▫️ ${formatPreferredSlotValue(slot, "ar")}`),
+    separator,
+    `<i>تم الإرسال تلقائيًا من موقع iMath</i>`
   ].join("\n");
 }
 
@@ -103,6 +112,7 @@ async function sendTelegramNotification(params: {
     body: JSON.stringify({
       chat_id: params.chatId,
       text: params.message,
+      parse_mode: "HTML",
     }),
   });
 

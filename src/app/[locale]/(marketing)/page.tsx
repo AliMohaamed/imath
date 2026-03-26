@@ -1,4 +1,4 @@
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { BookingCtaButton } from "@/components/booking/BookingCtaButton";
 import Hero from "@/components/marketing/Hero";
 import Benefits from "@/components/marketing/Benefits";
@@ -8,14 +8,20 @@ import FAQ from "@/components/marketing/FAQ";
 import Testimonials from "@/components/marketing/Testimonials";
 import TrustSection from "@/components/marketing/TrustSection";
 import MentalMathSection from "@/components/marketing/MentalMathSection";
+import SocialProofBar from "@/components/marketing/SocialProofBar";
 import { BookingStepperSection } from "@/components/booking/BookingStepperSection";
 import { getSiteUrl, getWhatsAppUrl, SITE_NAME, SITE_PHONE_NUMBER, SITE_EMAIL } from "@/lib/site";
+import { Locale } from "@/navigation";
 
-export default async function LandingPage() {
-  const locale = (await getLocale()) as "ar" | "en";
-  const t = await getTranslations("Marketing.finalCta");
-  const common = await getTranslations("Common");
-  const faqT = await getTranslations("Marketing.faq");
+export default async function LandingPage({
+  params,
+}: {
+  params: { locale: Locale };
+}) {
+  const locale = params.locale;
+  const t = await getTranslations({ namespace: "Marketing.finalCta", locale });
+  const common = await getTranslations({ namespace: "Common", locale });
+  const faqT = await getTranslations({ namespace: "Marketing.faq", locale });
   const siteUrl = getSiteUrl();
   const whatsAppUrl = getWhatsAppUrl(locale);
 
@@ -69,8 +75,9 @@ export default async function LandingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Hero />
+      <SocialProofBar />
       <Benefits />
-      <TrustSection />
+      <TrustSection locale={locale} />
       <MentalMathSection />
       <HowItWorks />
       <Testimonials />

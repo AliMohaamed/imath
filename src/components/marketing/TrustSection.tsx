@@ -1,8 +1,9 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations } from "next-intl/server";
 import { ShieldCheck, Users, Target } from "lucide-react";
+import { Locale } from "@/navigation";
 
-export default async function TrustSection() {
-  const t = await getTranslations('Marketing.trustSection');
+export default async function TrustSection({ locale }: { locale: Locale }) {
+  const t = await getTranslations({ namespace: "Marketing.trustSection", locale });
 
   return (
     <section id="why-imath" className="py-12 md:py-24 bg-white relative overflow-hidden">
@@ -10,38 +11,49 @@ export default async function TrustSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div className="relative order-last group rounded-[4rem] bg-brand-violet/5 p-4 animate-in fade-in zoom-in duration-700 lg:order-first">
             <div className="absolute top-0 right-0 w-32 h-32 bg-brand-yellow/30 rounded-full blur-3xl -z-10" />
-            <div className="relative z-10 aspect-square rounded-[3.5rem] bg-slate-100 flex items-center justify-center p-12 overflow-hidden shadow-2xl border-4 border-white transition-transform group-hover:scale-[1.01]">
-              <ShieldCheck className="w-1/2 h-1/2 text-brand-violet opacity-10 absolute rotate-12 -bottom-8 -right-8" />
-              <div className="space-y-8 relative z-20">
-                <div className="flex gap-6 items-start">
-                  <div className="w-16 h-16 bg-white rounded-2xl shadow-premium flex items-center justify-center shrink-0">
-                    <Target className="w-8 h-8 text-brand-orange" />
+            <div className="relative z-10 aspect-square rounded-[3.5rem] bg-slate-900 flex items-center justify-center p-8 overflow-hidden shadow-2xl border-4 border-white transition-transform group-hover:scale-[1.01]">
+              {/* CSS Abacus Visual */}
+              <div className="w-full flex flex-col gap-6 md:gap-8 max-w-xs relative z-10">
+                {[
+                  { beads: [2, 1, 4], color: "bg-brand-violet" },
+                  { beads: [4, 0, 3], color: "bg-brand-orange" },
+                  { beads: [1, 2, 4], color: "bg-brand-yellow" },
+                  { beads: [3, 1, 2], color: "bg-white" }
+                ].map((row, rIdx) => (
+                  <div key={rIdx} className="relative h-6 flex items-center">
+                    <div className="absolute inset-x-0 h-1 bg-white/20 rounded-full" />
+                    <div className="relative w-full flex justify-between">
+                      {row.beads.map((beadsCount, gIdx) => (
+                        <div key={gIdx} className="flex gap-1.5">
+                          {Array.from({ length: beadsCount }).map((_, bIdx) => (
+                            <div 
+                              key={bIdx} 
+                              className={`h-6 w-6 rounded-full ${row.color} shadow-lg ring-2 ring-black/10 transition-transform duration-500 hover:scale-125 hover:rotate-12`}
+                              style={{ 
+                                transitionDelay: `${(rIdx * 100) + (bIdx * 50)}ms`,
+                                transform: `translateX(${rIdx % 2 === 0 ? '10px' : '-10px'})`
+                              }}
+                            />
+                          ))}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <h4 className="text-xl font-black text-slate-800">{t('focus.title')}</h4>
-                    <p className="text-sm text-slate-500 font-medium leading-relaxed">{t('focus.description')}</p>
+                ))}
+                
+                <div className="pt-8 grid grid-cols-2 gap-8 border-t border-white/10 mt-4">
+                  <div className="text-center group-hover:scale-110 transition-transform duration-500">
+                    <div className="text-3xl md:text-5xl font-black text-white">500+</div>
+                    <div className="text-[9px] font-black uppercase text-white/40 tracking-widest">{t('stats.totalStudents')}</div>
                   </div>
-                </div>
-                <div className="flex gap-6 items-start">
-                  <div className="w-16 h-16 bg-white rounded-2xl shadow-premium flex items-center justify-center shrink-0">
-                    <Users className="w-8 h-8 text-brand-violet" />
-                  </div>
-                  <div className="space-y-2">
-                    <h4 className="text-xl font-black text-slate-800">{t('tutors.title')}</h4>
-                    <p className="text-sm text-slate-500 font-medium leading-relaxed">{t('tutors.description')}</p>
-                  </div>
-                </div>
-                <div className="flex gap-16 items-center pt-8 border-t border-slate-100">
-                  <div className="text-center">
-                    <div className="text-4xl font-black text-brand-violet">500+</div>
-                    <div className="text-[10px] font-black uppercase text-slate-400">{t('stats.totalStudents')}</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-4xl font-black text-brand-orange">98%</div>
-                    <div className="text-[10px] font-black uppercase text-slate-400">{t('stats.parentSatisfaction')}</div>
+                  <div className="text-center group-hover:scale-110 transition-transform duration-500 delay-75">
+                    <div className="text-3xl md:text-5xl font-black text-brand-orange">98%</div>
+                    <div className="text-[9px] font-black uppercase text-white/40 tracking-widest">{t('stats.parentSatisfaction')}</div>
                   </div>
                 </div>
               </div>
+
+              <ShieldCheck className="w-48 h-48 text-brand-violet opacity-5 absolute rotate-12 -bottom-12 -right-12 z-0" />
             </div>
           </div>
 

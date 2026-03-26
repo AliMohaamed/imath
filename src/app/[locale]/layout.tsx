@@ -144,7 +144,7 @@ export default async function LocaleLayout({
           href="#main-content"
           className="sr-only absolute left-4 top-4 z-[200] rounded-full bg-white px-4 py-2 text-sm font-bold text-slate-900 shadow focus:not-sr-only"
         >
-          {locale === "ar" ? "انتقل إلى المحتوى" : "Skip to content"}
+          {messages.Common.skipToContent}
         </a>
         <ConvexClientProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>

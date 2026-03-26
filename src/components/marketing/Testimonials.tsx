@@ -15,6 +15,7 @@ type Review = {
 
 export default function Testimonials() {
   const t = useTranslations("Marketing.testimonials");
+  const common = useTranslations("Common");
   const locale = useLocale();
   const isRtl = locale === "ar";
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -39,6 +40,18 @@ export default function Testimonials() {
         content: t("items.sarah.content"),
         rating: 5,
       },
+      {
+        name: t("items.khalid.name"),
+        role: t("items.khalid.role"),
+        content: t("items.khalid.content"),
+        rating: 5,
+      },
+      {
+        name: t("items.nour.name"),
+        role: t("items.nour.role"),
+        content: t("items.nour.content"),
+        rating: 5,
+      },
     ],
     [t]
   );
@@ -51,8 +64,36 @@ export default function Testimonials() {
   const previous = () => goTo(currentIndex - 1);
   const next = () => goTo(currentIndex + 1);
 
+  // Swipe support
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      isRtl ? previous() : next();
+    } else if (isRightSwipe) {
+      isRtl ? next() : previous();
+    }
+  };
+
   return (
-    <section className="relative overflow-hidden bg-brand-violet/5 py-24" dir={isRtl ? "rtl" : "ltr"}>
+    <section className="relative overflow-hidden bg-brand-violet/5 py-12 md:py-24" dir={isRtl ? "rtl" : "ltr"}>
       <div className="absolute left-0 top-0 -z-10 h-32 w-32 rounded-full bg-brand-orange/10 blur-3xl" />
       <div className="absolute bottom-0 right-0 -z-10 h-64 w-64 rounded-full bg-brand-violet/10 blur-3xl" />
 
@@ -69,7 +110,7 @@ export default function Testimonials() {
               size="sm"
               className="h-12 w-12 rounded-2xl p-0 text-brand-violet"
               onClick={previous}
-              aria-label={isRtl ? "التالي" : "Previous testimonial"}
+              aria-label={common("pagination.previous")}
             >
               <ChevronLeft className={cn("h-5 w-5", isRtl && "rotate-180")} />
             </Button>
@@ -78,14 +119,19 @@ export default function Testimonials() {
               size="sm"
               className="h-12 w-12 rounded-2xl p-0 text-brand-violet"
               onClick={next}
-              aria-label={isRtl ? "السابق" : "Next testimonial"}
+              aria-label={common("pagination.next")}
             >
               <ChevronRight className={cn("h-5 w-5", isRtl && "rotate-180")} />
             </Button>
           </div>
         </div>
 
-        <div className="overflow-hidden">
+        <div 
+          className="overflow-hidden cursor-grab active:cursor-grabbing"
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
           <div
             className="flex transition-transform duration-500 ease-out"
             style={{
@@ -136,7 +182,7 @@ export default function Testimonials() {
                 "h-3 rounded-full transition-all",
                 currentIndex === index ? "w-8 bg-brand-violet" : "w-3 bg-brand-violet/25"
               )}
-              aria-label={`${isRtl ? "عرض" : "Show"} ${review.name}`}
+              aria-label={common("pagination.show", { item: review.name })}
               aria-pressed={currentIndex === index}
             />
           ))}

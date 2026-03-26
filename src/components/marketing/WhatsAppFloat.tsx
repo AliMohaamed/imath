@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { MessageCircle } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
+import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 
 export default function WhatsAppFloat() {
   const t = useTranslations('Marketing.whatsApp');
@@ -24,7 +25,7 @@ export default function WhatsAppFloat() {
       <span className="hidden md:block max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 whitespace-nowrap font-bold text-sm px-0 group-hover:px-2">
         {t('label')}
       </span>
-      <MessageCircle className="w-6 h-6 fill-white" />
+      <WhatsAppIcon size={24} className="fill-white" />
     </button>
   );
 }

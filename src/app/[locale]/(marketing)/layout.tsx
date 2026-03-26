@@ -3,6 +3,7 @@ import { BookingFlowProvider } from "@/components/booking/BookingFlowProvider";
 import Header from "@/components/marketing/Header";
 import Footer from "@/components/marketing/Footer";
 import WhatsAppFloat from "@/components/marketing/WhatsAppFloat";
+import MobileStickyCTA from "@/components/marketing/MobileStickyCTA";
 import { GeoPricingProvider } from "@/components/pricing/GeoPricingProvider";
 import {
   DETECTED_COUNTRY_COOKIE,
@@ -35,6 +36,7 @@ export default async function MarketingLayout({
           </main>
           <Footer />
           <WhatsAppFloat />
+          <MobileStickyCTA />
         </div>
       </BookingFlowProvider>
     </GeoPricingProvider>

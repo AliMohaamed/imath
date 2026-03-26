@@ -14,6 +14,16 @@
       "pricing": "Pricing",
       "faq": "FAQ",
       "testimonials": "Parent Stories"
+    },
+    "skipToContent": "Skip to content",
+    "navigationMenu": {
+      "open": "Open navigation menu",
+      "close": "Close navigation menu"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "show": "Show {item}"
     }
   },
   "Marketing": {
@@ -50,7 +60,25 @@
         }
       }
     },
-    "benefits": {
+    "socialProofBar": {
+      "students": {
+        "label": "500+",
+        "sublabel": "Students Already Training"
+      },
+      "certified": {
+        "label": "UCMath",
+        "sublabel": "Certified Methodology"
+      },
+      "satisfaction": {
+        "label": "98%",
+        "sublabel": "Parent Satisfaction"
+      },
+      "bilingual": {
+        "label": "Bilingual",
+        "sublabel": "Arabic & English Sessions"
+      }
+    },
+    "benefitsSection": {
       "title": "Why Parents <highlight>Trust</highlight> iMath",
       "description": "We teach more than school math. We train mental speed, concentration, and confidence through structured 1:1 Mental Math practice.",
       "cta": "Book a Free Trial",
@@ -151,6 +179,16 @@
           "name": "Mrs. Sarah L.",
           "role": "Mother of 8-year-old",
           "content": "Excellent certified tutors who know how to engage children. My son's school grades improved by 30% in just two months. A great investment."
+        },
+        "khalid": {
+          "name": "Mr. Khalid A.",
+          "role": "Father of 12-year-old",
+          "content": "The 1:1 format is exactly what my son needed. He's much more focused and his calculation speed has improved remarkably. We love the monthly progress reports!"
+        },
+        "nour": {
+          "name": "Mrs. Nour H.",
+          "role": "Mother of 7-year-old",
+          "content": "iMath made math fun for my daughter. She used to struggle with numbers, but now she's one of the fastest in her class. The tutors are very patient and professional."
         }
       }
     },

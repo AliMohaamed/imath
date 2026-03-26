@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { Link } from '@/navigation';
 import Image from 'next/image';
 import logo from "../../../public/logo.png";
-import { SITE_EMAIL, SITE_PHONE_NUMBER } from '@/lib/site';
+import { SITE_EMAIL, SITE_PHONE_NUMBER, SITE_INSTAGRAM_URL } from '@/lib/site';
 
 export default async function Footer() {
   const t = await getTranslations('Marketing.footer');
@@ -42,7 +42,16 @@ export default async function Footer() {
             <ul className="space-y-2 text-sm text-slate-600">
               <li>{t('email', { email: SITE_EMAIL })}</li>
               <li>{t('whatsapp', { phone: SITE_PHONE_NUMBER })}</li>
-              <li>{t('instagram')}</li>
+              <li>
+                <a 
+                  href={SITE_INSTAGRAM_URL} 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="hover:text-brand-violet transition-colors"
+                >
+                  {t('instagram')}
+                </a>
+              </li>
             </ul>
           </div>
         </div>
