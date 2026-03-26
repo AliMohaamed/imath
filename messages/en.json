@@ -392,5 +392,43 @@
     "title": "Oops! Incomplete Equation",
     "description": "It seems the page you're searching for is missing from our database. It might have been moved to a different function or deleted forever.",
     "goHome": "Back to Home"
+  },
+  "Privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: March 2024",
+    "description": "At iMath, we take your privacy and your child's data security very seriously. This policy explains how we collect, use, and protect the information you share with us.",
+    "sections": {
+      "collection": {
+        "title": "1. Information We Collect",
+        "content": "We only collect information necessary to provide our educational services, including: Parent name, student name and age, phone number (for WhatsApp contact), email address, and timezone."
+      },
+      "usage": {
+        "title": "2. How We Use Your Information",
+        "content": "We use this data to organize trial sessions, personalize the student's curriculum, and communicate with you regarding session schedules and monthly reports."
+      },
+      "protection": {
+        "title": "3. Data Protection",
+        "content": "Your data is stored securely using modern encryption technologies. We do not sell or share your personal data with third parties for marketing purposes."
+      }
+    }
+  },
+  "Terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated: March 2024",
+    "description": "By using the iMath platform, you agree to comply with the following terms and conditions.",
+    "sections": {
+      "sessions": {
+        "title": "1. Educational Sessions",
+        "content": "All sessions at iMath are 1:1 online sessions. We are committed to providing a certified and trained tutor for each student."
+      },
+      "cancellation": {
+        "title": "2. Cancellation and Rescheduling",
+        "content": "At least 24 hours notice must be given if you wish to cancel or reschedule a session to ensure the student's right to a compensation session."
+      },
+      "payments": {
+        "title": "3. Payments",
+        "content": "Payment packages and transfer details are agreed upon manually via WhatsApp after the successful completion of the trial session."
+      }
+    }
   }
 }
