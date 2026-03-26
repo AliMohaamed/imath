@@ -32,6 +32,7 @@ export const bookingFormSchema = z.object({
   previousExperience: z.enum(EXPERIENCE_OPTIONS),
   timezone: z.string().trim().min(1).max(80),
   preferredSlots: z.array(z.enum(PREFERRED_SLOT_OPTIONS)).min(1).max(PREFERRED_SLOT_OPTIONS.length),
+  countryCode: z.string().trim().length(2).optional(),
   locale: z.enum(["ar", "en"]),
 });
 

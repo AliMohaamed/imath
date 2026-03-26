@@ -2,48 +2,27 @@
 
 import { useTranslations } from 'next-intl';
 import { Check, Info } from 'lucide-react';
-import { useState } from 'react';
 import { BookingCtaButton } from '@/components/booking/BookingCtaButton';
+import { useGeoPricing } from '@/components/pricing/GeoPricingProvider';
 
 export default function Pricing() {
   const common = useTranslations('Common');
   const t = useTranslations('Marketing.pricing');
-  const [billingCycle] = useState('monthly'); // Can toggle later
-
-  const plans = [
-    {
-      months: 1,
-      price: 240,
-      isPopular: false,
-      savings: null,
-    },
-    {
-      months: 3,
-      price: 600,
-      isPopular: true,
-      savings: t('plans.threeMonths.savings'),
-    },
-    {
-      months: 6,
-      price: 1100,
-      isPopular: false,
-      savings: t('plans.sixMonths.savings'),
-    },
-    {
-      months: 12,
-      price: 2000,
-      isPopular: false,
-      savings: t('plans.twelveMonths.savings'),
-    }
-  ];
+  const {
+    currency,
+    detectedCountry,
+    plans,
+    selectedCountry,
+    selectionMode,
+    setCountrySelection,
+    supportedCountries,
+  } = useGeoPricing();
 
   const features = [
     t('features.sessionsPerMonth'),
     t('features.sessionsPerWeek'),
     t('features.sessionLength'),
-    t('features.oneToOneFocus'),
-    t('features.certifiedTutors'),
-    t('features.progressReports')
+    t('features.oneToOneFocus')
   ];
 
   return (
@@ -55,10 +34,38 @@ export default function Pricing() {
           <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">{t('title')}</h2>
           <p className="text-lg text-slate-600">{t('description')}</p>
 
-          <div className="inline-flex items-center gap-2 p-1.5 bg-slate-200/50 rounded-full mt-4">
-            <span className="px-6 py-2 bg-white rounded-full text-xs font-black shadow-sm text-brand-violet">
-              {t('currencySupport')}
-            </span>
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-2 p-1.5 bg-slate-200/50 rounded-full mt-4">
+              <span className="px-6 py-2 bg-white rounded-full text-xs font-black shadow-sm text-brand-violet">
+                {selectionMode === 'auto'
+                  ? t('detectedLabel', { country: t(`countries.${detectedCountry}`), currency })
+                  : t('overrideLabel', { country: t(`countries.${selectedCountry}`), currency })}
+              </span>
+            </div>
+
+            <div className="mx-auto max-w-sm rounded-3xl border border-slate-200 bg-white p-4 text-left shadow-sm">
+              <label className="mb-2 block text-xs font-black uppercase tracking-wider text-slate-500">
+                {t('selectorLabel')}
+              </label>
+              <select
+                value={selectionMode === 'auto' ? 'auto' : selectedCountry}
+                onChange={(event) => {
+                  const nextValue = event.target.value;
+                  setCountrySelection(nextValue === 'auto' ? 'auto' : nextValue as typeof supportedCountries[number]);
+                }}
+                className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-900 outline-none transition-colors focus:border-brand-violet focus:ring-2 focus:ring-brand-violet/10"
+              >
+                <option value="auto">
+                  {t('autoOption', { country: t(`countries.${detectedCountry}`) })}
+                </option>
+                {supportedCountries.map((countryCode) => (
+                  <option key={countryCode} value={countryCode}>
+                    {t(`countries.${countryCode}`)}
+                  </option>
+                ))}
+              </select>
+              <p className="mt-2 text-xs text-slate-500">{t('manualOverrideHint')}</p>
+            </div>
           </div>
         </div>
 
@@ -79,11 +86,11 @@ export default function Pricing() {
                   {t('packageLabel', { months: plan.months })}
                 </h3>
                 <div className="text-4xl font-black text-brand-violet mt-4">
-                  {t('priceLabel', { price: plan.price })}
+                  {t('priceLabel', { price: plan.price, currency })}
                 </div>
-                {plan.savings && (
+                {plan.savingsPercent > 0 && (
                   <div className="text-[10px] font-black text-brand-orange bg-brand-orange/10 rounded-full inline-block mt-2 px-3 py-1">
-                    {plan.savings}
+                    {t('savePercent', { percent: plan.savingsPercent })}
                   </div>
                 )}
               </div>
@@ -97,7 +104,7 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              <BookingCtaButton source={`pricing_${plan.months}_months`} className={`w-full py-4 rounded-2xl font-black text-sm transition-all ${plan.isPopular ? 'bg-brand-violet text-white hover:opacity-90' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'} flex items-center justify-center gap-2`}>
+              <BookingCtaButton source={`pricing_${selectedCountry}_${plan.months}_months`} className={`w-full py-4 rounded-2xl font-black text-sm transition-all ${plan.isPopular ? 'bg-brand-violet text-white hover:opacity-90' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'} flex items-center justify-center gap-2`}>
                 {common('bookFreeTrial')}
               </BookingCtaButton>
             </div>
@@ -106,7 +113,7 @@ export default function Pricing() {
 
         <div className="mt-16 text-center text-xs text-slate-400 font-medium flex items-center justify-center gap-2 max-w-lg mx-auto leading-relaxed border p-6 rounded-2xl border-dashed border-slate-200 bg-white">
           <Info className="w-4 h-4 text-brand-orange shrink-0" />
-          {t('note')}
+          {t('note', { currency })}
         </div>
       </div>
     </section>

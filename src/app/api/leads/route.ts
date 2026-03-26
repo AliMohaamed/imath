@@ -1,9 +1,16 @@
 import { createHash } from "node:crypto";
 import { ConvexHttpClient } from "convex/browser";
 import { makeFunctionReference } from "convex/server";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { bookingFormSchema, formatPhoneNumber } from "@/lib/booking";
 import { getGeoContext } from "@/lib/geo";
+import {
+  DETECTED_COUNTRY_COOKIE,
+  EFFECTIVE_COUNTRY_COOKIE,
+  OVERRIDE_COUNTRY_COOKIE,
+  resolveSupportedCountryCode,
+} from "@/lib/pricing";
 
 type SubmitLeadArgs = {
   parentName: string;
@@ -80,8 +87,16 @@ export async function POST(request: Request) {
     );
   }
 
+  const cookieStore = await cookies();
   const submittedAt = Date.now();
-  const { country, currency } = getGeoContext(request.headers.get("x-vercel-ip-country"));
+  const resolvedCountry = resolveSupportedCountryCode(
+    parsed.data.countryCode ||
+      cookieStore.get(OVERRIDE_COUNTRY_COOKIE)?.value ||
+      cookieStore.get(EFFECTIVE_COUNTRY_COOKIE)?.value ||
+      cookieStore.get(DETECTED_COUNTRY_COOKIE)?.value ||
+      request.headers.get("x-vercel-ip-country")
+  );
+  const { country, currency } = getGeoContext(resolvedCountry);
   const client = new ConvexHttpClient(convexUrl);
   const payload = parsed.data;
 

@@ -12,6 +12,7 @@ import {
   PREFERRED_SLOT_OPTIONS,
   type BookingFormValues,
 } from "@/lib/booking";
+import { useGeoPricing } from "@/components/pricing/GeoPricingProvider";
 import { trackEvent } from "@/lib/analytics";
 
 type BookingModalProps = {
@@ -40,6 +41,8 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
   const locale = useLocale() as "ar" | "en";
   const t = useTranslations("BookingModal");
   const common = useTranslations("Common");
+  const pricingT = useTranslations("Marketing.pricing");
+  const { currency, selectedCountry } = useGeoPricing();
   const [submissionState, setSubmissionState] = useState<SubmissionState>({ status: "idle" });
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [hasTrackedStart, setHasTrackedStart] = useState(false);
@@ -56,6 +59,7 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
     register,
     handleSubmit,
     setError,
+    setValue,
     reset,
     watch,
     formState: { errors, isSubmitting },
@@ -70,6 +74,7 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
       previousExperience: "none",
       timezone: defaultTimezone,
       preferredSlots: [],
+      countryCode: selectedCountry,
       locale,
     },
   });
@@ -91,12 +96,17 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
       previousExperience: "none",
       timezone: defaultTimezone,
       preferredSlots: [],
+      countryCode: selectedCountry,
       locale,
     });
     setSubmissionState({ status: "idle" });
     setSubmitError(null);
     setHasTrackedStart(false);
   }, [defaultTimezone, isOpen, locale, reset]);
+
+  useEffect(() => {
+    setValue("countryCode", selectedCountry);
+  }, [selectedCountry, setValue]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -242,6 +252,7 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
             <form className="space-y-6" onSubmit={onSubmit} onFocusCapture={onFormStart}>
               <input type="hidden" value={locale} {...register("locale")} />
               <input type="hidden" value={selectedTimezone || defaultTimezone} {...register("timezone")} />
+              <input type="hidden" value={selectedCountry} {...register("countryCode")} />
 
               <div className="grid gap-4 md:grid-cols-2">
                 <Field>
@@ -322,6 +333,12 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
                 <div className="font-black text-slate-900">{t("timezone.label")}</div>
                 <div className="mt-1">{selectedTimezone || defaultTimezone}</div>
                 <div className="mt-2 text-xs text-slate-500">{t("timezone.hint")}</div>
+              </div>
+
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+                <div className="font-black text-slate-900">{t("pricingContext.label")}</div>
+                <div className="mt-1">{pricingT(`countries.${selectedCountry}`)} · {currency}</div>
+                <div className="mt-2 text-xs text-slate-500">{t("pricingContext.hint")}</div>
               </div>
 
               {submitError ? (

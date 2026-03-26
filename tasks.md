@@ -113,34 +113,34 @@
 
 ### Tasks
 
-- [ ] Implement Vercel Edge-based geolocation detection using request headers (e.g., `x-vercel-ip-country`) via Next.js middleware.
-- [ ] Create a middleware layer to extract country code and inject it into the app (cookies, headers, or request context).
-- [ ] Cache detected country in cookies to avoid repeated header parsing on subsequent requests.
-- [ ] Implement fallback country logic (default to Egypt) when Vercel headers are missing or undefined.
-- [ ] Support the required pricing countries and currencies:
+- [X] Implement Vercel Edge-based geolocation detection using request headers (e.g., `x-vercel-ip-country`) via Next.js middleware.
+- [X] Create a middleware layer to extract country code and inject it into the app (cookies, headers, or request context).
+- [X] Cache detected country in cookies to avoid repeated header parsing on subsequent requests.
+- [X] Implement fallback country logic (default to Egypt) when Vercel headers are missing or undefined.
+- [X] Support the required pricing countries and currencies:
   - Egypt / EGP
   - Saudi Arabia / SAR
   - Kuwait / KWD
   - UAE / AED
   - Qatar / QAR
-- [ ] Create a pricing configuration model for 1, 3, 6, and 12 month packages.
-- [ ] Display package inclusions consistently for every pricing card:
+- [X] Create a pricing configuration model for 1, 3, 6, and 12 month packages.
+- [X] Display package inclusions consistently for every pricing card:
   - 8 sessions per month
   - 2 sessions per week
   - 60 minutes per session
   - 1:1 focus
-- [ ] Add a manual country override dropdown to handle incorrect Vercel geo-detection (e.g., VPN usage).
-- [ ] Build a fallback behavior for unsupported or undetected countries.
-- [ ] Make sure pricing updates instantly when users change the override selection.
-- [ ] Persist selected country/currency context into the booking submission payload.
-- [ ] Keep pricing logic centralized so both landing page rendering and form submission use the same country/currency rules.
-- [ ] Explicitly ensure no payment gateways (Stripe/Paymob) will be integrated in this MVP. Subscriptions are handled entirely off-platform.
+- [X] Add a manual country override dropdown to handle incorrect Vercel geo-detection (e.g., VPN usage).
+- [X] Build a fallback behavior for unsupported or undetected countries.
+- [X] Make sure pricing updates instantly when users change the override selection.
+- [X] Persist selected country/currency context into the booking submission payload.
+- [X] Keep pricing logic centralized so both landing page rendering and form submission use the same country/currency rules.
+- [X] Explicitly ensure no payment gateways (Stripe/Paymob) will be integrated in this MVP. Subscriptions are handled entirely off-platform.
 
 ### Done Criteria
 
-- [ ] Pricing auto-detects correctly for supported regions.
-- [ ] Manual override works without page refresh.
-- [ ] Users always see a valid pricing state, even when detection fails.
+- [X] Pricing auto-detects correctly for supported regions.
+- [X] Manual override works without page refresh.
+- [X] Users always see a valid pricing state, even when detection fails.
 
 ## Milestone 5: Admin Dashboard & CRM Lite
 

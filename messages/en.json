@@ -114,30 +114,29 @@
     "pricing": {
       "title": "Flexible Learning Plans",
       "description": "Invest in your child's future with our results-driven packages.",
-      "currencySupport": "ALL CURRENCIES SUPPORTED",
       "mostPopular": "Most Popular",
       "packageLabel": "{months, plural, one {# Month Package} other {# Months Package}}",
-      "priceLabel": "EGP {price}",
+      "priceLabel": "{currency} {price}",
+      "detectedLabel": "Auto-detected for {country} · {currency}",
+      "overrideLabel": "Manual selection: {country} · {currency}",
+      "selectorLabel": "Pricing country",
+      "autoOption": "Use detected country ({country})",
+      "manualOverrideHint": "You can override the detected country if a VPN or travel location is affecting the pricing context.",
+      "savePercent": "SAVE {percent}%",
+      "countries": {
+        "EG": "Egypt",
+        "SA": "Saudi Arabia",
+        "KW": "Kuwait",
+        "AE": "United Arab Emirates",
+        "QA": "Qatar"
+      },
       "features": {
         "sessionsPerMonth": "8 sessions per month",
         "sessionsPerWeek": "2 sessions per week",
         "sessionLength": "60 minutes per session",
-        "oneToOneFocus": "1:1 focus",
-        "certifiedTutors": "Certified tutors",
-        "progressReports": "Monthly progress reports"
+        "oneToOneFocus": "1:1 focus"
       },
-      "plans": {
-        "threeMonths": {
-          "savings": "15% OFF"
-        },
-        "sixMonths": {
-          "savings": "25% OFF"
-        },
-        "twelveMonths": {
-          "savings": "35% OFF"
-        }
-      },
-      "note": "Note: Final prices may vary based on your location. Our platform auto-detects your currency for a seamless experience. Manual override is available."
+      "note": "Prices are shown in {currency}. No online payment is collected on the site; subscriptions are handled entirely offline after the assessment."
     },
     "faq": {
       "title": "Got Questions?",
@@ -239,6 +238,10 @@
     "timezone": {
       "label": "Detected timezone",
       "hint": "We use this to align the first follow-up and trial scheduling."
+    },
+    "pricingContext": {
+      "label": "Pricing context",
+      "hint": "The selected pricing country and currency are stored with your request so our team can follow up with the right package context."
     },
     "privacyNote": "By submitting this form, you allow iMath to contact you about your trial request using the details you provided.",
     "submitting": "Submitting...",
