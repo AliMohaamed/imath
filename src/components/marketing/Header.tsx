@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations, useLocale } from 'next-intl';
+import { BookingCtaButton } from '@/components/booking/BookingCtaButton';
 import { Link, usePathname, useRouter } from '@/navigation';
 import { Globe, Menu, X } from 'lucide-react';
 import { useState } from 'react';
@@ -43,9 +44,9 @@ export default function Header() {
             <span className="uppercase">{locale === 'ar' ? 'EN' : 'AR'}</span>
           </button>
 
-          <button className="hidden sm:block px-6 py-2.5 bg-brand-orange text-white rounded-full font-black text-sm hover:opacity-90 transition-all shadow-premium hover:scale-105">
+          <BookingCtaButton source="header_desktop" className="hidden sm:block px-6 py-2.5 bg-brand-orange text-white rounded-full font-black text-sm hover:opacity-90 transition-all shadow-premium hover:scale-105">
             {t('bookFreeTrial')}
-          </button>
+          </BookingCtaButton>
 
           <button
             className="md:hidden p-2 rounded-full hover:bg-muted"
@@ -62,9 +63,9 @@ export default function Header() {
           <Link href="#how-it-works" onClick={() => setIsMenuOpen(false)}>{t('sections.howItWorks')}</Link>
           <Link href="#pricing" onClick={() => setIsMenuOpen(false)}>{t('sections.pricing')}</Link>
           <Link href="#faq" onClick={() => setIsMenuOpen(false)}>{t('sections.faq')}</Link>
-          <button className="w-full py-3 bg-brand-orange text-white rounded-full font-black">
+          <BookingCtaButton source="header_mobile" className="w-full py-3 bg-brand-orange text-white rounded-full font-black">
             {t('bookFreeTrial')}
-          </button>
+          </BookingCtaButton>
         </div>
       )}
     </header>

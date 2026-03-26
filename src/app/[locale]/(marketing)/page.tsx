@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+import { BookingCtaButton } from "@/components/booking/BookingCtaButton";
 import Hero from "@/components/marketing/Hero";
 import Benefits from "@/components/marketing/Benefits";
 import HowItWorks from "@/components/marketing/HowItWorks";
@@ -37,9 +38,9 @@ export default async function LandingPage() {
                 {t('description')}
               </p>
               <div className="flex flex-col sm:flex-row gap-6 justify-center pt-6">
-                <button className="px-12 py-5 bg-brand-orange text-white rounded-full font-black text-xl hover:bg-white hover:text-brand-orange transition-all shadow-premium hover:scale-105 active:scale-95">
+                <BookingCtaButton source="final_cta_primary" className="px-12 py-5 bg-brand-orange text-white rounded-full font-black text-xl hover:bg-white hover:text-brand-orange transition-all shadow-premium hover:scale-105 active:scale-95">
                   {common('bookFreeTrial')}
-                </button>
+                </BookingCtaButton>
                 <button className="px-12 py-5 border-2 border-white/20 text-white rounded-full font-black text-xl hover:bg-white/10 transition-all active:scale-95">
                   {common('contactUs')}
                 </button>

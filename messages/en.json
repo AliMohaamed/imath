@@ -188,5 +188,74 @@
       "ariaLabel": "Contact us on WhatsApp",
       "label": "Chat with us"
     }
+  },
+  "BookingModal": {
+    "eyebrow": "Free Trial Request",
+    "title": "Book a Trial and We’ll Contact You Quickly",
+    "description": "Share a few details about your child and preferred schedule. Our team will review the request and follow up with the next available assessment slot.",
+    "close": "Close booking modal",
+    "ageOption": "{age} years old",
+    "fields": {
+      "parentName": {
+        "label": "Parent name",
+        "placeholder": "Enter the parent or guardian name"
+      },
+      "studentName": {
+        "label": "Student name",
+        "placeholder": "Enter the student name"
+      },
+      "studentAge": {
+        "label": "Student age"
+      },
+      "phone": {
+        "label": "Phone number",
+        "placeholder": "Enter the best WhatsApp number"
+      },
+      "email": {
+        "label": "Email address",
+        "placeholder": "Enter an email address",
+        "hint": "Optional, but helpful if you prefer email follow-up."
+      },
+      "previousExperience": {
+        "label": "Previous math learning experience"
+      },
+      "preferredSlots": {
+        "label": "Preferred time slots"
+      }
+    },
+    "experience": {
+      "none": "Needs a fresh start",
+      "some": "Has some tutoring experience",
+      "advanced": "Already doing well, wants to improve further"
+    },
+    "timeSlots": {
+      "weekday_morning": "Weekday morning",
+      "weekday_afternoon": "Weekday afternoon",
+      "weekday_evening": "Weekday evening",
+      "weekend_morning": "Weekend morning",
+      "weekend_afternoon": "Weekend afternoon",
+      "weekend_evening": "Weekend evening"
+    },
+    "timezone": {
+      "label": "Detected timezone",
+      "hint": "We use this to align the first follow-up and trial scheduling."
+    },
+    "privacyNote": "By submitting this form, you allow iMath to contact you about your trial request using the details you provided.",
+    "submitting": "Submitting...",
+    "success": {
+      "title": "Request Received",
+      "description": "Your trial request has been submitted successfully. Our team will review it and contact you shortly to confirm the next steps.",
+      "nextStep": "Expected next step: a WhatsApp or phone follow-up to schedule the assessment.",
+      "reference": "Reference ID: {leadId}"
+    },
+    "errors": {
+      "generic": "Something went wrong while submitting your request. Please try again.",
+      "parentName": "Please enter the parent name.",
+      "studentName": "Please enter the student name.",
+      "email": "Please enter a valid email address.",
+      "phoneNumber": "Please enter a valid phone number.",
+      "previousExperience": "Please choose the student’s previous experience level.",
+      "preferredSlots": "Please select at least one preferred time slot."
+    }
   }
 }

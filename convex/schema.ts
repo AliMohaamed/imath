@@ -18,7 +18,15 @@ export default defineSchema({
     country: v.optional(v.string()),
     currency: v.optional(v.string()),
     locale: v.string(),
+    submittedAt: v.number(),
   }).index("by_status", ["status"]),
+
+  leadSubmissionRateLimits: defineTable({
+    key: v.string(),
+    windowStart: v.number(),
+    count: v.number(),
+    lastSubmissionAt: v.number(),
+  }).index("by_key", ["key"]),
 
   // Pricing can be stored here or defined in code
   pricing: defineTable({

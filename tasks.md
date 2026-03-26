@@ -83,8 +83,8 @@
 
 ### Tasks
 
-- [ ] Implement a reusable booking modal as a focused Client Component triggered by all "Book Free Trial" CTAs.
-- [ ] Create the lead capture form with the following fields:
+- [X] Implement a reusable booking modal as a focused Client Component triggered by all "Book Free Trial" CTAs.
+- [X] Create the lead capture form with the following fields:
   - Parent name
   - Student name
   - Student age dropdown
@@ -93,19 +93,19 @@
   - Previous experience radio buttons
   - Auto-detected timezone
   - Preferred time slots
-- [ ] Add form validation for required fields, invalid inputs, and mobile-friendly error states.
-- [ ] Auto-detect timezone on the client and allow fallback handling when detection fails.
-- [ ] Save submitted leads to Convex with a default status of `New Request` using a secure server-side mutation flow.
-- [ ] Show success confirmation after submission with the next-step expectation clearly explained.
-- [ ] Capture submission metadata including locale, country (from Vercel headers), currency context, and submission timestamp.
-- [ ] Add event tracking for modal open, modal close, form start, validation failure, and successful submission.
-- [ ] Implement form spam protection (Rate Limiting via Convex) to prevent fake submissions.
+- [X] Add form validation for required fields, invalid inputs, and mobile-friendly error states.
+- [X] Auto-detect timezone on the client and allow fallback handling when detection fails.
+- [X] Save submitted leads to Convex with a default status of `New Request` using a secure server-side mutation flow.
+- [X] Show success confirmation after submission with the next-step expectation clearly explained.
+- [X] Capture submission metadata including locale, country (from Vercel headers), currency context, and submission timestamp.
+- [X] Add event tracking for modal open, modal close, form start, validation failure, and successful submission.
+- [X] Implement form spam protection (Rate Limiting via Convex) to prevent fake submissions.
 
 ### Done Criteria
 
-- [ ] Every booking CTA opens the same consistent modal experience.
-- [ ] Valid submissions are stored in Convex with all expected lead fields.
-- [ ] Users receive a clear success state without leaving the page.
+- [X] Every booking CTA opens the same consistent modal experience.
+- [X] Valid submissions are stored in Convex with all expected lead fields.
+- [X] Users receive a clear success state without leaving the page.
 
 ## Milestone 4: Dynamic Pricing & Geo-Pricing Logic
 

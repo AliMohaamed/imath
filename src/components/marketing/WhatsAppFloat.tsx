@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { MessageCircle } from 'lucide-react';
+import { trackEvent } from '@/lib/analytics';
 
 export default function WhatsAppFloat() {
   const t = useTranslations('Marketing.whatsApp');
@@ -10,6 +11,7 @@ export default function WhatsAppFloat() {
 
   const handleClick = () => {
     const encodedMessage = encodeURIComponent(defaultMessage);
+    trackEvent("whatsapp_click", { placement: "floating_button" });
     window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
   };
 

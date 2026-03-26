@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { ArrowRight, Star } from 'lucide-react';
+import { BookingCtaButton } from '@/components/booking/BookingCtaButton';
 
 export default function Hero() {
   const t = useTranslations('Marketing.hero');
@@ -33,10 +34,10 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-              <button className="px-10 py-4 bg-brand-orange text-white rounded-full font-black text-lg hover:opacity-90 transition-all shadow-premium hover:scale-105 flex items-center justify-center gap-2">
+              <BookingCtaButton source="hero_primary" className="px-10 py-4 bg-brand-orange text-white rounded-full font-black text-lg hover:opacity-90 transition-all shadow-premium hover:scale-105 flex items-center justify-center gap-2">
                 {common('bookFreeTrial')}
                 <ArrowRight className="w-5 h-5 rtl:rotate-180" />
-              </button>
+              </BookingCtaButton>
               <button className="px-10 py-4 border-2 border-slate-200 text-slate-900 rounded-full font-black text-lg hover:bg-slate-50 transition-all flex items-center justify-center">
                 {common('learnMore')}
               </button>

@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { Check, Info } from 'lucide-react';
 import { useState } from 'react';
+import { BookingCtaButton } from '@/components/booking/BookingCtaButton';
 
 export default function Pricing() {
   const common = useTranslations('Common');
@@ -96,9 +97,9 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              <button className={`w-full py-4 rounded-2xl font-black text-sm transition-all ${plan.isPopular ? 'bg-brand-violet text-white hover:opacity-90' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'} flex items-center justify-center gap-2`}>
+              <BookingCtaButton source={`pricing_${plan.months}_months`} className={`w-full py-4 rounded-2xl font-black text-sm transition-all ${plan.isPopular ? 'bg-brand-violet text-white hover:opacity-90' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'} flex items-center justify-center gap-2`}>
                 {common('bookFreeTrial')}
-              </button>
+              </BookingCtaButton>
             </div>
           ))}
         </div>
