@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { ArrowRight, Star } from 'lucide-react';
 import { BookingCtaButton } from '@/components/booking/BookingCtaButton';
@@ -67,27 +68,26 @@ export default function Hero() {
 
           {/* Image Container */}
           <div className="relative group animate-in fade-in zoom-in duration-1000 delay-200">
-            <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl border-8 border-white group-hover:scale-[1.02] transition-transform duration-500">
-              <div className="aspect-[4/3] bg-gradient-to-br from-brand-violet/15 via-white to-brand-orange/15 flex items-center justify-center p-8">
-                <div className="w-full max-w-md rounded-[2rem] border border-white/80 bg-white/85 p-8 shadow-xl backdrop-blur">
-                  <div className="grid grid-cols-[auto_1fr] gap-4 items-center">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-violet text-2xl font-black text-white">
-                      iM
+            <div className="relative z-10 rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white group-hover:scale-[1.02] transition-transform duration-500 bg-white">
+              <div className="aspect-[4/3] relative">
+                <Image
+                  src="/images/hero.png"
+                  alt="iMath Student"
+                  fill
+                  priority
+                  className="object-cover"
+                />
+                
+                {/* Floating Badge on Image */}
+                <div className="absolute bottom-6 right-6 left-6 md:left-auto bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/50 animate-in fade-in slide-in-from-bottom duration-1000 delay-500">
+                  <div className="flex items-center gap-3">
+                    <div className="flex -space-x-2">
+                       {[1,2,3].map(i => (
+                         <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-200" />
+                       ))}
                     </div>
-                    <div className="space-y-2">
-                      <div className="h-3 w-24 rounded-full bg-brand-yellow/70" />
-                      <div className="h-3 w-40 rounded-full bg-slate-200" />
-                    </div>
-                  </div>
-                  <div className="mt-8 space-y-4">
-                    <div className="rounded-2xl bg-slate-100 p-4">
-                      <div className="text-sm font-black text-slate-900">{t('placeholder.cardTitle')}</div>
-                      <div className="mt-2 text-sm text-slate-500">{t('placeholder.cardDescription')}</div>
-                    </div>
-                    <div className="grid grid-cols-3 gap-3">
-                      <div className="h-20 rounded-2xl bg-brand-orange/15" />
-                      <div className="h-20 rounded-2xl bg-brand-violet/15" />
-                      <div className="h-20 rounded-2xl bg-brand-yellow/30" />
+                    <div className="text-sm font-black text-slate-900 leading-tight">
+                       500+ <span className="text-brand-violet block text-xs">سعيد بانضمامه لـ iMath</span>
                     </div>
                   </div>
                 </div>
