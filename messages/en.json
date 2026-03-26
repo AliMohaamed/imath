@@ -3,7 +3,9 @@
     "title": "iMath",
     "bookFreeTrial": "Book Free Trial",
     "contactUs": "Contact Us",
+    "contactViaWhatsApp": "Contact via WhatsApp",
     "learnMore": "Learn More",
+    "startWithFreeTrial": "Start with Free Trial",
     "switchToEnglish": "Switch to English",
     "switchToArabic": "Switch to Arabic",
     "sections": {
@@ -16,38 +18,58 @@
   },
   "Marketing": {
     "hero": {
-      "badge": "Trusted by 500+ Parents",
-      "title": "Build Your Child's <highlight>Math Confidence</highlight> with 1:1 Focus",
-      "description": "Personalized mathematics tutoring for ages 5-18. We turn uncertainty into confidence through structured, bilingual 1:1 sessions.",
+      "badge": "The First Online 1:1 Mental Math Academy in the Region",
+      "title": "Teach Your Child <highlight>Mental Math</highlight> with 1:1 Focus",
+      "description": "1:1 Mental Math sessions for ages 5-14. We build speed, accuracy, and calculation confidence through the certified UCMath methodology in bilingual online sessions.",
       "trustBadges": {
         "certifiedTutors": "Certified Tutors",
         "bilingualSupport": "Bilingual Support",
         "oneToOneSessions": "1:1 Sessions"
       },
-      "placeholder": {
-        "cardTitle": "Personalized 1:1 Math Sessions",
-        "cardDescription": "A temporary hero placeholder while the final student image is being prepared."
+      "floatingBadge": {
+        "count": "500+ students",
+        "text": "already training with iMath"
+      },
+      "visual": {
+        "eyebrow": "Mental Math in Action",
+        "title": "A focused 1:1 system built for fast mental calculation",
+        "description": "Instead of generic tutoring, each session trains number sense, speed, and concentration using a structured UCMath path.",
+        "metrics": {
+          "speed": {
+            "value": "1:1",
+            "label": "focus"
+          },
+          "accuracy": {
+            "value": "UCMath",
+            "label": "method"
+          },
+          "focus": {
+            "value": "5-14",
+            "label": "ages"
+          }
+        }
       }
     },
     "benefits": {
       "title": "Why Parents <highlight>Trust</highlight> iMath",
-      "description": "We provide more than just tutoring; we provide an environment where children thrive and fall in love with mathematics.",
+      "description": "We teach more than school math. We train mental speed, concentration, and confidence through structured 1:1 Mental Math practice.",
+      "cta": "Book a Free Trial",
       "items": {
         "focus": {
-          "title": "1:1 Focused Learning",
-          "description": "Every session is tailored to your child's unique pace and style. No distractions, just progress."
+          "title": "One Teacher, One Student",
+          "description": "Every Mental Math session is fully 1:1, so your child gets focused correction, repetition, and real momentum."
         },
         "progress": {
-          "title": "Accelerated Progress",
-          "description": "Our methodology helps students bridge gaps and move ahead of their school curriculum quickly."
+          "title": "Faster Calculation Progress",
+          "description": "Our UCMath-based path builds speed and accuracy step by step, not random practice without a system."
         },
         "confidence": {
-          "title": "Built-In Confidence",
-          "description": "We don't just teach math; we build a problem-solving mindset that lasts a lifetime."
+          "title": "Confidence With Numbers",
+          "description": "We turn number anxiety into calculation confidence, so children answer faster and trust their own thinking."
         },
         "excellence": {
           "title": "Certified Excellence",
-          "description": "All our tutors are rigorously vetted and certified mathematically and pedagogically."
+          "description": "Our tutors are trained to teach Mental Math clearly in Arabic and English with strong parent communication."
         }
       }
     },
@@ -58,7 +80,7 @@
       },
       "tutors": {
         "title": "Certified Tutors",
-        "description": "Experts in bilingual math education, vetted for pedagogical excellence and parent trust."
+        "description": "Experts in bilingual Mental Math education, vetted for pedagogical excellence and parent trust."
       },
       "stats": {
         "totalStudents": "Total Students",
@@ -66,27 +88,48 @@
       },
       "eyebrow": "Value Proposition",
       "title": "More than a Lesson, A <highlight>Transformation.</highlight>",
-      "description": "At iMath, we don't just deliver content; we deliver results. We believe that every child can master mathematics given the right environment, the right mentor, and the absolute focus they deserve.",
+      "description": "At iMath, we don't offer generic tutoring. We teach Mental Math through a clear UCMath methodology, 1:1 delivery, and bilingual coaching that keeps both the child and the parent aligned.",
       "quote": {
         "text": "The confidence my son gained in his first month at iMath was astounding. He doesn't just solve problems; he explains them back to me with pride.",
-        "author": "Mother of Grade 5 Student"
+        "author": "Sara M. - Mother of a Grade 5 student"
       }
+    },
+    "mentalMathSection": {
+      "eyebrow": "What Is Mental Math?",
+      "title": "This is not regular tutoring. It is <highlight>trained mental calculation</highlight>.",
+      "description": "Parents need to understand the difference quickly: iMath teaches a structured Mental Math path, not generic school homework support.",
+      "points": {
+        "speed": {
+          "title": "Speed and Accuracy",
+          "description": "Children practice structured calculation patterns until faster answers become natural."
+        },
+        "focus": {
+          "title": "Concentration and Memory",
+          "description": "Sessions are designed to improve attention, discipline, and confidence with numbers."
+        },
+        "method": {
+          "title": "Certified UCMath Method",
+          "description": "A clear step-by-step methodology gives parents a more credible path than ordinary tutoring."
+        }
+      },
+      "cta": "Book a Free Trial"
     },
     "howItWorks": {
       "title": "Your Child's Journey",
-      "description": "Three simple steps to transform math anxiety into confidence.",
+      "description": "Three simple steps to move from curiosity to a structured Mental Math plan.",
+      "cta": "Ready to Start?",
       "steps": {
         "bookTrial": {
           "title": "Book a Free Trial",
-          "description": "Quick 2-minute booking to get started on your child's journey."
+          "description": "Start with a short request so we can understand your child's age and current level."
         },
         "assessment": {
-          "title": "Initial Assessment",
-          "description": "We determine the student's unique level and learning style."
+          "title": "Mental Math Assessment",
+          "description": "We assess calculation habits, focus, and readiness for the right UCMath starting point."
         },
         "startLearning": {
-          "title": "Start Learning",
-          "description": "Weekly 1:1 sessions tailored for peak academic excellence."
+          "title": "Start 1:1 Training",
+          "description": "Your child begins consistent online sessions built for speed, accuracy, and confidence."
         }
       }
     },
@@ -97,7 +140,7 @@
         "amira": {
           "name": "Mrs. Amira H.",
           "role": "Mother of 10-year-old",
-          "content": "iMath has completely transformed my daughter's relationship with mathematics. She no longer fears the subject; she actually looks forward to her sessions!"
+          "content": "iMath has completely transformed my daughter's relationship with numbers. She no longer fears calculations; she actually looks forward to her sessions!"
         },
         "omar": {
           "name": "Mr. Omar F.",
@@ -145,11 +188,19 @@
       "items": {
         "ages": {
           "question": "What ages do you support?",
-          "answer": "We cater to students aged 5-18, from early childhood foundation to high school mathematics excellence."
+          "answer": "Our core Mental Math program is designed for ages 5-14, where children benefit most from structured number training and concentration building."
         },
         "format": {
           "question": "Are the sessions 1:1 or in groups?",
-          "answer": "All iMath sessions are strictly 1:1. We believe personalized focus is the key to mastering mathematics."
+          "answer": "All iMath sessions are strictly 1:1. We believe personal focus is the fastest way to build Mental Math accuracy and confidence."
+        },
+        "mentalMath": {
+          "question": "What is Mental Math?",
+          "answer": "Mental Math trains children to calculate quickly and accurately in their heads. It improves number sense, focus, confidence, and speed beyond ordinary homework support."
+        },
+        "ucmath": {
+          "question": "What is UCMath and why does it matter?",
+          "answer": "UCMath is a structured Mental Math methodology that develops calculation ability step by step. It gives parents a clearer path than unstructured tutoring because the training is systematic and measurable."
         },
         "progress": {
           "question": "How can I track my child's progress?",
@@ -161,21 +212,21 @@
         },
         "languages": {
           "question": "Which languages are supported?",
-          "answer": "Tutoring is available in both Arabic and English. We help students master math in the language they use at school."
+          "answer": "Sessions are available in both Arabic and English. We help students build Mental Math confidence in the language they use most comfortably."
         }
       }
     },
     "finalCta": {
       "title": "Ready to Transform Your Child's <highlight>Future?</highlight>",
-      "description": "Book a free assessment today and let our team recommend the right starting point for your child.",
+      "description": "Book a free trial today and let our team recommend the right Mental Math starting point for your child.",
       "badge": "Trusted by 500+ Families Worldwide"
     },
     "footer": {
-      "description": "Empowering the next generation of problem solvers through personalized, bilingual mathematics tutoring. Certified excellence for students aged 5-18.",
+      "description": "Helping children build Mental Math speed, focus, and confidence through bilingual 1:1 online sessions and the certified UCMath methodology.",
       "academy": "Academy",
       "contact": "Contact",
-      "email": "Email: hello@imath.com",
-      "whatsapp": "WhatsApp: +20 123 456 789",
+      "email": "Email: {email}",
+      "whatsapp": "WhatsApp: {phone}",
       "instagram": "Follow us on Instagram",
       "copyright": "© {year} iMath Academy. All rights reserved.",
       "privacyPolicy": "Privacy Policy",
@@ -215,7 +266,7 @@
         "hint": "Optional, but helpful if you prefer email follow-up."
       },
       "previousExperience": {
-        "label": "Previous math learning experience"
+        "label": "Previous Mental Math learning experience"
       },
       "preferredSlots": {
         "label": "Preferred time slot"
@@ -234,8 +285,8 @@
       "title": "Book Your Free Trial",
       "description": "Move through four short steps to submit a complete and accurate trial request.",
       "progress": "Step {current} of {total}",
-      "parentDescription": "Start with the parent or guardian contact details.",
-      "studentDescription": "Tell us a little about the student and their current level.",
+      "parentDescription": "Finish with the parent or guardian contact details so we can confirm the trial.",
+      "studentDescription": "Start with the student. We'll use these details to suggest the right Mental Math level.",
       "reviewDescription": "Review everything before you send the request.",
       "back": "Back",
       "next": "Next",

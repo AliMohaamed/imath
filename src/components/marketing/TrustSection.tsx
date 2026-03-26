@@ -5,10 +5,10 @@ export default async function TrustSection() {
   const t = await getTranslations('Marketing.trustSection');
 
   return (
-    <section id="why-imath" className="py-24 bg-white relative overflow-hidden">
+    <section id="why-imath" className="py-12 md:py-24 bg-white relative overflow-hidden">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <div className="relative group p-4 bg-brand-violet/5 rounded-[4rem] animate-in fade-in zoom-in duration-700">
+          <div className="relative order-last group rounded-[4rem] bg-brand-violet/5 p-4 animate-in fade-in zoom-in duration-700 lg:order-first">
             <div className="absolute top-0 right-0 w-32 h-32 bg-brand-yellow/30 rounded-full blur-3xl -z-10" />
             <div className="relative z-10 aspect-square rounded-[3.5rem] bg-slate-100 flex items-center justify-center p-12 overflow-hidden shadow-2xl border-4 border-white transition-transform group-hover:scale-[1.01]">
               <ShieldCheck className="w-1/2 h-1/2 text-brand-violet opacity-10 absolute rotate-12 -bottom-8 -right-8" />
@@ -45,13 +45,13 @@ export default async function TrustSection() {
             </div>
           </div>
 
-          <div className="space-y-10">
+          <div className="order-first space-y-10 lg:order-last">
             <div className="space-y-4">
               <div className="text-brand-orange font-black text-sm uppercase tracking-widest flex items-center gap-4">
                 <div className="h-[2px] w-12 bg-brand-orange" />
                 {t('eyebrow')}
               </div>
-              <h2 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight tracking-tight">
+              <h2 className="text-2xl sm:text-4xl md:text-6xl font-black text-slate-900 leading-tight tracking-tight">
                 {t.rich('title', {
                   highlight: (chunks) => (
                     <span className="text-brand-violet underline decoration-brand-yellow decoration-8 underline-offset-8">

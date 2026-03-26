@@ -116,15 +116,15 @@ export function BookingStepperSection() {
 
   const canGoNext = useMemo(() => {
     if (activeStep === 0) {
-      return isParentStepValid(values.parentName, values.phoneCountryCode, values.phoneNumber);
-    }
-
-    if (activeStep === 1) {
       return isStudentStepValid(values.studentName, values.studentAge, values.previousExperience);
     }
 
-    if (activeStep === 2) {
+    if (activeStep === 1) {
       return values.preferredSlots.length > 0;
+    }
+
+    if (activeStep === 2) {
+      return isParentStepValid(values.parentName, values.phoneCountryCode, values.phoneNumber);
     }
 
     return true;
@@ -142,10 +142,10 @@ export function BookingStepperSection() {
   const nextStep = async () => {
     const fields =
       activeStep === 0
-        ? (["parentName", "phoneCountryCode", "phoneNumber"] as const)
+        ? (["studentName", "studentAge", "previousExperience"] as const)
         : activeStep === 1
-          ? (["studentName", "studentAge", "previousExperience"] as const)
-          : (["preferredSlots"] as const);
+          ? (["preferredSlots"] as const)
+          : (["parentName", "phoneCountryCode", "phoneNumber"] as const);
 
     const isValid = await trigger(fields);
     if (!isValid) {
@@ -229,8 +229,8 @@ export function BookingStepperSection() {
       aria-labelledby="booking-stepper-title"
     >
       <div className="container mx-auto max-w-6xl px-4">
-        <div className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
-          <aside className="rounded-[2rem] border border-slate-200 bg-slate-50 p-6">
+        <div className="grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-8">
+          <aside className="rounded-[2rem] border border-slate-200 bg-slate-50 p-5 md:p-6">
             <div className="space-y-3">
               <div className="inline-flex rounded-full bg-brand-violet/10 px-4 py-2 text-xs font-black uppercase tracking-wider text-brand-violet">
                 {t("eyebrow")}
@@ -246,7 +246,7 @@ export function BookingStepperSection() {
               </p>
             </div>
 
-            <ol className="mt-6 space-y-3">
+            <ol className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-1 lg:space-y-3">
               {[0, 1, 2, 3].map((stepIndex) => {
                 const isActive = stepIndex === activeStep;
                 const isComplete = stepIndex < activeStep || submissionState.status === "success";
@@ -272,7 +272,7 @@ export function BookingStepperSection() {
                     >
                       {isComplete ? <CheckCircle2 className="h-4 w-4" /> : stepIndex + 1}
                     </span>
-                    <span>{t(`stepper.steps.${getStepKey(stepIndex)}`)}</span>
+                    <span className="text-xs font-bold sm:text-sm">{t(`stepper.steps.${getStepKey(stepIndex)}`)}</span>
                   </li>
                 );
               })}
@@ -285,43 +285,6 @@ export function BookingStepperSection() {
             ) : (
               <form className="space-y-8" onSubmit={onSubmit}>
                 {activeStep === 0 ? (
-                  <div className="space-y-6">
-                    <StepHeader title={t("stepper.steps.parent")} description={t("stepper.parentDescription")} />
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <Field>
-                        <Label>{t("fields.parentName.label")}</Label>
-                        <input
-                          className={inputClassName}
-                          placeholder={t("fields.parentName.placeholder")}
-                          {...register("parentName")}
-                          aria-invalid={Boolean(errors.parentName)}
-                        />
-                        <FieldError message={errors.parentName?.message && t("errors.parentName")} />
-                      </Field>
-                      <Field>
-                        <Label>{t("fields.phone.label")}</Label>
-                        <div className="grid grid-cols-[120px_1fr] gap-3">
-                          <select className={inputClassName} {...register("phoneCountryCode")}>
-                            {PHONE_COUNTRY_OPTIONS.map((option) => (
-                              <option key={`${option.country}-${option.value}`} value={option.value}>
-                                {option.country} {option.value}
-                              </option>
-                            ))}
-                          </select>
-                          <input
-                            className={inputClassName}
-                            placeholder={t("fields.phone.placeholder")}
-                            {...register("phoneNumber")}
-                            aria-invalid={Boolean(errors.phoneNumber)}
-                          />
-                        </div>
-                        <FieldError message={(errors.phoneCountryCode?.message || errors.phoneNumber?.message) && t("errors.phoneNumber")} />
-                      </Field>
-                    </div>
-                  </div>
-                ) : null}
-
-                {activeStep === 1 ? (
                   <div className="space-y-6">
                     <StepHeader title={t("stepper.steps.student")} description={t("stepper.studentDescription")} />
                     <div className="grid gap-4 md:grid-cols-2">
@@ -361,7 +324,7 @@ export function BookingStepperSection() {
                   </div>
                 ) : null}
 
-                {activeStep === 2 ? (
+                {activeStep === 1 ? (
                   <div className="space-y-6">
                     <StepHeader title={t("stepper.steps.schedule")} description={t("scheduler.description")} />
                     <div className="space-y-3">
@@ -404,6 +367,43 @@ export function BookingStepperSection() {
                       </div>
                     ) : null}
                     <FieldError message={errors.preferredSlots?.message && t("errors.preferredSlots")} />
+                  </div>
+                ) : null}
+
+                {activeStep === 2 ? (
+                  <div className="space-y-6">
+                    <StepHeader title={t("stepper.steps.parent")} description={t("stepper.parentDescription")} />
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <Field>
+                        <Label>{t("fields.parentName.label")}</Label>
+                        <input
+                          className={inputClassName}
+                          placeholder={t("fields.parentName.placeholder")}
+                          {...register("parentName")}
+                          aria-invalid={Boolean(errors.parentName)}
+                        />
+                        <FieldError message={errors.parentName?.message && t("errors.parentName")} />
+                      </Field>
+                      <Field>
+                        <Label>{t("fields.phone.label")}</Label>
+                        <div className="grid grid-cols-[120px_1fr] gap-3">
+                          <select className={inputClassName} {...register("phoneCountryCode")}>
+                            {PHONE_COUNTRY_OPTIONS.map((option) => (
+                              <option key={`${option.country}-${option.value}`} value={option.value}>
+                                {option.country} {option.value}
+                              </option>
+                            ))}
+                          </select>
+                          <input
+                            className={inputClassName}
+                            placeholder={t("fields.phone.placeholder")}
+                            {...register("phoneNumber")}
+                            aria-invalid={Boolean(errors.phoneNumber)}
+                          />
+                        </div>
+                        <FieldError message={(errors.phoneCountryCode?.message || errors.phoneNumber?.message) && t("errors.phoneNumber")} />
+                      </Field>
+                    </div>
                   </div>
                 ) : null}
 
@@ -466,7 +466,7 @@ export function BookingStepperSection() {
 }
 
 function getStepKey(stepIndex: number) {
-  return ["parent", "student", "schedule", "review"][stepIndex] ?? "parent";
+  return ["student", "schedule", "parent", "review"][stepIndex] ?? "student";
 }
 
 function splitPreferredSlot(value: string) {
@@ -482,7 +482,7 @@ function isParentStepValid(parentName: string, phoneCountryCode: string, phoneNu
 }
 
 function isStudentStepValid(studentName: string, studentAge: number, previousExperience: string) {
-  return studentName.trim().length >= 2 && studentAge >= 5 && studentAge <= 18 && Boolean(previousExperience);
+  return studentName.trim().length >= 2 && studentAge >= 5 && studentAge <= 14 && Boolean(previousExperience);
 }
 
 function StepHeader({ title, description }: { title: string; description: string }) {

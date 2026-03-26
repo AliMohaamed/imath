@@ -26,12 +26,12 @@ export default function Pricing() {
   ];
 
   return (
-    <section id="pricing" className="py-24 bg-slate-50 relative overflow-hidden">
+    <section id="pricing" className="py-12 md:py-24 bg-slate-50 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/4 h-full bg-brand-violet/5 rounded-full blur-3xl -z-10" />
 
       <div className="container mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">{t('title')}</h2>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">{t('title')}</h2>
           <p className="text-lg text-slate-600">{t('description')}</p>
         </div>
 
@@ -71,7 +71,7 @@ export default function Pricing() {
               </ul>
 
               <BookingCtaButton source={`pricing_${selectedCountry}_${plan.months}_months`} className={`w-full py-4 rounded-2xl font-black text-sm transition-all ${plan.isPopular ? 'bg-brand-violet text-white hover:opacity-90' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'} flex items-center justify-center gap-2`}>
-                {common('bookFreeTrial')}
+                {common('startWithFreeTrial')}
               </BookingCtaButton>
             </div>
           ))}

@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: `${SITE_NAME} Academy`,
     short_name: SITE_NAME,
     description:
-      "Bilingual 1:1 mathematics tutoring with certified tutors, flexible plans, and a parent-first booking flow.",
+      "Bilingual 1:1 Mental Math sessions with certified UCMath tutors, flexible plans, and a parent-first booking flow.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

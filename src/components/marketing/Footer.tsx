@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { Link } from '@/navigation';
 import Image from 'next/image';
 import logo from "../../../public/logo.png";
+import { SITE_EMAIL, SITE_PHONE_NUMBER } from '@/lib/site';
 
 export default async function Footer() {
   const t = await getTranslations('Marketing.footer');
@@ -9,7 +10,7 @@ export default async function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-50 border-t border-border pt-16 pb-8">
+    <footer className="bg-slate-50 border-t border-border pt-12 md:pt-16 pb-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="md:col-span-2">
@@ -39,8 +40,8 @@ export default async function Footer() {
           <div className="space-y-4">
             <h4 className="font-bold text-sm text-slate-900 uppercase tracking-wider">{t('contact')}</h4>
             <ul className="space-y-2 text-sm text-slate-600">
-              <li>{t('email')}</li>
-              <li>{t('whatsapp')}</li>
+              <li>{t('email', { email: SITE_EMAIL })}</li>
+              <li>{t('whatsapp', { phone: SITE_PHONE_NUMBER })}</li>
               <li>{t('instagram')}</li>
             </ul>
           </div>

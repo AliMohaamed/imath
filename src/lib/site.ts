@@ -8,31 +8,33 @@ type SiteCopy = {
 
 const SITE_COPY: Record<Locale, SiteCopy> = {
   ar: {
-    title: "iMath | دروس رياضيات فردية باللغتين العربية والإنجليزية",
+    title: "iMath | أكاديمية حساب ذهني 1:1 أونلاين للأطفال",
     description:
-      "iMath تقدم دروس رياضيات فردية 1:1 للأطفال واليافعين من عمر 5 إلى 18 سنة مع مدرسين معتمدين وخطة تعلم واضحة ومرنة.",
+      "iMath تقدم جلسات حساب ذهني فردية 1:1 للأطفال من عمر 5 إلى 14 سنة بمنهج UCMath المعتمد وباللغتين العربية والإنجليزية.",
     keywords: [
       "iMath",
-      "دروس رياضيات",
-      "رياضيات أونلاين",
-      "حصص فردية",
-      "مدرس رياضيات",
-      "تعليم الرياضيات للأطفال",
+      "الحساب الذهني",
+      "يو سي ماث",
+      "UCMath",
+      "حساب ذهني للأطفال",
+      "أونلاين 1:1",
+      "تعليم الحساب الذهني",
       "دروس بالعربية والإنجليزية",
     ],
   },
   en: {
-    title: "iMath | Personalized 1:1 Math Tutoring for Ages 5-18",
+    title: "iMath | 1:1 Mental Math and UCMath for Ages 5-14",
     description:
-      "iMath delivers personalized bilingual math tutoring with certified tutors, clear parent communication, and flexible 1:1 sessions for ages 5-18.",
+      "iMath delivers bilingual 1:1 Mental Math sessions for ages 5-14 using certified UCMath methodology, clear parent communication, and flexible online scheduling.",
     keywords: [
       "iMath",
-      "math tutoring",
-      "online math classes",
-      "1:1 tutoring",
-      "certified math tutors",
+      "mental math",
+      "UCMath",
+      "online mental math classes",
+      "1:1 mental math tutoring",
+      "certified UCMath tutors",
       "bilingual tutoring",
-      "math support for kids",
+      "mental math for kids",
     ],
   },
 };
@@ -81,8 +83,8 @@ export function getSiteCopy(locale: Locale) {
 
 export function getWhatsAppMessage(locale: Locale) {
   return locale === "ar"
-    ? "مرحبًا iMath، أرغب في معرفة المزيد عن الحصة التجريبية وخطة التعلم المناسبة لطفلي."
-    : "Hello iMath, I would like to learn more about the free trial and the right study plan for my child.";
+    ? "مرحبًا iMath، أرغب في معرفة المزيد عن الحصة التجريبية وبرنامج الحساب الذهني المناسب لطفلي."
+    : "Hello iMath, I would like to learn more about the free trial and the right mental math program for my child.";
 }
 
 export function getWhatsAppUrl(locale: Locale) {

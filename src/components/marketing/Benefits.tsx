@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { Brain, Zap, Target, Award } from "lucide-react";
+import { BookingCtaButton } from '@/components/booking/BookingCtaButton';
 
 export default function Benefits() {
   const t = useTranslations('Marketing.benefits');
@@ -31,10 +32,10 @@ export default function Benefits() {
   ];
 
   return (
-    <section className="py-24 bg-slate-50">
+    <section className="bg-slate-50 py-12 md:py-24">
       <div className="container mx-auto px-4">
-        <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
-          <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">
+        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-20 space-y-4">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-black text-slate-900 tracking-tight">
             {t.rich('title', {
               highlight: (chunks) => <span className="text-brand-violet">{chunks}</span>,
             })}
@@ -48,8 +49,9 @@ export default function Benefits() {
           {benefits.map((benefit, idx) => (
             <div
               key={idx}
-              className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-premium hover:-translate-y-2 transition-all duration-300 group"
+              className={`group rounded-3xl border p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-premium ${idx === 0 ? 'border-brand-violet/20 bg-brand-violet/[0.03] lg:-translate-y-3' : 'border-slate-100 bg-white'}`}
             >
+              <div className="mb-4 text-xs font-black uppercase tracking-[0.18em] text-slate-400">0{idx + 1}</div>
               <div className={`w-14 h-14 ${benefit.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                 <benefit.icon className="w-8 h-8" />
               </div>
@@ -59,6 +61,12 @@ export default function Benefits() {
               </p>
             </div>
           ))}
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <BookingCtaButton source="benefits_cta" className="rounded-full bg-brand-orange px-8 py-4 text-sm font-black text-white shadow-premium transition-all hover:opacity-90">
+            {t('cta')}
+          </BookingCtaButton>
         </div>
       </div>
     </section>
