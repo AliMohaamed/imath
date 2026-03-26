@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { BookingModalProvider } from "@/components/booking/BookingModalProvider";
+import { BookingFlowProvider } from "@/components/booking/BookingFlowProvider";
 import Header from "@/components/marketing/Header";
 import Footer from "@/components/marketing/Footer";
 import WhatsAppFloat from "@/components/marketing/WhatsAppFloat";
@@ -27,7 +27,7 @@ export default async function MarketingLayout({
       initialSelectedCountry={geoState.selectedCountry}
       initialSelectionMode={geoState.selectionMode}
     >
-      <BookingModalProvider>
+      <BookingFlowProvider>
         <div className="min-h-screen flex flex-col relative">
           <Header />
           <main className="flex-grow pt-20">
@@ -36,7 +36,7 @@ export default async function MarketingLayout({
           <Footer />
           <WhatsAppFloat />
         </div>
-      </BookingModalProvider>
+      </BookingFlowProvider>
     </GeoPricingProvider>
   );
 }

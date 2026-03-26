@@ -25,13 +25,13 @@ export default function Hero() {
               <Star className="w-3.5 h-3.5 fill-current" />
               {t('badge')}
             </div>
-            
+
             <h1 className="text-4xl md:text-6xl font-black leading-tight tracking-tight text-slate-900">
               {t.rich('title', {
                 highlight: (chunks) => <span className="text-brand-violet">{chunks}</span>,
               })}
             </h1>
-            
+
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto lg:mx-0">
               {t('description')}
             </p>
@@ -51,51 +51,51 @@ export default function Hero() {
 
             {/* Trust Badges */}
             <div className="flex flex-wrap items-center justify-center gap-4 pt-6 opacity-70 grayscale hover:grayscale-0 transition-all lg:justify-start lg:gap-8">
-                <div className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('trustBadges.certifiedTutors')}</div>
-                <div className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('trustBadges.bilingualSupport')}</div>
-                <div className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('trustBadges.oneToOneSessions')}</div>
-                <a
-                  href={whatsAppUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-xs font-bold uppercase tracking-widest text-brand-orange underline-offset-4 hover:underline"
-                >
-                  {common('contactUs')}
-                </a>
+              <div className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('trustBadges.certifiedTutors')}</div>
+              <div className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('trustBadges.bilingualSupport')}</div>
+              <div className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('trustBadges.oneToOneSessions')}</div>
+              <a
+                href={whatsAppUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs font-bold uppercase tracking-widest text-brand-orange underline-offset-4 hover:underline"
+              >
+                {common('contactUs')}
+              </a>
             </div>
           </div>
 
           {/* Image Container */}
           <div className="relative group animate-in fade-in zoom-in duration-1000 delay-200">
-             <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl border-8 border-white group-hover:scale-[1.02] transition-transform duration-500">
-                <div className="aspect-[4/3] bg-gradient-to-br from-brand-violet/15 via-white to-brand-orange/15 flex items-center justify-center p-8">
-                  <div className="w-full max-w-md rounded-[2rem] border border-white/80 bg-white/85 p-8 shadow-xl backdrop-blur">
-                    <div className="grid grid-cols-[auto_1fr] gap-4 items-center">
-                      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-violet text-2xl font-black text-white">
-                        iM
-                      </div>
-                      <div className="space-y-2">
-                        <div className="h-3 w-24 rounded-full bg-brand-yellow/70" />
-                        <div className="h-3 w-40 rounded-full bg-slate-200" />
-                      </div>
+            <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl border-8 border-white group-hover:scale-[1.02] transition-transform duration-500">
+              <div className="aspect-[4/3] bg-gradient-to-br from-brand-violet/15 via-white to-brand-orange/15 flex items-center justify-center p-8">
+                <div className="w-full max-w-md rounded-[2rem] border border-white/80 bg-white/85 p-8 shadow-xl backdrop-blur">
+                  <div className="grid grid-cols-[auto_1fr] gap-4 items-center">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-violet text-2xl font-black text-white">
+                      iM
                     </div>
-                    <div className="mt-8 space-y-4">
-                      <div className="rounded-2xl bg-slate-100 p-4">
-                        <div className="text-sm font-black text-slate-900">{t('placeholder.cardTitle')}</div>
-                        <div className="mt-2 text-sm text-slate-500">{t('placeholder.cardDescription')}</div>
-                      </div>
-                      <div className="grid grid-cols-3 gap-3">
-                        <div className="h-20 rounded-2xl bg-brand-orange/15" />
-                        <div className="h-20 rounded-2xl bg-brand-violet/15" />
-                        <div className="h-20 rounded-2xl bg-brand-yellow/30" />
-                      </div>
+                    <div className="space-y-2">
+                      <div className="h-3 w-24 rounded-full bg-brand-yellow/70" />
+                      <div className="h-3 w-40 rounded-full bg-slate-200" />
+                    </div>
+                  </div>
+                  <div className="mt-8 space-y-4">
+                    <div className="rounded-2xl bg-slate-100 p-4">
+                      <div className="text-sm font-black text-slate-900">{t('placeholder.cardTitle')}</div>
+                      <div className="mt-2 text-sm text-slate-500">{t('placeholder.cardDescription')}</div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-3">
+                      <div className="h-20 rounded-2xl bg-brand-orange/15" />
+                      <div className="h-20 rounded-2xl bg-brand-violet/15" />
+                      <div className="h-20 rounded-2xl bg-brand-yellow/30" />
                     </div>
                   </div>
                 </div>
-             </div>
-             {/* Decorative Background for Image */}
-             <div className="absolute -top-6 -right-6 w-1/2 h-1/2 bg-brand-yellow/20 rounded-3xl -z-10 animate-pulse" />
-             <div className="absolute -bottom-6 -left-6 w-1/3 h-1/3 bg-brand-orange/20 rounded-full -z-10 blur-2xl" />
+              </div>
+            </div>
+            {/* Decorative Background for Image */}
+            <div className="absolute -top-6 -right-6 w-1/2 h-1/2 bg-brand-yellow/20 rounded-3xl -z-10 animate-pulse" />
+            <div className="absolute -bottom-6 -left-6 w-1/3 h-1/3 bg-brand-orange/20 rounded-full -z-10 blur-2xl" />
           </div>
         </div>
       </div>

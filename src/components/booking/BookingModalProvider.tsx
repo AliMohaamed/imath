@@ -1,5 +1,11 @@
 "use client";
 
+/**
+ * Deprecated backup provider:
+ * The modal-based booking flow is intentionally kept as a fallback while the
+ * section-based multi-step booking experience is active in the UI.
+ * This provider is temporarily unused and should not be deleted yet.
+ */
 import {
   createContext,
   type ReactNode,

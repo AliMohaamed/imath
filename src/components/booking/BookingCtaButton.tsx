@@ -2,7 +2,7 @@
 
 import { ButtonHTMLAttributes } from "react";
 import { useTranslations } from "next-intl";
-import { useBookingModal } from "@/components/booking/BookingModalProvider";
+import { useBookingFlow } from "@/components/booking/BookingFlowProvider";
 
 type BookingCtaButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   source: string;
@@ -15,7 +15,7 @@ export function BookingCtaButton({
   ...props
 }: BookingCtaButtonProps) {
   const t = useTranslations("Common");
-  const { openModal } = useBookingModal();
+  const { startBooking } = useBookingFlow();
 
   return (
     <button
@@ -25,7 +25,7 @@ export function BookingCtaButton({
       onClick={(event) => {
         props.onClick?.(event);
         if (!event.defaultPrevented) {
-          openModal(source);
+          startBooking(source);
         }
       }}
     >

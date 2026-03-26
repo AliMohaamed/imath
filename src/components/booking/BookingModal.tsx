@@ -7,13 +7,18 @@ import { X } from "lucide-react";
 import {
   AGE_OPTIONS,
   bookingFormSchema,
+  buildPreferredSlotValue,
   EXPERIENCE_OPTIONS,
+  formatPreferredSlotValue,
+  getAvailableTimeSlotsForDate,
+  getBookableDateOptions,
   PHONE_COUNTRY_OPTIONS,
-  PREFERRED_SLOT_OPTIONS,
   type BookingFormValues,
 } from "@/lib/booking";
 import { useGeoPricing } from "@/components/pricing/GeoPricingProvider";
 import { trackEvent } from "@/lib/analytics";
+import { DateSelector } from "@/components/booking/DateSelector";
+import { TimeSelector } from "@/components/booking/TimeSelector";
 
 type BookingModalProps = {
   isOpen: boolean;
@@ -46,6 +51,9 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
   const [submissionState, setSubmissionState] = useState<SubmissionState>({ status: "idle" });
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [hasTrackedStart, setHasTrackedStart] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [selectionNow, setSelectionNow] = useState(() => new Date());
   const parentNameInputRef = useRef<HTMLInputElement | null>(null);
 
   const defaultTimezone = useMemo(() => {
@@ -81,7 +89,13 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
   });
 
   const selectedTimezone = watch("timezone");
+  const selectedPreferredSlot = watch("preferredSlots")[0];
   const parentNameRegistration = register("parentName");
+  const dateOptions = useMemo(() => getBookableDateOptions(locale, selectionNow), [locale, selectionNow]);
+  const timeOptions = useMemo(
+    () => (selectedDate ? getAvailableTimeSlotsForDate(selectedDate, locale, selectionNow) : []),
+    [locale, selectedDate, selectionNow]
+  );
 
   useEffect(() => {
     if (!isOpen) {
@@ -104,6 +118,9 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
     setSubmissionState({ status: "idle" });
     setSubmitError(null);
     setHasTrackedStart(false);
+    setSelectedDate(null);
+    setSelectedTime(null);
+    setSelectionNow(new Date());
   }, [defaultTimezone, isOpen, locale, reset, selectedCountry]);
 
   useEffect(() => {
@@ -342,14 +359,55 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
               </Field>
 
               <Field>
-                <span className={labelClassName}>{t("fields.preferredSlots.label")}</span>
-                <div className="grid gap-3 md:grid-cols-2">
-                  {PREFERRED_SLOT_OPTIONS.map((slot) => (
-                    <label key={slot} className="flex cursor-pointer items-start gap-3 rounded-2xl border border-slate-200 p-4 text-sm text-slate-700 transition-colors hover:border-brand-violet/40">
-                      <input type="checkbox" value={slot} className="mt-1" {...register("preferredSlots")} />
-                      <span className="font-medium">{t(`timeSlots.${slot}`)}</span>
-                    </label>
-                  ))}
+                <div className="space-y-4 rounded-[2rem] border border-slate-200 bg-slate-50/70 p-4 md:p-5">
+                  <div className="space-y-1">
+                    <span className={labelClassName}>{t("fields.preferredSlots.label")}</span>
+                    <p className="text-xs leading-relaxed text-slate-500">{t("scheduler.description")}</p>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">{t("scheduler.stepDate")}</div>
+                    <DateSelector
+                      options={dateOptions}
+                      selectedDate={selectedDate}
+                      onSelect={(dateValue) => {
+                        setSelectedDate(dateValue);
+                        setSelectedTime(null);
+                        setValue("preferredSlots", [], { shouldDirty: true, shouldValidate: true });
+                      }}
+                      todayLabel={t("scheduler.today")}
+                    />
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">{t("scheduler.stepTime")}</div>
+                    <TimeSelector
+                      options={timeOptions}
+                      selectedTime={selectedTime}
+                      isDisabled={!selectedDate}
+                      disabledLabel={t("scheduler.selectDateFirst")}
+                      emptyLabel={t("scheduler.noTimesAvailable")}
+                      onSelect={(timeValue) => {
+                        if (!selectedDate) {
+                          return;
+                        }
+
+                        setSelectedTime(timeValue);
+                        setValue(
+                          "preferredSlots",
+                          [buildPreferredSlotValue(selectedDate, timeValue)],
+                          { shouldDirty: true, shouldValidate: true }
+                        );
+                      }}
+                    />
+                  </div>
+
+                  {selectedPreferredSlot ? (
+                    <div className="rounded-2xl bg-white px-4 py-3 text-sm text-slate-600 shadow-sm">
+                      <span className="font-black text-slate-900">{t("scheduler.selectedLabel")} </span>
+                      {formatPreferredSlotValue(selectedPreferredSlot, locale)}
+                    </div>
+                  ) : null}
                 </div>
                 <FieldError message={errors.preferredSlots?.message && t("errors.preferredSlots")} />
               </Field>

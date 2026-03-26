@@ -33,40 +33,6 @@ export default function Pricing() {
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
           <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">{t('title')}</h2>
           <p className="text-lg text-slate-600">{t('description')}</p>
-
-          <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 p-1.5 bg-slate-200/50 rounded-full mt-4">
-              <span className="px-6 py-2 bg-white rounded-full text-xs font-black shadow-sm text-brand-violet">
-                {selectionMode === 'auto'
-                  ? t('detectedLabel', { country: t(`countries.${detectedCountry}`), currency })
-                  : t('overrideLabel', { country: t(`countries.${selectedCountry}`), currency })}
-              </span>
-            </div>
-
-            <div className="mx-auto max-w-sm rounded-3xl border border-slate-200 bg-white p-4 text-left shadow-sm">
-              <label className="mb-2 block text-xs font-black uppercase tracking-wider text-slate-500">
-                {t('selectorLabel')}
-              </label>
-              <select
-                value={selectionMode === 'auto' ? 'auto' : selectedCountry}
-                onChange={(event) => {
-                  const nextValue = event.target.value;
-                  setCountrySelection(nextValue === 'auto' ? 'auto' : nextValue as typeof supportedCountries[number]);
-                }}
-                className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-900 outline-none transition-colors focus:border-brand-violet focus:ring-2 focus:ring-brand-violet/10"
-              >
-                <option value="auto">
-                  {t('autoOption', { country: t(`countries.${detectedCountry}`) })}
-                </option>
-                {supportedCountries.map((countryCode) => (
-                  <option key={countryCode} value={countryCode}>
-                    {t(`countries.${countryCode}`)}
-                  </option>
-                ))}
-              </select>
-              <p className="mt-2 text-xs text-slate-500">{t('manualOverrideHint')}</p>
-            </div>
-          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -111,10 +77,6 @@ export default function Pricing() {
           ))}
         </div>
 
-        <div className="mt-16 text-center text-xs text-slate-400 font-medium flex items-center justify-center gap-2 max-w-lg mx-auto leading-relaxed border p-6 rounded-2xl border-dashed border-slate-200 bg-white">
-          <Info className="w-4 h-4 text-brand-orange shrink-0" />
-          {t('note', { currency })}
-        </div>
       </div>
     </section>
   );

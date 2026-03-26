@@ -7,6 +7,7 @@ import Pricing from "@/components/marketing/Pricing";
 import FAQ from "@/components/marketing/FAQ";
 import Testimonials from "@/components/marketing/Testimonials";
 import TrustSection from "@/components/marketing/TrustSection";
+import { BookingStepperSection } from "@/components/booking/BookingStepperSection";
 import { getSiteUrl, getWhatsAppUrl, SITE_NAME, SITE_PHONE_NUMBER, SITE_EMAIL } from "@/lib/site";
 
 export default async function LandingPage() {
@@ -69,6 +70,7 @@ export default async function LandingPage() {
       <HowItWorks />
       <Testimonials />
       <Pricing />
+      <BookingStepperSection />
       <FAQ />
 
       <section className="py-24 bg-white">

@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
 import { defaultLocale, locales, type Locale } from "@/navigation";
 import { notFound } from "next/navigation";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
@@ -38,6 +37,11 @@ const somarRounded = localFont({
     {
       path: "../../../public/font/SomarRounded-ExtraBold.ttf",
       weight: "800",
+      style: "normal",
+    },
+    {
+      path: "../../../public/font/SomarRounded-ExtraBold.ttf",
+      weight: "900",
       style: "normal",
     },
   ],
@@ -101,8 +105,8 @@ export async function generateMetadata({
       images: [DEFAULT_OG_IMAGE],
     },
     icons: {
-      icon: "/favicon.ico",
-      shortcut: "/favicon.ico",
+      icon: "/logo.png",
+      shortcut: "/logo.png",
       apple: "/logo.png",
     },
   };
@@ -127,15 +131,15 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  // Get current messages
-  const messages = await getMessages();
+  // Load messages directly for the current locale to ensure reliability
+  const messages = (await import(`../../../messages/${locale}.json`)).default;
 
   // Set the text direction based on the locale
   const direction = locale === 'ar' ? 'rtl' : 'ltr';
 
   return (
-    <html lang={locale} dir={direction} className="light" style={{ colorScheme: 'light' }}>
-      <body className={`${somarRounded.variable} font-sans antialiased bg-white text-slate-900`}>
+    <html lang={locale} dir={direction} className={`${somarRounded.variable} font-sans light`} style={{ colorScheme: 'light' }}>
+      <body className="antialiased bg-white text-slate-900">
         <a
           href="#main-content"
           className="sr-only absolute left-4 top-4 z-[200] rounded-full bg-white px-4 py-2 text-sm font-bold text-slate-900 shadow focus:not-sr-only"
@@ -143,7 +147,7 @@ export default async function LocaleLayout({
           {locale === "ar" ? "انتقل إلى المحتوى" : "Skip to content"}
         </a>
         <ConvexClientProvider>
-          <NextIntlClientProvider messages={messages}>
+          <NextIntlClientProvider locale={locale} messages={messages}>
             {children}
           </NextIntlClientProvider>
         </ConvexClientProvider>

@@ -1,5 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/navigation';
+import Image from 'next/image';
+import logo from "../../../public/logo.png";
 
 export default async function Footer() {
   const t = await getTranslations('Marketing.footer');
@@ -11,10 +13,14 @@ export default async function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="md:col-span-2">
-            <Link href="/" className="flex items-center gap-1 text-2xl font-black mb-6">
-              <span className="text-brand-orange">i</span>
-              <span className="text-brand-violet text-3xl">Math</span>
-              <div className="w-2 h-2 rounded-full bg-brand-yellow mb-4" />
+            <Link href="/" className="flex items-center mb-6">
+              <Image 
+                src={logo} 
+                alt="iMath Logo" 
+                width={100} 
+                height={32} 
+                className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
+              />
             </Link>
             <p className="text-muted-foreground text-sm max-w-sm leading-relaxed">
               {t('description')}

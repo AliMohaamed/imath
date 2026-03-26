@@ -15,11 +15,15 @@ import {
 import { routing } from './navigation';
 
 const intlProxy = createMiddleware(routing);
+
 const isProtectedPage = createRouteMatcher([
-  "/(ar|en)/admin",
-  "/(ar|en)/admin/(?!login$)(.*)",
-  "/admin",
-  "/admin/(?!login$)(.*)",
+  "/admin(.*)",
+  "/(ar|en)/admin(.*)",
+]);
+
+const isLoginPage = createRouteMatcher([
+  "/admin/login",
+  "/(ar|en)/admin/login",
 ]);
 
 function applyGeoCookies(request: Request, response: NextResponse) {
@@ -48,7 +52,7 @@ function applyGeoCookies(request: Request, response: NextResponse) {
 }
 
 export default convexAuthNextjsMiddleware(async (request, { convexAuth }) => {
-  if (isProtectedPage(request) && !(await convexAuth.isAuthenticated())) {
+  if (isProtectedPage(request) && !isLoginPage(request) && !(await convexAuth.isAuthenticated())) {
     return applyGeoCookies(request, nextjsMiddlewareRedirect(request, "/"));
   }
 
@@ -57,6 +61,6 @@ export default convexAuthNextjsMiddleware(async (request, { convexAuth }) => {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|fonts).*)'
+    '/((?!api|_next/static|_next/image|favicon.ico|logo.png|font).*)'
   ]
 };

@@ -14,6 +14,7 @@ import {
   type LeadStatus,
 } from "@/lib/leads";
 import { trackEvent } from "@/lib/analytics";
+import { formatPreferredSlotValue } from "@/lib/booking";
 
 type Lead = Doc<"leads">;
 
@@ -303,7 +304,10 @@ function LeadDetailCard({
         <DetailItem label={t("detail.timezone")} value={lead.timezone} />
         <DetailItem label={t("detail.locale")} value={lead.locale.toUpperCase()} />
         <DetailItem label={t("detail.country")} value={`${lead.country ?? "EG"} - ${lead.currency ?? "EGP"}`} />
-        <DetailItem label={t("detail.preferredSlots")} value={lead.preferredSlots.join(", ")} />
+        <DetailItem
+          label={t("detail.preferredSlots")}
+          value={lead.preferredSlots.map((slot) => formatPreferredSlotValue(slot, lead.locale as "ar" | "en")).join(", ")}
+        />
       </div>
 
       <div className="space-y-2">

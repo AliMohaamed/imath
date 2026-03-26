@@ -1,14 +1,18 @@
 "use client";
 
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { BookingCtaButton } from '@/components/booking/BookingCtaButton';
 import { Link, usePathname, useRouter } from '@/navigation';
 import { Globe, Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import { useParams } from 'next/navigation';
+import Image from 'next/image';
+import logo from "../../../public/logo.png";
 
 export default function Header() {
   const t = useTranslations('Common');
-  const locale = useLocale();
+  const params = useParams();
+  const locale = params.locale as string;
   const pathname = usePathname();
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,10 +28,15 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-border shadow-premium">
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-1 text-2xl font-black tracking-tight">
-          <span className="text-brand-orange">i</span>
-          <span className="text-brand-violet text-3xl">Math</span>
-          <div className="w-2 h-2 rounded-full bg-brand-yellow mb-4" />
+        <Link href="/" className="flex items-center">
+          <Image 
+            src={logo} 
+            alt="iMath Logo" 
+            width={120} 
+            height={40} 
+            className="h-10 w-auto"
+            priority
+          />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 font-bold text-sm">

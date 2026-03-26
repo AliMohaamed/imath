@@ -46,8 +46,8 @@ export default function Benefits() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {benefits.map((benefit, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-premium hover:-translate-y-2 transition-all duration-300 group"
             >
               <div className={`w-14 h-14 ${benefit.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>

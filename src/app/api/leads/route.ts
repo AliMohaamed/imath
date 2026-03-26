@@ -3,7 +3,7 @@ import { ConvexHttpClient } from "convex/browser";
 import { makeFunctionReference } from "convex/server";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { bookingFormSchema, formatPhoneNumber } from "@/lib/booking";
+import { bookingFormSchema, formatPhoneNumber, formatPreferredSlotValue } from "@/lib/booking";
 import { getGeoContext } from "@/lib/geo";
 import {
   DETECTED_COUNTRY_COOKIE,
@@ -86,7 +86,7 @@ function formatTelegramMessage(params: {
     `Timezone: ${params.timezone}`,
     `Country: ${params.country} - ${params.currency}`,
     `Locale: ${params.locale.toUpperCase()}`,
-    `Preferred slots: ${params.preferredSlots.join(", ")}`,
+    `Preferred slot: ${params.preferredSlots.map((slot) => formatPreferredSlotValue(slot, params.locale as "ar" | "en")).join(", ")}`,
   ].join("\n");
 }
 

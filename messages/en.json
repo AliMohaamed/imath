@@ -135,8 +135,7 @@
         "sessionsPerWeek": "2 sessions per week",
         "sessionLength": "60 minutes per session",
         "oneToOneFocus": "1:1 focus"
-      },
-      "note": "Prices are shown in {currency}. No online payment is collected on the site; subscriptions are handled entirely offline after the assessment."
+      }
     },
     "faq": {
       "title": "Got Questions?",
@@ -219,7 +218,32 @@
         "label": "Previous math learning experience"
       },
       "preferredSlots": {
-        "label": "Preferred time slots"
+        "label": "Preferred time slot"
+      }
+    },
+    "scheduler": {
+      "description": "Choose one date first, then pick a single one-hour time slot.",
+      "stepDate": "Step 1: Select Date",
+      "stepTime": "Step 2: Select Time",
+      "today": "Today",
+      "selectDateFirst": "Select a date to see available time slots.",
+      "noTimesAvailable": "No time slots are left for that day. Choose another date.",
+      "selectedLabel": "Selected booking:"
+    },
+    "stepper": {
+      "title": "Book Your Free Trial",
+      "description": "Move through four short steps to submit a complete and accurate trial request.",
+      "progress": "Step {current} of {total}",
+      "parentDescription": "Start with the parent or guardian contact details.",
+      "studentDescription": "Tell us a little about the student and their current level.",
+      "reviewDescription": "Review everything before you send the request.",
+      "back": "Back",
+      "next": "Next",
+      "steps": {
+        "parent": "Parent Information",
+        "student": "Student Information",
+        "schedule": "Schedule Selection",
+        "review": "Review & Submit"
       }
     },
     "experience": {
@@ -258,7 +282,7 @@
       "email": "Please enter a valid email address.",
       "phoneNumber": "Please enter a valid phone number.",
       "previousExperience": "Please choose the student's previous experience level.",
-      "preferredSlots": "Please select at least one preferred time slot."
+      "preferredSlots": "Please select a date and one preferred time slot."
     }
   },
   "Admin": {
@@ -363,5 +387,10 @@
         "selectLead": "Select a lead to view the full details."
       }
     }
+  },
+  "NotFound": {
+    "title": "Oops! Incomplete Equation",
+    "description": "It seems the page you're searching for is missing from our database. It might have been moved to a different function or deleted forever.",
+    "goHome": "Back to Home"
   }
 }
