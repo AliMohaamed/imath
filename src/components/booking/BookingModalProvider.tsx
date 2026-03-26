@@ -4,8 +4,6 @@ import {
   createContext,
   type ReactNode,
   useContext,
-  useEffect,
-  useRef,
   useState,
 } from "react";
 import { BookingModal } from "@/components/booking/BookingModal";
@@ -20,38 +18,25 @@ const BookingModalContext = createContext<BookingModalContextValue | null>(null)
 
 export function BookingModalProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
-  const sourceRef = useRef("unknown");
+  const [source, setSource] = useState("unknown");
 
   const openModal = (source: string) => {
-    sourceRef.current = source;
+    setSource(source);
     setIsOpen(true);
     trackEvent("booking_modal_open", { source });
   };
 
   const closeModal = (reason = "dismissed") => {
     setIsOpen(false);
-    trackEvent("booking_modal_close", { source: sourceRef.current, reason });
+    trackEvent("booking_modal_close", { source, reason });
   };
-
-  useEffect(() => {
-    if (!isOpen) {
-      document.body.style.removeProperty("overflow");
-      return;
-    }
-
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.removeProperty("overflow");
-    };
-  }, [isOpen]);
 
   return (
     <BookingModalContext.Provider value={{ openModal, closeModal }}>
       {children}
       <BookingModal
         isOpen={isOpen}
-        source={sourceRef.current}
+        source={source}
         onClose={closeModal}
       />
     </BookingModalContext.Provider>

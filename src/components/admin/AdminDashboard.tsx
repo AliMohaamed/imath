@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
@@ -65,16 +65,14 @@ export function AdminDashboard() {
     return nextLeads;
   }, [countryFilter, leads, sortKey, statusFilter]);
 
-  const selectedLead =
-    filteredLeads.find((lead) => lead._id === selectedLeadId) ??
-    filteredLeads[0] ??
-    null;
+  const effectiveSelectedLeadId =
+    selectedLeadId && filteredLeads.some((lead) => lead._id === selectedLeadId)
+      ? selectedLeadId
+      : filteredLeads[0]?._id ?? null;
 
-  useEffect(() => {
-    if (!selectedLeadId && filteredLeads[0]) {
-      setSelectedLeadId(filteredLeads[0]._id);
-    }
-  }, [filteredLeads, selectedLeadId]);
+  const selectedLead =
+    filteredLeads.find((lead) => lead._id === effectiveSelectedLeadId) ??
+    null;
 
   if (viewer === undefined || leads === undefined || (viewer.isAuthorized && (unreadNotifications === undefined || recentDeliveries === undefined))) {
     return <p className="text-sm text-slate-500">{common("loading")}</p>;

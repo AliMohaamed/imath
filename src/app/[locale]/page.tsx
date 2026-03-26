@@ -1,8 +1,9 @@
 import { cookies } from 'next/headers';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { BookingCtaButton } from '@/components/booking/BookingCtaButton';
 import { BookingModalProvider } from '@/components/booking/BookingModalProvider';
 import { GeoPricingProvider } from '@/components/pricing/GeoPricingProvider';
+import { getWhatsAppUrl } from '@/lib/site';
 import {
   DETECTED_COUNTRY_COOKIE,
   getInitialCountrySelection,
@@ -10,12 +11,15 @@ import {
 } from '@/lib/pricing';
 
 export default async function Home() {
+  const locale = (await getLocale()) as "ar" | "en";
   const t = await getTranslations('Common');
   const cookieStore = await cookies();
   const geoState = getInitialCountrySelection({
     detectedCountry: cookieStore.get(DETECTED_COUNTRY_COOKIE)?.value,
     overrideCountry: cookieStore.get(OVERRIDE_COUNTRY_COOKIE)?.value,
   });
+
+  const whatsAppUrl = getWhatsAppUrl(locale);
 
   return (
     <GeoPricingProvider
@@ -24,7 +28,7 @@ export default async function Home() {
       initialSelectionMode={geoState.selectionMode}
     >
       <BookingModalProvider>
-        <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-background">
+        <main id="main-content" className="flex min-h-screen flex-col items-center justify-center p-24 bg-background">
           <div className="text-center space-y-6">
             <h1 className="text-6xl font-black text-primary tracking-tight">
               {t('title')}
@@ -36,9 +40,14 @@ export default async function Home() {
               <BookingCtaButton source="locale_home" className="px-8 py-3 bg-primary text-primary-foreground rounded-full font-bold hover:opacity-90 transition-opacity">
                 {t('bookFreeTrial')}
               </BookingCtaButton>
-              <button className="px-8 py-3 bg-secondary text-secondary-foreground rounded-full font-bold hover:opacity-90 transition-opacity">
+              <a
+                href={whatsAppUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="px-8 py-3 bg-secondary text-secondary-foreground rounded-full font-bold hover:opacity-90 transition-opacity"
+              >
                 {t('contactUs')}
-              </button>
+              </a>
             </div>
           </div>
         </main>

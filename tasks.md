@@ -206,19 +206,19 @@
 
 ### Tasks
 
-- [ ] Finalize Arabic and English marketing copy in the approved professional tone.
-- [ ] Review all Arabic content for clean "White Arabic" phrasing with no country-specific slang.
-- [ ] Verify trust signals are prominent above the fold and across the funnel.
+- [X] Finalize Arabic and English marketing copy in the approved professional tone.
+- [X] Review all Arabic content for clean "White Arabic" phrasing with no country-specific slang.
+- [X] Verify trust signals are prominent above the fold and across the funnel.
 - [ ] Test all landing page sections and modal flows on common mobile breakpoints.
 - [ ] Test RTL and LTR layout behavior across all user-facing and admin interfaces.
-- [ ] Validate form accessibility, touch targets, keyboard behavior, and readable error messaging.
+- [X] Validate form accessibility, touch targets, keyboard behavior, and readable error messaging.
 - [ ] Run performance optimization work for:
   - LCP under 1.5 seconds
   - CLS under 0.1
   - strong responsiveness / INP
   - 90+ PageSpeed scores on mobile and desktop
-- [ ] Optimize images, fonts, bundles, and above-the-fold rendering.
-- [ ] Add SEO fundamentals for the landing page, including metadata, structured content hierarchy, and share previews.
+- [X] Optimize images, fonts, bundles, and above-the-fold rendering.
+- [X] Add SEO fundamentals for the landing page, including metadata, structured content hierarchy, and share previews.
 - [ ] Verify production behavior on Vercel, including middleware geolocation, localized metadata, and environment variable wiring.
 - [ ] Validate the full end-to-end funnel:
   - Visit page
@@ -227,7 +227,7 @@
   - Submit lead
   - Receive Telegram alert
   - View and update lead in dashboard
-- [ ] Prepare production deployment configuration and environment variables.
+- [X] Prepare production deployment configuration and environment variables.
 - [ ] Complete pre-launch smoke testing and sign-off.
 
 ### Done Criteria

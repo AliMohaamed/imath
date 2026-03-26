@@ -18,7 +18,7 @@
     "hero": {
       "badge": "Trusted by 500+ Parents",
       "title": "Build Your Child's <highlight>Math Confidence</highlight> with 1:1 Focus",
-      "description": "Personalized mathematics tutoring for ages 5-18. We make math easy, fun, and results-driven for your excellence.",
+      "description": "Personalized mathematics tutoring for ages 5-18. We turn uncertainty into confidence through structured, bilingual 1:1 sessions.",
       "trustBadges": {
         "certifiedTutors": "Certified Tutors",
         "bilingualSupport": "Bilingual Support",
@@ -113,7 +113,7 @@
     },
     "pricing": {
       "title": "Flexible Learning Plans",
-      "description": "Invest in your child's future with our results-driven packages.",
+      "description": "Choose the plan that fits your family's schedule, goals, and location.",
       "mostPopular": "Most Popular",
       "packageLabel": "{months, plural, one {# Month Package} other {# Months Package}}",
       "priceLabel": "{currency} {price}",
@@ -168,7 +168,7 @@
     },
     "finalCta": {
       "title": "Ready to Transform Your Child's <highlight>Future?</highlight>",
-      "description": "Book your free assessment session today and see the iMath difference for yourself. No obligations.",
+      "description": "Book a free assessment today and let our team recommend the right starting point for your child.",
       "badge": "Trusted by 500+ Families Worldwide"
     },
     "footer": {

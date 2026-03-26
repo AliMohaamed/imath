@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useEffect, useMemo, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocale, useTranslations } from "next-intl";
 import { X } from "lucide-react";
@@ -46,6 +46,7 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
   const [submissionState, setSubmissionState] = useState<SubmissionState>({ status: "idle" });
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [hasTrackedStart, setHasTrackedStart] = useState(false);
+  const parentNameInputRef = useRef<HTMLInputElement | null>(null);
 
   const defaultTimezone = useMemo(() => {
     if (typeof Intl === "undefined") {
@@ -80,6 +81,7 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
   });
 
   const selectedTimezone = watch("timezone");
+  const parentNameRegistration = register("parentName");
 
   useEffect(() => {
     if (!isOpen) {
@@ -102,7 +104,7 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
     setSubmissionState({ status: "idle" });
     setSubmitError(null);
     setHasTrackedStart(false);
-  }, [defaultTimezone, isOpen, locale, reset]);
+  }, [defaultTimezone, isOpen, locale, reset, selectedCountry]);
 
   useEffect(() => {
     setValue("countryCode", selectedCountry);
@@ -113,6 +115,11 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
       return;
     }
 
+    const previousOverflow = document.body.style.overflow;
+    const activeElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    document.body.style.overflow = "hidden";
+    window.setTimeout(() => parentNameInputRef.current?.focus(), 0);
+
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         onClose("escape");
@@ -120,7 +127,11 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
     };
 
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      activeElement?.focus();
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [isOpen, onClose]);
 
   if (!isOpen) {
@@ -206,6 +217,10 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
       onClick={() => onClose("backdrop")}
     >
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="booking-modal-title"
+        aria-describedby="booking-modal-description"
         className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-[2rem] bg-white p-6 shadow-2xl md:p-8"
         onClick={(event) => event.stopPropagation()}
       >
@@ -228,7 +243,7 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
               <p className="mx-auto max-w-xl text-base leading-relaxed text-slate-600">{t("success.description")}</p>
               <p className="text-sm font-bold text-brand-orange">{t("success.nextStep")}</p>
             </div>
-            <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4 text-xs text-slate-500">
+            <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4 text-xs text-slate-500" aria-live="polite">
               {t("success.reference", { leadId: submissionState.leadId })}
             </div>
             <button
@@ -245,8 +260,8 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
               <div className="inline-flex rounded-full bg-brand-violet/10 px-4 py-2 text-xs font-black uppercase tracking-wider text-brand-violet">
                 {t("eyebrow")}
               </div>
-              <h2 className="text-3xl font-black tracking-tight text-slate-900 md:text-4xl">{t("title")}</h2>
-              <p className="max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">{t("description")}</p>
+              <h2 id="booking-modal-title" className="text-3xl font-black tracking-tight text-slate-900 md:text-4xl">{t("title")}</h2>
+              <p id="booking-modal-description" className="max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base">{t("description")}</p>
             </div>
 
             <form className="space-y-6" onSubmit={onSubmit} onFocusCapture={onFormStart}>
@@ -257,13 +272,23 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
               <div className="grid gap-4 md:grid-cols-2">
                 <Field>
                   <label className={labelClassName} htmlFor="parentName">{t("fields.parentName.label")}</label>
-                  <input id="parentName" className={inputClassName} {...register("parentName")} placeholder={t("fields.parentName.placeholder")} />
+                  <input
+                    id="parentName"
+                    className={inputClassName}
+                    placeholder={t("fields.parentName.placeholder")}
+                    aria-invalid={Boolean(errors.parentName)}
+                    {...parentNameRegistration}
+                    ref={(element) => {
+                      parentNameRegistration.ref(element);
+                      parentNameInputRef.current = element;
+                    }}
+                  />
                   <FieldError message={errors.parentName?.message && t("errors.parentName")} />
                 </Field>
 
                 <Field>
                   <label className={labelClassName} htmlFor="studentName">{t("fields.studentName.label")}</label>
-                  <input id="studentName" className={inputClassName} {...register("studentName")} placeholder={t("fields.studentName.placeholder")} />
+                  <input id="studentName" className={inputClassName} {...register("studentName")} placeholder={t("fields.studentName.placeholder")} aria-invalid={Boolean(errors.studentName)} />
                   <FieldError message={errors.studentName?.message && t("errors.studentName")} />
                 </Field>
               </div>
@@ -290,7 +315,7 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
                         </option>
                       ))}
                     </select>
-                    <input id="phoneNumber" className={inputClassName} {...register("phoneNumber")} placeholder={t("fields.phone.placeholder")} />
+                    <input id="phoneNumber" className={inputClassName} {...register("phoneNumber")} placeholder={t("fields.phone.placeholder")} aria-invalid={Boolean(errors.phoneNumber)} />
                   </div>
                   <FieldError message={(errors.phoneCountryCode?.message || errors.phoneNumber?.message) && t("errors.phoneNumber")} />
                 </Field>
@@ -298,7 +323,7 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
 
               <Field>
                 <label className={labelClassName} htmlFor="email">{t("fields.email.label")}</label>
-                <input id="email" className={inputClassName} {...register("email")} placeholder={t("fields.email.placeholder")} />
+                <input id="email" className={inputClassName} {...register("email")} placeholder={t("fields.email.placeholder")} aria-invalid={Boolean(errors.email)} />
                 <FieldHint>{t("fields.email.hint")}</FieldHint>
                 <FieldError message={errors.email?.message && t("errors.email")} />
               </Field>
@@ -337,7 +362,7 @@ export function BookingModal({ isOpen, source, onClose }: BookingModalProps) {
 
               <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
                 <div className="font-black text-slate-900">{t("pricingContext.label")}</div>
-                <div className="mt-1">{pricingT(`countries.${selectedCountry}`)} · {currency}</div>
+                <div className="mt-1">{pricingT(`countries.${selectedCountry}`)} - {currency}</div>
                 <div className="mt-2 text-xs text-slate-500">{t("pricingContext.hint")}</div>
               </div>
 
@@ -374,7 +399,7 @@ function FieldError({ message }: { message?: string | false }) {
     return null;
   }
 
-  return <p className="text-sm font-medium text-red-600">{message}</p>;
+  return <p className="text-sm font-medium text-red-600" role="alert">{message}</p>;
 }
 
 function FieldHint({ children }: { children: ReactNode }) {

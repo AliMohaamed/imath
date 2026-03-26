@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { BookingCtaButton } from "@/components/booking/BookingCtaButton";
 import Hero from "@/components/marketing/Hero";
 import Benefits from "@/components/marketing/Benefits";
@@ -7,13 +7,62 @@ import Pricing from "@/components/marketing/Pricing";
 import FAQ from "@/components/marketing/FAQ";
 import Testimonials from "@/components/marketing/Testimonials";
 import TrustSection from "@/components/marketing/TrustSection";
+import { getSiteUrl, getWhatsAppUrl, SITE_NAME, SITE_PHONE_NUMBER, SITE_EMAIL } from "@/lib/site";
 
 export default async function LandingPage() {
+  const locale = (await getLocale()) as "ar" | "en";
   const t = await getTranslations('Marketing.finalCta');
   const common = await getTranslations('Common');
+  const faqT = await getTranslations("Marketing.faq");
+  const siteUrl = getSiteUrl();
+  const whatsAppUrl = getWhatsAppUrl(locale);
+
+  const faqItems = [
+    "ages",
+    "format",
+    "progress",
+    "schedule",
+    "languages",
+  ] as const;
+
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    name: SITE_NAME,
+    url: siteUrl.toString(),
+    email: SITE_EMAIL,
+    telephone: SITE_PHONE_NUMBER,
+    availableLanguage: ["ar", "en"],
+    areaServed: ["EG", "SA", "KW", "AE", "QA"],
+    description: locale === "ar"
+      ? "أكاديمية iMath تقدم دروس رياضيات فردية باللغتين العربية والإنجليزية للأطفال واليافعين."
+      : "iMath provides bilingual 1:1 mathematics tutoring for children and teenagers.",
+  };
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: locale,
+    mainEntity: faqItems.map((key) => ({
+      "@type": "Question",
+      name: faqT(`items.${key}.question`),
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faqT(`items.${key}.answer`),
+      },
+    })),
+  };
 
   return (
     <div className="flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Hero />
       <Benefits />
       <TrustSection />
@@ -41,9 +90,14 @@ export default async function LandingPage() {
                 <BookingCtaButton source="final_cta_primary" className="px-12 py-5 bg-brand-orange text-white rounded-full font-black text-xl hover:bg-white hover:text-brand-orange transition-all shadow-premium hover:scale-105 active:scale-95">
                   {common('bookFreeTrial')}
                 </BookingCtaButton>
-                <button className="px-12 py-5 border-2 border-white/20 text-white rounded-full font-black text-xl hover:bg-white/10 transition-all active:scale-95">
+                <a
+                  href={whatsAppUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-12 py-5 border-2 border-white/20 text-white rounded-full font-black text-xl hover:bg-white/10 transition-all active:scale-95"
+                >
                   {common('contactUs')}
-                </button>
+                </a>
               </div>
               <div className="pt-8 text-sm font-black uppercase tracking-widest text-white/40">
                 {t('badge')}

@@ -17,6 +17,9 @@ export default function Header() {
     const nextLocale = locale === 'ar' ? 'en' : 'ar';
     router.replace(pathname, { locale: nextLocale });
   };
+  const menuAriaLabel = isMenuOpen
+    ? locale === "ar" ? "إغلاق قائمة التنقل" : "Close navigation menu"
+    : locale === "ar" ? "فتح قائمة التنقل" : "Open navigation menu";
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-border shadow-premium">
@@ -39,6 +42,7 @@ export default function Header() {
             onClick={toggleLocale}
             className="p-2 rounded-full hover:bg-muted flex items-center gap-2 text-xs font-bold transition-colors"
             title={locale === 'ar' ? t('switchToEnglish') : t('switchToArabic')}
+            aria-label={locale === 'ar' ? t('switchToEnglish') : t('switchToArabic')}
           >
             <Globe className="w-4 h-4" />
             <span className="uppercase">{locale === 'ar' ? 'EN' : 'AR'}</span>
@@ -51,6 +55,9 @@ export default function Header() {
           <button
             className="md:hidden p-2 rounded-full hover:bg-muted"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-nav"
+            aria-label={menuAriaLabel}
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -58,7 +65,7 @@ export default function Header() {
       </div>
 
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-b p-4 space-y-4 font-bold flex flex-col items-center">
+        <div id="mobile-nav" className="md:hidden bg-white border-b p-4 space-y-4 font-bold flex flex-col items-center">
           <Link href="#why-imath" onClick={() => setIsMenuOpen(false)}>{t('sections.whyImath')}</Link>
           <Link href="#how-it-works" onClick={() => setIsMenuOpen(false)}>{t('sections.howItWorks')}</Link>
           <Link href="#pricing" onClick={() => setIsMenuOpen(false)}>{t('sections.pricing')}</Link>

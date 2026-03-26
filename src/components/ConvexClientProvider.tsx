@@ -20,7 +20,7 @@ export function ConvexClientProvider({ children }: { children: ReactNode }) {
           <h3 className="text-lg font-bold text-red-900">Convex Configuration Missing</h3>
           <p className="text-sm text-red-700 max-w-md">
             The environment variable <code>NEXT_PUBLIC_CONVEX_URL</code> is not defined. 
-            This usually means you haven't run <code>npx convex dev</code> yet.
+            This usually means you haven&apos;t run <code>npx convex dev</code> yet.
           </p>
         </div>
         <div className="flex flex-col gap-2 w-full max-w-xs">
