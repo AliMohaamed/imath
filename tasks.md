@@ -48,34 +48,34 @@
 
 ### Tasks
 
-- [ ] Create the landing page as an App Router route with section-based navigation and smooth scrolling.
-- [ ] Build the hero section with a strong parent-focused headline, trust-building subcopy, and primary CTAs.
-- [ ] Add the benefits/outcomes section covering focus, speed, confidence, and academic excellence.
-- [ ] Build the "Why iMath" value proposition section emphasizing:
+- [X] Create the landing page as an App Router route with section-based navigation and smooth scrolling.
+- [X] Build the hero section with a strong parent-focused headline, trust-building subcopy, and primary CTAs.
+- [X] Add the benefits/outcomes section covering focus, speed, confidence, and academic excellence.
+- [X] Build the "Why iMath" value proposition section emphasizing:
   - 1:1 personalized sessions
   - Certified tutors
   - Parent trust and professionalism
-- [ ] Create the "How it Works" 3-step journey:
+- [X] Create the "How it Works" 3-step journey:
   - Book a trial
   - Attend the assessment
   - Start the customized journey
-- [ ] Add a testimonials section with clean, text-based parent reviews.
-- [ ] Build the pricing section shell that can later render geo-personalized plans.
-- [ ] Add an FAQ accordion addressing common objections and questions.
-- [ ] Build a simple footer with contact details, copyright, and essential links.
-- [ ] Add a persistent mobile WhatsApp CTA that stays visible without blocking important UI.
-- [ ] Ensure CTA placement is repeated strategically across the page for conversion.
-- [ ] Use Next.js primitives appropriately:
+- [X] Add a testimonials section with clean, text-based parent reviews.
+- [X] Build the pricing section shell that can later render geo-personalized plans.
+- [X] Add an FAQ accordion addressing common objections and questions.
+- [X] Build a simple footer with contact details, copyright, and essential links.
+- [X] Add a persistent mobile WhatsApp CTA that stays visible without blocking important UI.
+- [X] Ensure CTA placement is repeated strategically across the page for conversion.
+- [X] Use Next.js primitives appropriately:
   - `next/image` for optimized images
   - `next/font` for controlled font loading
   - route metadata for SEO and social sharing
-- [ ] Make sure above-the-fold content is optimized for fast initial render in Arabic-first mobile conditions.
+- [X] Make sure above-the-fold content is optimized for fast initial render in Arabic-first mobile conditions.
 
 ### Done Criteria
 
-- [ ] The full landing page is responsive and optimized for mobile-first browsing.
-- [ ] Both Arabic and English content render cleanly without layout issues.
-- [ ] CTAs are visible in hero, mid-page, pricing, and final conversion points.
+- [X] The full landing page is responsive and optimized for mobile-first browsing.
+- [X] Both Arabic and English content render cleanly without layout issues.
+- [X] CTAs are visible in hero, mid-page, pricing, and final conversion points.
 
 ## Milestone 3: Booking Modal & Lead Capture Flow
 

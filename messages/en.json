@@ -2,6 +2,191 @@
   "Common": {
     "title": "iMath",
     "bookFreeTrial": "Book Free Trial",
-    "contactUs": "Contact Us"
+    "contactUs": "Contact Us",
+    "learnMore": "Learn More",
+    "switchToEnglish": "Switch to English",
+    "switchToArabic": "Switch to Arabic",
+    "sections": {
+      "whyImath": "Why iMath",
+      "howItWorks": "How It Works",
+      "pricing": "Pricing",
+      "faq": "FAQ",
+      "testimonials": "Parent Stories"
+    }
+  },
+  "Marketing": {
+    "hero": {
+      "badge": "Trusted by 500+ Parents",
+      "title": "Build Your Child's <highlight>Math Confidence</highlight> with 1:1 Focus",
+      "description": "Personalized mathematics tutoring for ages 5-18. We make math easy, fun, and results-driven for your excellence.",
+      "trustBadges": {
+        "certifiedTutors": "Certified Tutors",
+        "bilingualSupport": "Bilingual Support",
+        "oneToOneSessions": "1:1 Sessions"
+      },
+      "placeholder": {
+        "cardTitle": "Personalized 1:1 Math Sessions",
+        "cardDescription": "A temporary hero placeholder while the final student image is being prepared."
+      }
+    },
+    "benefits": {
+      "title": "Why Parents <highlight>Trust</highlight> iMath",
+      "description": "We provide more than just tutoring; we provide an environment where children thrive and fall in love with mathematics.",
+      "items": {
+        "focus": {
+          "title": "1:1 Focused Learning",
+          "description": "Every session is tailored to your child's unique pace and style. No distractions, just progress."
+        },
+        "progress": {
+          "title": "Accelerated Progress",
+          "description": "Our methodology helps students bridge gaps and move ahead of their school curriculum quickly."
+        },
+        "confidence": {
+          "title": "Built-In Confidence",
+          "description": "We don't just teach math; we build a problem-solving mindset that lasts a lifetime."
+        },
+        "excellence": {
+          "title": "Certified Excellence",
+          "description": "All our tutors are rigorously vetted and certified mathematically and pedagogically."
+        }
+      }
+    },
+    "trustSection": {
+      "focus": {
+        "title": "1:1 Focus Only",
+        "description": "No distractions. No groups. Just one teacher, one student, and maximum results."
+      },
+      "tutors": {
+        "title": "Certified Tutors",
+        "description": "Experts in bilingual math education, vetted for pedagogical excellence and parent trust."
+      },
+      "stats": {
+        "totalStudents": "Total Students",
+        "parentSatisfaction": "Parent Satisfaction"
+      },
+      "eyebrow": "Value Proposition",
+      "title": "More than a Lesson, A <highlight>Transformation.</highlight>",
+      "description": "At iMath, we don't just deliver content; we deliver results. We believe that every child can master mathematics given the right environment, the right mentor, and the absolute focus they deserve.",
+      "quote": {
+        "text": "The confidence my son gained in his first month at iMath was astounding. He doesn't just solve problems; he explains them back to me with pride.",
+        "author": "Mother of Grade 5 Student"
+      }
+    },
+    "howItWorks": {
+      "title": "Your Child's Journey",
+      "description": "Three simple steps to transform math anxiety into confidence.",
+      "steps": {
+        "bookTrial": {
+          "title": "Book a Free Trial",
+          "description": "Quick 2-minute booking to get started on your child's journey."
+        },
+        "assessment": {
+          "title": "Initial Assessment",
+          "description": "We determine the student's unique level and learning style."
+        },
+        "startLearning": {
+          "title": "Start Learning",
+          "description": "Weekly 1:1 sessions tailored for peak academic excellence."
+        }
+      }
+    },
+    "testimonials": {
+      "title": "Parent Stories",
+      "description": "Actual feedback from our growing iMath family.",
+      "items": {
+        "amira": {
+          "name": "Mrs. Amira H.",
+          "role": "Mother of 10-year-old",
+          "content": "iMath has completely transformed my daughter's relationship with mathematics. She no longer fears the subject; she actually looks forward to her sessions!"
+        },
+        "omar": {
+          "name": "Mr. Omar F.",
+          "role": "Father of a high school student",
+          "content": "High-quality, professional, and results-oriented. The 1:1 focus is a game-changer compared to regular group tutoring. Truly recommended."
+        },
+        "sarah": {
+          "name": "Mrs. Sarah L.",
+          "role": "Mother of 8-year-old",
+          "content": "Excellent certified tutors who know how to engage children. My son's school grades improved by 30% in just two months. A great investment."
+        }
+      }
+    },
+    "pricing": {
+      "title": "Flexible Learning Plans",
+      "description": "Invest in your child's future with our results-driven packages.",
+      "currencySupport": "ALL CURRENCIES SUPPORTED",
+      "mostPopular": "Most Popular",
+      "packageLabel": "{months, plural, one {# Month Package} other {# Months Package}}",
+      "priceLabel": "EGP {price}",
+      "features": {
+        "sessionsPerMonth": "8 sessions per month",
+        "sessionsPerWeek": "2 sessions per week",
+        "sessionLength": "60 minutes per session",
+        "oneToOneFocus": "1:1 focus",
+        "certifiedTutors": "Certified tutors",
+        "progressReports": "Monthly progress reports"
+      },
+      "plans": {
+        "threeMonths": {
+          "savings": "15% OFF"
+        },
+        "sixMonths": {
+          "savings": "25% OFF"
+        },
+        "twelveMonths": {
+          "savings": "35% OFF"
+        }
+      },
+      "note": "Note: Final prices may vary based on your location. Our platform auto-detects your currency for a seamless experience. Manual override is available."
+    },
+    "faq": {
+      "title": "Got Questions?",
+      "description": "Everything you need to know about starting your iMath journey.",
+      "ctaTitle": "Still have questions?",
+      "ctaButton": "Chat with an Advisor",
+      "items": {
+        "ages": {
+          "question": "What ages do you support?",
+          "answer": "We cater to students aged 5-18, from early childhood foundation to high school mathematics excellence."
+        },
+        "format": {
+          "question": "Are the sessions 1:1 or in groups?",
+          "answer": "All iMath sessions are strictly 1:1. We believe personalized focus is the key to mastering mathematics."
+        },
+        "progress": {
+          "question": "How can I track my child's progress?",
+          "answer": "You'll receive a detailed monthly assessment report covering the student's progress, strengths, and goals for the next month."
+        },
+        "schedule": {
+          "question": "Can we change our schedule?",
+          "answer": "Yes, we offer flexible rescheduling options via our WhatsApp support team to accommodate your busy family life."
+        },
+        "languages": {
+          "question": "Which languages are supported?",
+          "answer": "Tutoring is available in both Arabic and English. We help students master math in the language they use at school."
+        }
+      }
+    },
+    "finalCta": {
+      "title": "Ready to Transform Your Child's <highlight>Future?</highlight>",
+      "description": "Book your free assessment session today and see the iMath difference for yourself. No obligations.",
+      "badge": "Trusted by 500+ Families Worldwide"
+    },
+    "footer": {
+      "description": "Empowering the next generation of problem solvers through personalized, bilingual mathematics tutoring. Certified excellence for students aged 5-18.",
+      "academy": "Academy",
+      "contact": "Contact",
+      "email": "Email: hello@imath.com",
+      "whatsapp": "WhatsApp: +20 123 456 789",
+      "instagram": "Follow us on Instagram",
+      "copyright": "© {year} iMath Academy. All rights reserved.",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service"
+    },
+    "whatsApp": {
+      "defaultMessage": "Hello iMath, I'm interested in a free trial!",
+      "ariaLabel": "Contact us on WhatsApp",
+      "label": "Chat with us"
+    }
   }
 }

@@ -8,7 +8,38 @@ import { ConvexClientProvider } from "@/components/ConvexClientProvider";
 import "@/app/globals.css";
 
 const somarRounded = localFont({
-  src: "../../../public/fonts/SomarRounded.ttf", // Adjust path based on placement
+  src: [
+    {
+      path: "../../../public/font/SomarRounded-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../../public/font/SomarRounded-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../../public/font/SomarRounded-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../../public/font/SomarRounded-SemiBold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../../public/font/SomarRounded-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../../public/font/SomarRounded-ExtraBold.ttf",
+      weight: "800",
+      style: "normal",
+    },
+  ],
   variable: "--font-somar",
   display: 'swap',
 });
@@ -23,7 +54,7 @@ export default async function LocaleLayout({
   params
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
