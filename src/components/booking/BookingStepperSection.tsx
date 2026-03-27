@@ -499,7 +499,7 @@ function isParentStepValid(parentName: string, phoneCountryCode: string, phoneNu
 }
 
 function isStudentStepValid(studentName: string, studentAge: number, previousExperience: string) {
-  return studentName.trim().length >= 2 && studentAge >= 5 && studentAge <= 14 && Boolean(previousExperience);
+  return studentName.trim().length >= 2 && studentAge >= 4 && studentAge <= 18 && Boolean(previousExperience);
 }
 
 function StepHeader({ title, description }: { title: string; description: string }) {

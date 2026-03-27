@@ -46,8 +46,8 @@ export default async function LandingPage({
     areaServed: ["EG", "SA", "KW", "AE", "QA"],
     description:
       locale === "ar"
-        ? "أكاديمية iMath تقدم جلسات حساب ذهني فردية 1:1 أونلاين للأطفال من عمر 5 إلى 14 سنة عبر منهج UCMath المعتمد."
-        : "iMath provides bilingual 1:1 Mental Math sessions for children ages 5-14 through the certified UCMath methodology.",
+        ? "أكاديمية iMath تقدم جلسات حساب ذهني فردية 1:1 أونلاين للأطفال من عمر 4 إلى 18 سنة عبر منهج UCMath المعتمد."
+        : "iMath provides bilingual 1:1 Mental Math sessions for children ages 4-18 through the certified UCMath methodology.",
   };
 
   const faqJsonLd = {

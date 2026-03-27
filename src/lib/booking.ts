@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const AGE_OPTIONS = Array.from({ length: 10 }, (_, index) => index + 5);
+export const AGE_OPTIONS = Array.from({ length: 15 }, (_, index) => index + 4);
 
 export const PHONE_COUNTRY_OPTIONS = [
   { value: "+20", country: "EG" },
@@ -21,7 +21,7 @@ export const SAME_DAY_MINIMUM_NOTICE_HOURS = 2;
 export const bookingFormSchema = z.object({
   parentName: z.string().trim().min(2).max(80),
   studentName: z.string().trim().min(2).max(80),
-  studentAge: z.coerce.number().int().min(5).max(14),
+  studentAge: z.coerce.number().int().min(4).max(18),
   phoneCountryCode: z.string().trim().regex(/^\+\d{1,4}$/),
   phoneNumber: z.string().trim().min(6).max(20).regex(/^[0-9()\-\s]+$/),
   email: z.union([z.literal(""), z.string().trim().email().max(120)]).optional(),

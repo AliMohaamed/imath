@@ -10,7 +10,7 @@ const SITE_COPY: Record<Locale, SiteCopy> = {
   ar: {
     title: "iMath | أكاديمية حساب ذهني 1:1 أونلاين للأطفال",
     description:
-      "iMath تقدم جلسات حساب ذهني فردية 1:1 للأطفال من عمر 5 إلى 14 سنة بمنهج UCMath المعتمد وباللغتين العربية والإنجليزية.",
+      "iMath تقدم جلسات حساب ذهني فردية 1:1 للأطفال من عمر 4 إلى 18 سنة بمنهج UCMath المعتمد وباللغتين العربية والإنجليزية.",
     keywords: [
       "iMath",
       "الحساب الذهني",
@@ -23,9 +23,9 @@ const SITE_COPY: Record<Locale, SiteCopy> = {
     ],
   },
   en: {
-    title: "iMath | 1:1 Mental Math and UCMath for Ages 5-14",
+    title: "iMath | 1:1 Mental Math and UCMath for Ages 4-18",
     description:
-      "iMath delivers bilingual 1:1 Mental Math sessions for ages 5-14 using certified UCMath methodology, clear parent communication, and flexible online scheduling.",
+      "iMath delivers bilingual 1:1 Mental Math sessions for ages 4-18 using certified UCMath methodology, clear parent communication, and flexible online scheduling.",
     keywords: [
       "iMath",
       "mental math",

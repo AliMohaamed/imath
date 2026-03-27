@@ -30,7 +30,7 @@
     "hero": {
       "badge": "The First Online 1:1 Mental Math Academy in the Region",
       "title": "Teach Your Child <highlight>Mental Math</highlight> with 1:1 Focus",
-      "description": "1:1 Mental Math sessions for ages 5-14. We build speed, accuracy, and calculation confidence through the certified UCMath methodology in bilingual online sessions.",
+      "description": "1:1 Mental Math sessions for ages 4-18. We build speed, accuracy, and calculation confidence through the certified UCMath methodology in bilingual online sessions.",
       "trustBadges": {
         "certifiedTutors": "Certified Tutors",
         "bilingualSupport": "Bilingual Support",
@@ -54,7 +54,7 @@
             "label": "method"
           },
           "focus": {
-            "value": "5-14",
+            "value": "4-18",
             "label": "ages"
           }
         }
@@ -226,7 +226,7 @@
       "items": {
         "ages": {
           "question": "What ages do you support?",
-          "answer": "Our core Mental Math program is designed for ages 5-14, where children benefit most from structured number training and concentration building."
+          "answer": "Our core Mental Math program is designed for ages 4-18, where children benefit most from structured number training and concentration building."
         },
         "format": {
           "question": "Are the sessions 1:1 or in groups?",
