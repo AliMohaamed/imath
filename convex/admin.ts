@@ -35,15 +35,32 @@ export const getViewer = query({
       };
     }
 
+    // Try to get email from identity or fetch the user doc
+    let email = identity.email?.toLowerCase();
+    if (!email) {
+      const user = await ctx.db
+        .query("users")
+        .withIndex("by_id", (q) => q.eq("_id", identity.subject as any))
+        .unique();
+      email = user?.email?.toLowerCase();
+    }
+
+    if (!email) {
+      return {
+        isAuthenticated: true,
+        isAuthorized: false,
+        email: "unknown",
+      };
+    }
+
     const allowedEmails = getAllowedAdminEmails();
-    const identityEmail = identity.email?.toLowerCase() ?? null;
     const isAuthorized =
-      allowedEmails.length === 0 ? true : !!identityEmail && allowedEmails.includes(identityEmail);
+      allowedEmails.length === 0 ? true : allowedEmails.includes(email);
 
     return {
       isAuthenticated: true,
       isAuthorized,
-      email: identity.email ?? null,
+      email,
     };
   },
 });

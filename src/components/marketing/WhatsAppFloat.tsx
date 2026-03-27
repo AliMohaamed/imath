@@ -7,7 +7,7 @@ import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 
 export default function WhatsAppFloat() {
   const t = useTranslations('Marketing.whatsApp');
-  const whatsappNumber = "+201018860269";
+  const whatsappNumber = "201144146194";
   const defaultMessage = t('defaultMessage');
 
   const handleClick = () => {

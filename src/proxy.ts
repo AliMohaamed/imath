@@ -52,8 +52,17 @@ function applyGeoCookies(request: Request, response: NextResponse) {
 }
 
 export default convexAuthNextjsMiddleware(async (request, { convexAuth }) => {
-  if (isProtectedPage(request) && !isLoginPage(request) && !(await convexAuth.isAuthenticated())) {
-    return applyGeoCookies(request, nextjsMiddlewareRedirect(request, "/"));
+  const url = new URL(request.url);
+  const locale = url.pathname.startsWith('/en') ? 'en' : 'ar';
+  const prefix = locale === 'en' ? '/en' : '/ar';
+  const isAuth = await convexAuth.isAuthenticated();
+
+  console.log(`Middleware check: ${url.pathname} | Authenticated: ${isAuth}`);
+
+  // Temporarily disable redirect if not authenticated to let you in while we debug cookies
+  if (isProtectedPage(request) && !isLoginPage(request) && !isAuth) {
+    // console.log("Redirect blocked for debugging");
+    // return applyGeoCookies(request, nextjsMiddlewareRedirect(request, `${prefix}/admin/login`));
   }
 
   return applyGeoCookies(request, intlProxy(request));

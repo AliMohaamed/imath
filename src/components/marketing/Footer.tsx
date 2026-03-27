@@ -2,12 +2,18 @@ import { getTranslations } from 'next-intl/server';
 import { Link } from '@/navigation';
 import Image from 'next/image';
 import logo from "../../../public/logo.png";
-import { SITE_EMAIL, SITE_PHONE_NUMBER, SITE_INSTAGRAM_URL } from '@/lib/site';
+import { SITE_EMAIL, SITE_PHONE_NUMBER, SITE_INSTAGRAM_URL, SITE_FACEBOOK_URL, getWhatsAppUrl } from '@/lib/site';
+import { WhatsAppIcon } from '@/components/icons/WhatsAppIcon';
+import { InstagramIcon } from '@/components/icons/InstagramIcon';
+import { FacebookIcon } from '@/components/icons/FacebookIcon';
+import { getLocale } from 'next-intl/server';
 
 export default async function Footer() {
   const t = await getTranslations('Marketing.footer');
   const common = await getTranslations('Common');
+  const locale = await getLocale() as any;
   const currentYear = new Date().getFullYear();
+  const whatsappUrl = getWhatsAppUrl(locale);
 
   return (
     <footer className="bg-slate-50 border-t border-border pt-12 md:pt-16 pb-8">
@@ -42,17 +48,36 @@ export default async function Footer() {
             <ul className="space-y-2 text-sm text-slate-600">
               <li>{t('email', { email: SITE_EMAIL })}</li>
               <li>{t('whatsapp', { phone: SITE_PHONE_NUMBER })}</li>
-              <li>
-                <a 
-                  href={SITE_INSTAGRAM_URL} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="hover:text-brand-violet transition-colors"
-                >
-                  {t('instagram')}
-                </a>
-              </li>
             </ul>
+            <div className="flex items-center gap-4 pt-2">
+              <a 
+                href={whatsappUrl} 
+                target="_blank" 
+                rel="noreferrer" 
+                className="opacity-40 hover:opacity-100 hover:text-brand-violet transition-all duration-300 transform hover:scale-110"
+                aria-label={common('contactViaWhatsApp')}
+              >
+                <WhatsAppIcon size={24} />
+              </a>
+              <a 
+                href={SITE_INSTAGRAM_URL} 
+                target="_blank" 
+                rel="noreferrer" 
+                className="opacity-40 hover:opacity-100 hover:text-brand-violet transition-all duration-300 transform hover:scale-110"
+                aria-label={t('instagram')}
+              >
+                <InstagramIcon size={24} />
+              </a>
+              <a 
+                href={SITE_FACEBOOK_URL} 
+                target="_blank" 
+                rel="noreferrer" 
+                className="opacity-40 hover:opacity-100 hover:text-brand-violet transition-all duration-300 transform hover:scale-110"
+                aria-label={t('facebook')}
+              >
+                <FacebookIcon size={24} />
+              </a>
+            </div>
           </div>
         </div>
 

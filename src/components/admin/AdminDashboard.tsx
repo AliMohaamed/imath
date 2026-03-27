@@ -15,6 +15,7 @@ import {
 } from "@/lib/leads";
 import { trackEvent } from "@/lib/analytics";
 import { formatPreferredSlotValue } from "@/lib/booking";
+import { Link } from "@/navigation";
 
 type Lead = Doc<"leads">;
 
@@ -75,12 +76,24 @@ export function AdminDashboard() {
     filteredLeads.find((lead) => lead._id === effectiveSelectedLeadId) ??
     null;
 
-  if (viewer === undefined || leads === undefined || (viewer.isAuthorized && (unreadNotifications === undefined || recentDeliveries === undefined))) {
+  if (viewer === undefined) {
     return <p className="text-sm text-slate-500">{common("loading")}</p>;
   }
 
   if (!viewer.isAuthenticated) {
-    return <p className="text-sm text-slate-500">{t("states.unauthenticated")}</p>;
+    return (
+      <div className="rounded-3xl border border-slate-200 bg-white p-8 text-center">
+        <h2 className="text-2xl font-black text-slate-900">{t("states.unauthenticated")}</h2>
+        <p className="mt-2 text-sm text-slate-600">Please sign in to access the dashboard.</p>
+        <Link
+          href="/admin/login"
+          locale={common("locale") as "ar" | "en"}
+          className="mt-6 inline-flex rounded-full bg-brand-violet px-6 py-3 text-sm font-black text-white"
+        >
+          {common("login")}
+        </Link>
+      </div>
+    );
   }
 
   if (!viewer.isAuthorized) {
@@ -90,6 +103,10 @@ export function AdminDashboard() {
         <p className="mt-2 leading-relaxed">{t("states.notAuthorizedDescription", { email: viewer.email ?? "unknown" })}</p>
       </div>
     );
+  }
+
+  if (leads === undefined || unreadNotifications === undefined || recentDeliveries === undefined) {
+    return <p className="text-sm text-slate-500">{common("loading")}</p>;
   }
 
   const safeUnreadNotifications = unreadNotifications ?? [];

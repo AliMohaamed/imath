@@ -555,7 +555,7 @@ function SuccessState({ leadId }: { leadId: string }) {
       </div>
       <Button className="bg-brand-orange text-white hover:bg-brand-orange/90" onClick={() => {
         if (typeof window !== "undefined") {
-          window.open("https://wa.me/201018860269", "_blank", "noopener,noreferrer");
+          window.open("https://wa.me/201144146194", "_blank", "noopener,noreferrer");
         }
       }}>
         {common("contactUs")}
