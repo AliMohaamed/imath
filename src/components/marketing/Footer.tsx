@@ -9,9 +9,9 @@ import { FacebookIcon } from '@/components/icons/FacebookIcon';
 import { getLocale } from 'next-intl/server';
 
 export default async function Footer() {
-  const t = await getTranslations('Marketing.footer');
-  const common = await getTranslations('Common');
-  const locale = await getLocale() as any;
+  const locale = (await getLocale()) as any;
+  const t = await getTranslations({ locale, namespace: 'Marketing.footer' });
+  const common = await getTranslations({ locale, namespace: 'Common' });
   const currentYear = new Date().getFullYear();
   const whatsappUrl = getWhatsAppUrl(locale);
 

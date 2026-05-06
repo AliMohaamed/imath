@@ -7,66 +7,74 @@ export const PRICING_CONFIG = {
   EG: {
     currency: "EGP",
     plans: [
-      { months: 1, price: 240, savingsPercent: 0, isPopular: false },
-      { months: 3, price: 600, savingsPercent: 15, isPopular: true },
-      { months: 6, price: 1100, savingsPercent: 25, isPopular: false },
-      { months: 12, price: 2000, savingsPercent: 35, isPopular: false },
+      { months: 1, price: 1600, savingsPercent: 0, isPopular: false },
+      { months: 3, price: 4200, savingsPercent: 15, isPopular: true },
+      { months: 6, price: 7500, savingsPercent: 25, isPopular: false },
+      { months: 12, price: 15000, savingsPercent: 35, isPopular: false },
     ],
   },
   SA: {
     currency: "SAR",
     plans: [
-      { months: 1, price: 129, savingsPercent: 0, isPopular: false },
-      { months: 3, price: 329, savingsPercent: 15, isPopular: true },
-      { months: 6, price: 609, savingsPercent: 25, isPopular: false },
-      { months: 12, price: 1149, savingsPercent: 35, isPopular: false },
+      { months: 1, price: 160, savingsPercent: 0, isPopular: false },
+      { months: 3, price: 428, savingsPercent: 15, isPopular: true },
+      { months: 6, price: 800, savingsPercent: 25, isPopular: false },
+      { months: 12, price: 1500, savingsPercent: 35, isPopular: false },
     ],
   },
   KW: {
     currency: "KWD",
     plans: [
-      { months: 1, price: 11, savingsPercent: 0, isPopular: false },
-      { months: 3, price: 28, savingsPercent: 15, isPopular: true },
-      { months: 6, price: 51, savingsPercent: 25, isPopular: false },
-      { months: 12, price: 95, savingsPercent: 35, isPopular: false },
+      { months: 1, price: 15, savingsPercent: 0, isPopular: false },
+      { months: 3, price: 40, savingsPercent: 15, isPopular: true },
+      { months: 6, price: 77, savingsPercent: 25, isPopular: false },
+      { months: 12, price: 149, savingsPercent: 35, isPopular: false },
     ],
   },
   AE: {
     currency: "AED",
     plans: [
-      { months: 1, price: 139, savingsPercent: 0, isPopular: false },
-      { months: 3, price: 355, savingsPercent: 15, isPopular: true },
-      { months: 6, price: 659, savingsPercent: 25, isPopular: false },
-      { months: 12, price: 1239, savingsPercent: 35, isPopular: false },
+      { months: 1, price: 160, savingsPercent: 0, isPopular: false },
+      { months: 3, price: 428, savingsPercent: 15, isPopular: true },
+      { months: 6, price: 800, savingsPercent: 25, isPopular: false },
+      { months: 12, price: 1500, savingsPercent: 35, isPopular: false },
     ],
   },
   QA: {
     currency: "QAR",
     plans: [
-      { months: 1, price: 135, savingsPercent: 0, isPopular: false },
-      { months: 3, price: 345, savingsPercent: 15, isPopular: true },
-      { months: 6, price: 639, savingsPercent: 25, isPopular: false },
-      { months: 12, price: 1199, savingsPercent: 35, isPopular: false },
+      { months: 1, price: 160, savingsPercent: 0, isPopular: false },
+      { months: 3, price: 428, savingsPercent: 15, isPopular: true },
+      { months: 6, price: 800, savingsPercent: 25, isPopular: false },
+      { months: 12, price: 1500, savingsPercent: 35, isPopular: false },
     ],
   },
 } as const;
 
 export type SupportedCountryCode = keyof typeof PRICING_CONFIG;
 
-export const SUPPORTED_COUNTRY_CODES = Object.keys(PRICING_CONFIG) as SupportedCountryCode[];
+export const SUPPORTED_COUNTRY_CODES = Object.keys(
+  PRICING_CONFIG,
+) as SupportedCountryCode[];
 
 export function normalizeCountryCode(countryCode?: string | null) {
   const normalized = countryCode?.trim().toUpperCase();
   return normalized && /^[A-Z]{2}$/.test(normalized) ? normalized : undefined;
 }
 
-export function isSupportedCountryCode(countryCode?: string | null): countryCode is SupportedCountryCode {
+export function isSupportedCountryCode(
+  countryCode?: string | null,
+): countryCode is SupportedCountryCode {
   const normalized = normalizeCountryCode(countryCode);
-  return normalized ? SUPPORTED_COUNTRY_CODES.includes(normalized as SupportedCountryCode) : false;
+  return normalized
+    ? SUPPORTED_COUNTRY_CODES.includes(normalized as SupportedCountryCode)
+    : false;
 }
 
 export function resolveSupportedCountryCode(countryCode?: string | null) {
-  return isSupportedCountryCode(countryCode) ? countryCode : DEFAULT_COUNTRY_CODE;
+  return isSupportedCountryCode(countryCode)
+    ? countryCode
+    : DEFAULT_COUNTRY_CODE;
 }
 
 export function getPricingForCountry(countryCode?: string | null) {

@@ -32,7 +32,7 @@ export default function Benefits() {
   ];
 
   return (
-    <section className="bg-slate-50 py-12 md:py-24">
+    <section id="why-imath" className="scroll-mt-28 bg-slate-50 py-12 md:py-24">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-20 space-y-4">
           <h2 className="text-2xl sm:text-3xl md:text-5xl font-black text-slate-900 tracking-tight">

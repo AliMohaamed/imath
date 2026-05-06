@@ -31,7 +31,7 @@ export default async function MarketingLayout({
       <BookingFlowProvider>
         <div className="min-h-screen flex flex-col relative">
           <Header />
-          <main className="flex-grow pt-20">
+          <main className="flex-grow pt-20 animate-fade-in">
             {children}
           </main>
           <Footer />

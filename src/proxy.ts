@@ -57,12 +57,8 @@ export default convexAuthNextjsMiddleware(async (request, { convexAuth }) => {
   const prefix = locale === 'en' ? '/en' : '/ar';
   const isAuth = await convexAuth.isAuthenticated();
 
-  console.log(`Middleware check: ${url.pathname} | Authenticated: ${isAuth}`);
-
-  // Temporarily disable redirect if not authenticated to let you in while we debug cookies
   if (isProtectedPage(request) && !isLoginPage(request) && !isAuth) {
-    // console.log("Redirect blocked for debugging");
-    // return applyGeoCookies(request, nextjsMiddlewareRedirect(request, `${prefix}/admin/login`));
+    return applyGeoCookies(request, nextjsMiddlewareRedirect(request, `${prefix}/admin/login`));
   }
 
   return applyGeoCookies(request, intlProxy(request));
@@ -70,6 +66,7 @@ export default convexAuthNextjsMiddleware(async (request, { convexAuth }) => {
 
 export const config = {
   matcher: [
+    '/api/auth/:path*',
     '/((?!api|_next/static|_next/image|favicon.ico|logo.png|images|.*\\.(?:png|jpg|jpeg|gif|svg|ico|webp)$|font).*)'
   ]
 };

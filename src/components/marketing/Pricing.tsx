@@ -26,7 +26,7 @@ export default function Pricing() {
   ];
 
   return (
-    <section id="pricing" className="py-12 md:py-24 bg-slate-50 relative overflow-hidden">
+    <section id="pricing" className="scroll-mt-28 py-12 md:py-24 bg-slate-50 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/4 h-full bg-brand-violet/5 rounded-full blur-3xl -z-10" />
 
       <div className="container mx-auto px-4">

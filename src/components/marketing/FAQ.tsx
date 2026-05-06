@@ -43,7 +43,7 @@ export default function FAQ() {
   const [activeIdx, setActiveIdx] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-12 md:py-24 bg-white border-t border-slate-50">
+    <section id="faq" className="scroll-mt-28 py-12 md:py-24 bg-white border-t border-slate-50">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">{t('title')}</h2>
