@@ -33,7 +33,7 @@ export default async function MarketingLayout({
     >
       <BookingFlowProvider>
         <div className="min-h-screen flex flex-col relative">
-          <Header locale={locale as any} />
+          <Header />
           <main className="flex-grow pt-20 animate-fade-in">
             {children}
           </main>
