@@ -18,6 +18,7 @@ export default defineSchema({
     country: v.optional(v.string()),
     currency: v.optional(v.string()),
     locale: v.string(),
+    interestedPackage: v.optional(v.string()),
     submittedAt: v.number(),
   })
     .index("by_status", ["status"])

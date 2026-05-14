@@ -25,6 +25,7 @@ type SubmitLeadArgs = {
   country?: string;
   currency?: string;
   locale: string;
+  interestedPackage?: string;
   submittedAt: number;
   rateLimitKey: string;
 };
@@ -77,6 +78,7 @@ function formatTelegramMessage(params: {
   country: string;
   currency: string;
   locale: string;
+  interestedPackage?: string;
 }) {
   const title = "<b>🔔 طلب حصة تجريبية جديدة</b>";
   const separator = "──────────────────";
@@ -91,6 +93,7 @@ function formatTelegramMessage(params: {
     `💰 <b>العملة:</b> ${params.currency}`,
     `🗣️ <b>اللغة المفضلة:</b> ${params.locale.toUpperCase()}`,
     `⏰ <b>توقيت المستخدم:</b> <code>${params.timezone}</code>`,
+    ...(params.interestedPackage && params.interestedPackage !== "not_sure" ? [`📦 <b>الباقة المهتم بها:</b> ${params.interestedPackage} أشهر`] : []),
     separator,
     `📅 <b>الموعد المختار:</b>`,
     ...params.preferredSlots.map((slot) => `▫️ ${formatPreferredSlotValue(slot, "ar")}`),
@@ -187,6 +190,7 @@ export async function POST(request: Request) {
     country,
     currency,
     locale: payload.locale,
+    interestedPackage: payload.interestedPackage,
     submittedAt,
     rateLimitKey: createRateLimitKey(request.headers),
   });
@@ -212,6 +216,7 @@ export async function POST(request: Request) {
       country,
       currency,
       locale: payload.locale,
+      interestedPackage: payload.interestedPackage,
     });
 
     let attempts = 0;

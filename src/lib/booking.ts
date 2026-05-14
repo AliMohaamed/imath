@@ -30,6 +30,7 @@ export const bookingFormSchema = z.object({
   preferredSlots: z.array(z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/)).length(1),
   countryCode: z.string().trim().length(2).optional(),
   locale: z.enum(["ar", "en"]),
+  interestedPackage: z.string().optional(),
 });
 
 export type BookingFormValues = z.infer<typeof bookingFormSchema>;

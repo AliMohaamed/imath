@@ -320,6 +320,7 @@ function LeadDetailCard({
         <DetailItem label={t("detail.timezone")} value={lead.timezone} />
         <DetailItem label={t("detail.locale")} value={lead.locale.toUpperCase()} />
         <DetailItem label={t("detail.country")} value={`${lead.country ?? "EG"} - ${lead.currency ?? "EGP"}`} />
+        <DetailItem label="Interested Package" value={lead.interestedPackage ? `${lead.interestedPackage} Months` : "Not sure"} />
         <DetailItem
           label={t("detail.preferredSlots")}
           value={lead.preferredSlots.map((slot) => formatPreferredSlotValue(slot, lead.locale as "ar" | "en")).join(", ")}

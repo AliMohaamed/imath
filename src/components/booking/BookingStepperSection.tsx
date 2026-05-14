@@ -85,6 +85,7 @@ export function BookingStepperSection() {
       preferredSlots: [],
       countryCode: selectedCountry,
       locale,
+      interestedPackage: "not_sure",
     },
   });
 
@@ -107,6 +108,15 @@ export function BookingStepperSection() {
     setValue("timezone", defaultTimezone);
     setValue("locale", locale);
   }, [defaultTimezone, locale, setValue]);
+
+  useEffect(() => {
+    if (lastSource && lastSource.startsWith("pricing_")) {
+      const match = lastSource.match(/pricing_[A-Z]{2}_(\d+)_months/);
+      if (match && match[1]) {
+        setValue("interestedPackage", match[1], { shouldDirty: true });
+      }
+    }
+  }, [lastSource, setValue]);
 
   useEffect(() => {
     if (selectedPreferredSlot && parsedPreferredSlot?.dateKey) {
@@ -421,6 +431,17 @@ export function BookingStepperSection() {
                         <FieldError message={(errors.phoneCountryCode?.message || errors.phoneNumber?.message) && t("errors.phoneNumber")} />
                       </Field>
                     </div>
+                    <Field>
+                      <Label>{t("fields.interestedPackage.label")}</Label>
+                      <select className={inputClassName} {...register("interestedPackage")}>
+                        <option value="not_sure">{t("packageOptions.not_sure")}</option>
+                        <option value="1">{t("packageOptions.1")}</option>
+                        <option value="3">{t("packageOptions.3")}</option>
+                        <option value="6">{t("packageOptions.6")}</option>
+                        <option value="12">{t("packageOptions.12")}</option>
+                      </select>
+                      <FieldError message={errors.interestedPackage?.message && t("errors.interestedPackage")} />
+                    </Field>
                   </div>
                 ) : null}
 
@@ -434,6 +455,7 @@ export function BookingStepperSection() {
                       <SummaryItem label={t("fields.studentAge.label")} value={t("ageOption", { age: values.studentAge })} />
                       <SummaryItem label={t("fields.previousExperience.label")} value={t(`experience.${values.previousExperience}`)} />
                       <SummaryItem label={t("fields.preferredSlots.label")} value={selectedPreferredSlot ? formatPreferredSlotValue(selectedPreferredSlot, locale) : "-"} />
+                      <SummaryItem label={t("fields.interestedPackage.label")} value={values.interestedPackage ? t(`packageOptions.${values.interestedPackage as "1" | "3" | "6" | "12" | "not_sure"}`) : "-"} />
                       <SummaryItem label={t("timezone.label")} value={values.timezone} />
                       <SummaryItem label={t("pricingContext.label")} value={`${pricingT(`countries.${selectedCountry}`)} - ${currency}`} />
                     </div>

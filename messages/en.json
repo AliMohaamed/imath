@@ -309,6 +309,9 @@
       },
       "preferredSlots": {
         "label": "Preferred time slot"
+      },
+      "interestedPackage": {
+        "label": "Interested package (after trial)"
       }
     },
     "scheduler": {
@@ -341,6 +344,13 @@
       "some": "Has some tutoring experience",
       "advanced": "Already doing well, wants to improve further"
     },
+    "packageOptions": {
+      "1": "1 Month",
+      "3": "3 Months",
+      "6": "6 Months",
+      "12": "12 Months",
+      "not_sure": "Not sure yet"
+    },
     "timeSlots": {
       "weekday_morning": "Weekday morning",
       "weekday_afternoon": "Weekday afternoon",
@@ -372,6 +382,7 @@
       "email": "Please enter a valid email address.",
       "phoneNumber": "Please enter a valid phone number.",
       "previousExperience": "Please choose the student's previous experience level.",
+      "interestedPackage": "Please select a package of interest.",
       "preferredSlots": "Please select a date and one preferred time slot."
     }
   },

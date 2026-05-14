@@ -18,6 +18,7 @@ export const submit = mutation({
     country: v.optional(v.string()),
     currency: v.optional(v.string()),
     locale: v.string(),
+    interestedPackage: v.optional(v.string()),
     submittedAt: v.number(),
     rateLimitKey: v.string(),
   },
@@ -73,6 +74,7 @@ export const submit = mutation({
       country: args.country,
       currency: args.currency,
       locale: args.locale,
+      interestedPackage: args.interestedPackage,
       submittedAt: args.submittedAt,
     });
 
