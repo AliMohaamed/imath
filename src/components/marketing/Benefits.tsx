@@ -1,9 +1,10 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from "next-intl/server";
 import { Brain, Zap, Target, Award } from "lucide-react";
 import { BookingCtaButton } from '@/components/booking/BookingCtaButton';
+import { Locale } from "@/navigation";
 
-export default function Benefits() {
-  const t = useTranslations('Marketing.benefitsSection');
+export default async function Benefits({ locale }: { locale: Locale }) {
+  const t = await getTranslations({ namespace: "Marketing.benefitsSection", locale });
   const benefits = [
     {
       title: t('items.focus.title'),

@@ -8,8 +8,9 @@ import { InstagramIcon } from '@/components/icons/InstagramIcon';
 import { FacebookIcon } from '@/components/icons/FacebookIcon';
 import { getLocale } from 'next-intl/server';
 
-export default async function Footer() {
-  const locale = (await getLocale()) as any;
+import { Locale } from '@/navigation';
+
+export default async function Footer({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: 'Marketing.footer' });
   const common = await getTranslations({ locale, namespace: 'Common' });
   const currentYear = new Date().getFullYear();
@@ -27,6 +28,7 @@ export default async function Footer() {
                 width={100} 
                 height={32} 
                 className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
+                style={{ width: "auto" }}
               />
             </Link>
             <p className="text-muted-foreground text-sm max-w-sm leading-relaxed">

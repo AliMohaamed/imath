@@ -85,12 +85,12 @@ export function AdminDashboard() {
       <div className="rounded-3xl border border-slate-200 bg-white p-8 text-center">
         <h2 className="text-2xl font-black text-slate-900">{t("states.unauthenticated")}</h2>
         <p className="mt-2 text-sm text-slate-600">Please sign in to access the dashboard.</p>
-        <a
+        <Link
           href="/admin/login"
           className="mt-6 inline-flex rounded-full bg-brand-violet px-6 py-3 text-sm font-black text-white"
         >
           {common("login")}
-        </a>
+        </Link>
       </div>
     );
   }

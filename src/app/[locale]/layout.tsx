@@ -1,53 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
 import { NextIntlClientProvider } from 'next-intl';
 import { defaultLocale, locales, type Locale } from "@/navigation";
 import { notFound } from "next/navigation";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
 import { DEFAULT_OG_IMAGE, getLocaleAlternates, getSiteCopy, getSiteUrl, SITE_NAME } from "@/lib/site";
-
-const somarRounded = localFont({
-  src: [
-    {
-      path: "../../../public/font/SomarRounded-Light.ttf",
-      weight: "300",
-      style: "normal",
-    },
-    {
-      path: "../../../public/font/SomarRounded-Regular.ttf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../../public/font/SomarRounded-Medium.ttf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../../../public/font/SomarRounded-SemiBold.ttf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../../../public/font/SomarRounded-Bold.ttf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../../../public/font/SomarRounded-ExtraBold.ttf",
-      weight: "800",
-      style: "normal",
-    },
-    {
-      path: "../../../public/font/SomarRounded-ExtraBold.ttf",
-      weight: "900",
-      style: "normal",
-    },
-  ],
-  variable: "--font-somar",
-  display: 'swap',
-});
 
 export async function generateMetadata({
   params,
@@ -141,7 +98,7 @@ export default async function LocaleLayout({
     <div
       lang={locale}
       dir={direction}
-      className={`${somarRounded.variable} font-sans light min-h-screen`}
+      className={`font-sans light min-h-screen`}
       style={{ colorScheme: 'light' }}
     >
         <a

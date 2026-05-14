@@ -13,9 +13,12 @@ import {
 
 export default async function MarketingLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
   const cookieStore = await cookies();
   const geoState = getInitialCountrySelection({
     detectedCountry: cookieStore.get(DETECTED_COUNTRY_COOKIE)?.value,
@@ -30,11 +33,11 @@ export default async function MarketingLayout({
     >
       <BookingFlowProvider>
         <div className="min-h-screen flex flex-col relative">
-          <Header />
+          <Header locale={locale as any} />
           <main className="flex-grow pt-20 animate-fade-in">
             {children}
           </main>
-          <Footer />
+          <Footer locale={locale as any} />
           <WhatsAppFloat />
           <MobileStickyCTA />
         </div>
