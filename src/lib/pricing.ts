@@ -3,13 +3,75 @@ export const EFFECTIVE_COUNTRY_COOKIE = "imath-country";
 export const DETECTED_COUNTRY_COOKIE = "imath-country-detected";
 export const OVERRIDE_COUNTRY_COOKIE = "imath-country-override";
 
+export const EG_PLAN_DETAILS = [
+  {
+    months: 1,
+    nameKey: "plan1Name",
+    sessions: 8,
+    pricePerSession: 200,
+    originalPricePerSession: null,
+    badge: null,
+    featuresKeys: [
+      "plan1Feature1",
+      "plan1Feature2",
+      "plan1Feature3",
+      "plan1Feature4",
+      "plan1Feature5",
+    ],
+  },
+  {
+    months: 3,
+    nameKey: "plan2Name",
+    sessions: 24,
+    pricePerSession: 175,
+    originalPricePerSession: 200,
+    badge: "mostPopular",
+    featuresKeys: [
+      "plan2Feature1",
+      "plan2Feature2",
+      "plan2Feature3",
+      "plan2Feature5",
+    ],
+  },
+  {
+    months: 6,
+    nameKey: "plan3Name",
+    sessions: 48,
+    pricePerSession: 156,
+    originalPricePerSession: 200,
+    badge: null,
+    featuresKeys: [
+      "plan3Feature1",
+      "plan3Feature2",
+      "plan3Feature3",
+      "plan3Feature4",
+      "plan3Feature5",
+    ],
+  },
+  {
+    months: 12,
+    nameKey: "plan4Name",
+    sessions: 96,
+    pricePerSession: 156,
+    originalPricePerSession: 200,
+    badge: "bestValue",
+    featuresKeys: [
+      "plan4Feature1",
+      "plan4Feature2",
+      "plan4Feature3",
+      "plan4Feature4",
+      "plan4Feature5",
+    ],
+  },
+] as const;
+
 export const PRICING_CONFIG = {
   EG: {
     currency: "EGP",
     plans: [
       { months: 1, price: 1600, savingsPercent: 0, isPopular: false },
-      { months: 3, price: 4200, savingsPercent: 12, isPopular: false },
-      { months: 6, price: 7500, savingsPercent: 22, isPopular: true },
+      { months: 3, price: 4200, savingsPercent: 12, isPopular: true },
+      { months: 6, price: 7500, savingsPercent: 22, isPopular: false },
       { months: 12, price: 15000, savingsPercent: 22, isPopular: false },
     ],
   },
