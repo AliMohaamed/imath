@@ -37,12 +37,8 @@ export const getViewer = query({
 
     // Try to get email from identity or fetch the user doc
     let email = identity.email?.toLowerCase();
-    if (!email) {
-      const users = await ctx.db
-        .query("users")
-        .withIndex("by_token", (q) => q.eq("tokenIdentifier", identity.tokenIdentifier))
-        .collect();
-      const user = users[0];
+    if (!email && identity.subject) {
+      const user = await ctx.db.get(identity.subject as any);
       email = user?.email?.toLowerCase();
     }
 
