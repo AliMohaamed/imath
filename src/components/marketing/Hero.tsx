@@ -24,7 +24,22 @@ export default function Hero() {
 
       <div className="container relative mx-auto px-4">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <div className="max-w-2xl space-y-6 text-center animate-in fade-in slide-in-from-bottom duration-1000 lg:text-left rtl:lg:text-right">
+          <div className="relative animate-in fade-in zoom-in duration-1000 delay-200 lg:order-last">
+            <div className="relative z-10 mx-auto max-w-[320px] sm:max-w-[400px] lg:max-w-[600px]">
+              <Image 
+                src="/images/hero_image1.png" 
+                alt="iMath Student" 
+             width={1200} 
+    height={800} 
+                className="w-full h-auto"
+                priority
+                sizes="(max-width: 640px) 320px, (max-width: 1024px) 400px, 600px" 
+                unoptimized
+              />
+            </div>
+          </div>
+
+          <div className="max-w-2xl space-y-6 text-center animate-in fade-in slide-in-from-bottom duration-1000 lg:text-left rtl:lg:text-right lg:order-first">
             <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-brand-violet/10 px-4 py-2 text-xs font-black uppercase tracking-wider text-brand-violet">
               <Star className="h-3.5 w-3.5 fill-current" />
               {t("badge")}
@@ -75,55 +90,6 @@ export default function Hero() {
                 {common("contactUs")}
               </a>
             </div>
-          </div>
-
-          <div className="relative group animate-in fade-in zoom-in duration-1000 delay-200">
-            <div className="relative z-10 overflow-hidden rounded-[2.5rem] border border-slate-200 bg-gradient-to-br from-slate-900 via-brand-violet to-brand-orange p-6 text-white shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
-              <div className="grid gap-5 md:grid-cols-[1.1fr_0.9fr]">
-                <div className="space-y-5">
-                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em]">
-                    <Zap className="h-4 w-4" />
-                    {t("visual.eyebrow")}
-                  </div>
-                  <div className="space-y-3">
-                    <h3 className="text-2xl font-black leading-tight sm:text-3xl">{t("visual.title")}</h3>
-                    <p className="text-sm leading-relaxed text-white/80 sm:text-base">{t("visual.description")}</p>
-                  </div>
-                  <div className="grid grid-cols-3 gap-3">
-                    {(["speed", "accuracy", "focus"] as const).map((item) => (
-                      <div key={item} className="rounded-2xl bg-white/10 p-3 text-center backdrop-blur-sm">
-                        <div className="text-lg font-black text-brand-yellow">{t(`visual.metrics.${item}.value`)}</div>
-                        <div className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/70">
-                          {t(`visual.metrics.${item}.label`)}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="rounded-[2rem] bg-white/10 p-4 backdrop-blur-sm">
-                  <div className="mb-4 flex items-center gap-3">
-                    <div className="relative h-14 w-14 overflow-hidden rounded-2xl border border-white/20 bg-white/10">
-                      <Image src="/logo.png" alt="iMath" fill sizes="56px" className="object-contain p-2" priority />
-                    </div>
-                    <div>
-                      <div className="text-sm font-black">{t("floatingBadge.count")}</div>
-                      <div className="text-xs text-white/75">{t("floatingBadge.text")}</div>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-4 gap-2">
-                    {["8", "15", "24", "42", "56", "63", "71", "88"].map((value) => (
-                      <div key={value} className="rounded-xl bg-white py-3 text-center text-sm font-black text-slate-900 shadow-sm">
-                        {value}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="absolute -top-6 -right-6 -z-10 h-1/2 w-1/2 rounded-3xl bg-brand-yellow/20" />
-            <div className="absolute -bottom-6 -left-6 -z-10 h-1/3 w-1/3 rounded-full bg-brand-orange/20 blur-2xl" />
           </div>
         </div>
       </div>
