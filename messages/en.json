@@ -163,32 +163,45 @@
     },
     "testimonials": {
       "title": "Parent Stories",
-      "description": "Actual feedback from our growing iMath family.",
+      "description": "What parents noticed at home after a few months of 1:1 mental math with iMath.",
+      "featuredLabel": "Featured story",
+      "before": "Before",
+      "after": "Now",
+      "listLabel": "More parent stories",
+      "ctaText": "Every story here started with one free trial session.",
+      "cta": "Book your child's free trial",
       "items": {
+        "nour": {
+          "name": "Nour H.",
+          "role": "Mother of a 7-year-old",
+          "location": "Jeddah, Saudi Arabia",
+          "content": "iMath made math fun for my daughter. She used to struggle with numbers, but now she's one of the fastest in her class. The tutors are very patient and professional.",
+          "before": "Counted on her fingers and avoided homework",
+          "after": "One of the fastest calculators in her class"
+        },
         "amira": {
-          "name": "Mrs. Amira H.",
-          "role": "Mother of 10-year-old",
+          "name": "Amira H.",
+          "role": "Mother of a 10-year-old",
+          "location": "Riyadh, Saudi Arabia",
           "content": "iMath has completely transformed my daughter's relationship with numbers. She no longer fears calculations; she actually looks forward to her sessions!"
         },
         "omar": {
-          "name": "Mr. Omar F.",
+          "name": "Omar F.",
           "role": "Father of a high school student",
-          "content": "High-quality, professional, and results-oriented. The 1:1 focus is a game-changer compared to regular group tutoring. Truly recommended."
+          "location": "Dubai, UAE",
+          "content": "Professional and results-oriented. The 1:1 focus made a real difference compared to regular group tutoring. Truly recommended."
         },
         "sarah": {
-          "name": "Mrs. Sarah L.",
-          "role": "Mother of 8-year-old",
-          "content": "Excellent certified tutors who know how to engage children. My son's school grades improved by 30% in just two months. A great investment."
+          "name": "Sarah L.",
+          "role": "Mother of an 8-year-old",
+          "location": "Cairo, Egypt",
+          "content": "The tutors know how to engage children. Within two months my son was adding two-digit numbers in his head, without fingers or paper."
         },
         "khalid": {
-          "name": "Mr. Khalid A.",
-          "role": "Father of 12-year-old",
-          "content": "The 1:1 format is exactly what my son needed. He's much more focused and his calculation speed has improved remarkably. We love the monthly progress reports!"
-        },
-        "nour": {
-          "name": "Mrs. Nour H.",
-          "role": "Mother of 7-year-old",
-          "content": "iMath made math fun for my daughter. She used to struggle with numbers, but now she's one of the fastest in her class. The tutors are very patient and professional."
+          "name": "Khalid A.",
+          "role": "Father of a 12-year-old",
+          "location": "Kuwait City, Kuwait",
+          "content": "The 1:1 mental math format is exactly what my son needed. He's much more focused, his calculation speed has improved remarkably, and the monthly progress reports keep us in the loop."
         }
       }
     },

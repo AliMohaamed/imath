@@ -149,15 +149,6 @@
   }
 }
 
-/* Swiper Pagination Customization & Utilities */
-.testimonials-swiper .swiper-pagination-bullet {
-  @apply bg-brand-violet opacity-20 w-3 h-3 transition-all duration-300;
-}
-
-.testimonials-swiper .swiper-pagination-bullet-active {
-  @apply opacity-100 w-8 rounded-full;
-}
-
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }

@@ -1,191 +1,122 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowDown, Quote } from "lucide-react";
+import { BookingCtaButton } from "@/components/booking/BookingCtaButton";
 import { cn } from "@/lib/utils";
 
-type Review = {
-  name: string;
-  role: string;
-  content: string;
-  rating: number;
-};
+const SUPPORTING_STORIES = ["amira", "sarah", "khalid", "omar"] as const;
+
+const AVATAR_TONES = [
+  "bg-violet-100 text-violet-800",
+  "bg-orange-100 text-orange-800",
+  "bg-amber-100 text-amber-900",
+];
+
+function Avatar({ name, className }: { name: string; className: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={cn(
+        "flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-lg font-extrabold",
+        className
+      )}
+    >
+      {name.charAt(0)}
+    </span>
+  );
+}
 
 export default function Testimonials() {
   const t = useTranslations("Marketing.testimonials");
-  const common = useTranslations("Common");
   const locale = useLocale();
   const isRtl = locale === "ar";
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const reviews = useMemo<Review[]>(
-    () => [
-      {
-        name: t("items.amira.name"),
-        role: t("items.amira.role"),
-        content: t("items.amira.content"),
-        rating: 5,
-      },
-      {
-        name: t("items.omar.name"),
-        role: t("items.omar.role"),
-        content: t("items.omar.content"),
-        rating: 5,
-      },
-      {
-        name: t("items.sarah.name"),
-        role: t("items.sarah.role"),
-        content: t("items.sarah.content"),
-        rating: 5,
-      },
-      {
-        name: t("items.khalid.name"),
-        role: t("items.khalid.role"),
-        content: t("items.khalid.content"),
-        rating: 5,
-      },
-      {
-        name: t("items.nour.name"),
-        role: t("items.nour.role"),
-        content: t("items.nour.content"),
-        rating: 5,
-      },
-    ],
-    [t]
-  );
-
-  const goTo = (index: number) => {
-    const normalizedIndex = (index + reviews.length) % reviews.length;
-    setCurrentIndex(normalizedIndex);
-  };
-
-  const previous = () => goTo(currentIndex - 1);
-  const next = () => goTo(currentIndex + 1);
-
-  // Swipe support
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
-
-  const minSwipeDistance = 50;
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe) {
-      isRtl ? previous() : next();
-    } else if (isRightSwipe) {
-      isRtl ? next() : previous();
-    }
-  };
 
   return (
-    <section className="relative overflow-hidden bg-brand-violet/5 py-12 md:py-24" dir={isRtl ? "rtl" : "ltr"}>
-      <div className="absolute left-0 top-0 -z-10 h-32 w-32 rounded-full bg-brand-orange/10 blur-3xl" />
-      <div className="absolute bottom-0 right-0 -z-10 h-64 w-64 rounded-full bg-brand-violet/10 blur-3xl" />
-
+    <section
+      id="testimonials"
+      aria-labelledby="testimonials-title"
+      className="scroll-mt-28 bg-brand-violet/5 py-12 md:py-24"
+      dir={isRtl ? "rtl" : "ltr"}
+    >
       <div className="container mx-auto px-4">
-        <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl space-y-4">
-            <h2 className="text-4xl font-black tracking-tight text-slate-900">{t("title")}</h2>
-            <p className="text-lg text-slate-600">{t("description")}</p>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-12 w-12 rounded-2xl p-0 text-brand-violet"
-              onClick={previous}
-              aria-label={common("pagination.previous")}
-            >
-              <ChevronLeft className={cn("h-5 w-5", isRtl && "rotate-180")} />
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-12 w-12 rounded-2xl p-0 text-brand-violet"
-              onClick={next}
-              aria-label={common("pagination.next")}
-            >
-              <ChevronRight className={cn("h-5 w-5", isRtl && "rotate-180")} />
-            </Button>
-          </div>
-        </div>
-
-        <div 
-          className="overflow-hidden cursor-grab active:cursor-grabbing"
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
-        >
-          <div
-            className="flex transition-transform duration-500 ease-out"
-            style={{
-              transform: `translateX(${isRtl ? currentIndex * 100 : currentIndex * -100}%)`,
-            }}
+        <div className="mx-auto mb-10 max-w-2xl text-center md:mb-14">
+          <h2
+            id="testimonials-title"
+            className="mb-4 text-balance text-2xl font-extrabold tracking-tight text-slate-900 sm:text-4xl"
           >
-            {reviews.map((review, index) => (
-              <article
-                key={`${review.name}-${index}`}
-                className="w-full shrink-0"
-                aria-hidden={currentIndex !== index}
-              >
-                <div className="mx-auto max-w-4xl rounded-[2.5rem] border border-white bg-white p-8 shadow-sm md:p-10">
-                  <Quote className="mb-6 h-14 w-14 text-brand-violet/10" />
-
-                  <div className="mb-6 flex gap-1">
-                    {Array.from({ length: review.rating }).map((_, starIndex) => (
-                      <Star key={starIndex} className="h-5 w-5 fill-brand-yellow text-brand-yellow" />
-                    ))}
-                  </div>
-
-                  <p className="min-h-28 text-lg font-medium leading-relaxed text-slate-600">
-                    &quot;{review.content}&quot;
-                  </p>
-
-                  <div className="mt-8 flex items-center gap-4 border-t border-slate-100 pt-6">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-violet/10 text-xl font-black text-brand-violet">
-                      {review.name.charAt(0)}
-                    </div>
-                    <div className="space-y-1">
-                      <h3 className="text-base font-black text-slate-900">{review.name}</h3>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{review.role}</p>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+            {t("title")}
+          </h2>
+          <p className="text-balance text-lg text-slate-600">{t("description")}</p>
         </div>
 
-        <div className="mt-8 flex justify-center gap-2">
-          {reviews.map((review, index) => (
-            <button
-              key={`indicator-${review.name}-${index}`}
-              type="button"
-              onClick={() => goTo(index)}
-              className={cn(
-                "h-3 rounded-full transition-all",
-                currentIndex === index ? "w-8 bg-brand-violet" : "w-3 bg-brand-violet/25"
-              )}
-              aria-label={common("pagination.show", { item: review.name })}
-              aria-pressed={currentIndex === index}
-            />
+        <figure
+          aria-label={t("featuredLabel")}
+          className="grid gap-8 rounded-[2rem] bg-brand-violet p-7 text-white shadow-[0_24px_48px_-24px_rgb(76_29_149/0.55)] md:p-12 lg:grid-cols-[1.5fr_1fr] lg:items-center lg:gap-12"
+        >
+          <div>
+            <Quote aria-hidden="true" className="mb-5 h-10 w-10 fill-brand-yellow text-brand-yellow rtl:-scale-x-100" />
+            <blockquote className="max-w-[58ch] text-pretty text-xl font-medium leading-relaxed md:text-2xl md:leading-relaxed">
+              <p>{t("items.nour.content")}</p>
+            </blockquote>
+            <figcaption className="mt-8 flex items-center gap-4">
+              <Avatar name={t("items.nour.name")} className="bg-brand-yellow text-slate-900" />
+              <div>
+                <p className="font-bold">{t("items.nour.name")}</p>
+                <p className="text-sm text-violet-100">
+                  {t("items.nour.role")} · {t("items.nour.location")}
+                </p>
+              </div>
+            </figcaption>
+          </div>
+
+          <dl className="rounded-3xl bg-white/10 p-6 ring-1 ring-white/15 md:p-7">
+            <div>
+              <dt className="text-sm font-semibold text-violet-100">{t("before")}</dt>
+              <dd className="mt-1 text-pretty text-base leading-relaxed text-white/90">{t("items.nour.before")}</dd>
+            </div>
+            <ArrowDown aria-hidden="true" className="my-4 h-5 w-5 text-brand-yellow" />
+            <div>
+              <dt className="flex items-center gap-2 text-sm font-semibold text-violet-100">
+                <span aria-hidden="true" className="h-2 w-2 rounded-full bg-brand-yellow" />
+                {t("after")}
+              </dt>
+              <dd className="mt-1 text-pretty text-lg font-bold leading-snug">{t("items.nour.after")}</dd>
+            </div>
+          </dl>
+        </figure>
+
+        <ul
+          aria-label={t("listLabel")}
+          className="scrollbar-hide -mx-4 mt-6 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-2 outline-none focus-visible:ring-2 focus-visible:ring-brand-violet sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 md:mt-8 md:gap-6 xl:grid-cols-4"
+        >
+          {SUPPORTING_STORIES.map((key, index) => (
+            <li key={key} className="flex w-[84%] shrink-0 snap-start sm:w-auto">
+              <figure className="flex w-full flex-col">
+                <blockquote className="relative flex-1 rounded-3xl rounded-es-md border border-violet-100 bg-white p-6 text-pretty text-base leading-relaxed text-slate-700 shadow-[0_10px_28px_-16px_rgb(76_29_149/0.25)]">
+                  <p>{t(`items.${key}.content`)}</p>
+                </blockquote>
+                <figcaption className="mt-4 flex items-center gap-3 px-1">
+                  <Avatar name={t(`items.${key}.name`)} className={AVATAR_TONES[index % AVATAR_TONES.length]} />
+                  <div className="min-w-0">
+                    <p className="font-bold text-slate-900">{t(`items.${key}.name`)}</p>
+                    <p className="text-sm text-slate-600">{t(`items.${key}.role`)}</p>
+                    <p className="text-sm text-slate-500">{t(`items.${key}.location`)}</p>
+                  </div>
+                </figcaption>
+              </figure>
+            </li>
           ))}
+        </ul>
+
+        <div className="mt-12 flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-center sm:gap-6">
+          <p className="text-pretty text-base font-medium text-slate-700">{t("ctaText")}</p>
+          <BookingCtaButton
+            source="testimonials_cta"
+            className="rounded-full bg-brand-orange px-8 py-4 text-sm font-extrabold text-white shadow-premium transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange"
+          >
+            {t("cta")}
+          </BookingCtaButton>
         </div>
       </div>
     </section>
