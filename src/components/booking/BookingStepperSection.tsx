@@ -193,15 +193,23 @@ export function BookingStepperSection() {
       return;
     }
 
-    const response = await fetch("/api/leads", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(parsed.data),
-    });
+    let response: Response;
+    let result: LeadApiSuccess | LeadApiFailure;
 
-    const result = (await response.json()) as LeadApiSuccess | LeadApiFailure;
+    try {
+      response = await fetch("/api/leads", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(parsed.data),
+      });
+      result = (await response.json()) as LeadApiSuccess | LeadApiFailure;
+    } catch {
+      setSubmitError(t("errors.generic"));
+      setSubmissionState({ status: "idle" });
+      return;
+    }
 
     if (!response.ok || !result.ok) {
       if ("fieldErrors" in result && result.fieldErrors) {

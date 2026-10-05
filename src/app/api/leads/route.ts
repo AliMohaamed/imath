@@ -129,6 +129,18 @@ async function sendTelegramNotification(params: {
 }
 
 export async function POST(request: Request) {
+  try {
+    return await handlePost(request);
+  } catch (error) {
+    console.error("[api/leads] Lead submission failed:", error);
+    return NextResponse.json(
+      { ok: false, message: "Something went wrong while submitting your request. Please try again." },
+      { status: 500 }
+    );
+  }
+}
+
+async function handlePost(request: Request) {
   const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
   const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
   const telegramChatId = process.env.TELEGRAM_CHAT_ID;
