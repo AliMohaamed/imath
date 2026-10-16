@@ -16,8 +16,12 @@ export type PersonalityProfile = (typeof PERSONALITY_PROFILES)[number];
 
 export type Strength = "clearly" | "moderately" | "slightly";
 
+/** Items per dimension, and the largest score one dimension can reach (every answer "strong"). */
+export const ITEMS_PER_DIMENSION = QUESTION_COUNT / DIMENSIONS.length;
+export const MAX_DIMENSION_SCORE = 2 * ITEMS_PER_DIMENSION;
+
 export type DimensionResult = {
-  /** Sum of the five items, measured toward the dimension's second pole: -10 … +10. */
+  /** Sum of the dimension's items, measured toward its second pole: -6 … +6 with three items. */
   raw: number;
   /** The pole that won. */
   pole: Pole;
@@ -45,10 +49,11 @@ export function isCompleteAnswerSet(answers: readonly unknown[]): answers is Ans
   return answers.length === QUESTION_COUNT && answers.every(isAnswerValue);
 }
 
+/** "Clearly" from 60% of the maximum score, "moderately" from 30% (4+ and 2+ with three items). */
 function getStrength(raw: number): Strength {
-  const size = Math.abs(raw);
-  if (size >= 6) return "clearly";
-  if (size >= 3) return "moderately";
+  const share = Math.abs(raw) / MAX_DIMENSION_SCORE;
+  if (share >= 0.6) return "clearly";
+  if (share >= 0.3) return "moderately";
   return "slightly";
 }
 
@@ -85,7 +90,7 @@ export function scoreAnswers(answers: readonly AnswerValue[]): PersonalityScore 
     // An exact tie is broken by the dimension's anchor question, which is never a zero.
     const sign = value !== 0 ? Math.sign(value) : (anchorSign[dimension] ?? 1);
     const pole = sign > 0 ? second : first;
-    const secondPct = 50 + value * 5;
+    const secondPct = Math.round(50 + (value / MAX_DIMENSION_SCORE) * 50);
 
     dimensions[dimension] = {
       raw: value,
@@ -106,7 +111,7 @@ export function scoreAnswers(answers: readonly AnswerValue[]): PersonalityScore 
 }
 
 /**
- * How strongly the answers point to each superpower, from -20 to +20. Practical (S) and
+ * How strongly the answers point to each superpower, from -12 to +12. Practical (S) and
  * imaginative (N) answers split the four powers; structure (J/P) and decision style (T/F)
  * then separate the two powers within each.
  */

@@ -74,7 +74,7 @@ export function PersonalityResult({
         <p className="mx-auto max-w-2xl text-base leading-relaxed text-slate-700">{report.overview}</p>
       </div>
 
-      <ReportDownload report={report} />
+      <ReportDownload score={score} name={name} gender={gender} />
 
       <Section title={t("traitsTitle")}>
         <div className="grid gap-3 md:grid-cols-3">

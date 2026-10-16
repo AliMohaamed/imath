@@ -10,8 +10,9 @@ type Envelope<T> = {
   data: T;
 };
 
-// Bump the suffix whenever a question bank or state shape changes, so old saves are ignored.
-const STORAGE_VERSION = 1;
+// Bump a kind's version whenever its question bank or state shape changes, so old saves are ignored.
+// Personality v2: the bank went from 20 to 12 questions.
+const STORAGE_VERSIONS: Record<AssessmentKind, number> = { personality: 2, level: 1 };
 const MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
 // Filling in the details form doesn't count as starting the test (matches the resume prompt in each flow).
 const IDLE_PHASES = new Set(["intro", "none", "info"]);
@@ -26,7 +27,7 @@ function notifyChange() {
 }
 
 function storageKey(kind: AssessmentKind) {
-  return `imath.assessment.${kind}.v${STORAGE_VERSION}`;
+  return `imath.assessment.${kind}.v${STORAGE_VERSIONS[kind]}`;
 }
 
 function getStorage() {
@@ -51,7 +52,7 @@ export function loadProgress<T extends StoredProgress>(kind: AssessmentKind, now
 
     const parsed = JSON.parse(raw) as Envelope<T>;
     const isValid =
-      parsed?.v === STORAGE_VERSION &&
+      parsed?.v === STORAGE_VERSIONS[kind] &&
       typeof parsed.savedAt === "number" &&
       typeof parsed.data?.phase === "string";
 
@@ -73,7 +74,7 @@ export function saveProgress<T extends StoredProgress>(kind: AssessmentKind, dat
   }
 
   try {
-    const envelope: Envelope<T> = { v: STORAGE_VERSION, savedAt: Date.now(), data };
+    const envelope: Envelope<T> = { v: STORAGE_VERSIONS[kind], savedAt: Date.now(), data };
     storage.setItem(storageKey(kind), JSON.stringify(envelope));
     notifyChange();
   } catch {

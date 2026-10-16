@@ -33,7 +33,7 @@ Non-goals (v1): accounts/logins, emailing the PDF automatically (see §3 D5), ad
 These are my suggested changes. Each is reversible; flagged ones need your decision in §3.
 
 ### Personality Assessment
-1. **Measure four dimensions with five questions each (20 total)** instead of four each. With four two-option questions a dimension can tie 2–2, which forces a coin-flip result. Five items plus an "anchor" tie-breaker removes that.
+1. **Measure four dimensions with three questions each (12 total).** Each dimension keeps one "anchor" tie-breaker, so an exact tie never forces a coin-flip result. *(Launched with 5 per dimension / 20 total; cut to 12 on 2026-10-16 because 20 felt too long for parents. See §6.3.)*
 2. **Use a 4-point answer scale** ("Always like A · Usually A · Usually B · Always like B") instead of a single checkbox. Same speed for the parent (one tap), but it captures *how strongly* the trait shows, which lets the report say "clearly" vs "slightly" and makes results noticeably more accurate.
 3. **Ask about observable behaviour, not interpretations.** Parents answer "what does your child *do*" far more reliably than "what does your child *prefer*". All questions were rewritten this way and anchored to situations a parent actually sees (birthday parties, a cancelled outing, a messy bag).
 4. **Fix overlapping questions.** In the original, "LEGO: follows instructions vs. modifies" and "follows instructions exactly vs. modifies them" measure the same thing, and both are really about structure (J/P), not imagination (S/N). The new bank separates them cleanly.
@@ -93,13 +93,13 @@ These are my suggested changes. Each is reversible; flagged ones need your decis
 
 ### 4.2 Personality — `/assessment/personality`
 ```
-Intro ──► Info (parent + child) ──► 20 questions (1 per screen) ──► Submitting ──► Result page ──► Download PDF
+Intro ──► Info (parent + child) ──► 12 questions (1 per screen) ──► Submitting ──► Result page ──► Download PDF
    ▲                                     │
    └── Resume dialog on return ◄─────────┘ (state saved after every answer)
 ```
 - **Intro**: "Do you want to know how your child thinks?" + description + "Start Personality Assessment".
 - **Info step** (all required): Parent/Guardian name · Parent/Guardian email · Parent/Guardian WhatsApp (country code + number) · Student name · Student date of birth · Boy/Girl (D1). Button **Next →**.
-- **Questions**: one per screen, statement A on top, statement B below, 4-point scale in between; tapping an answer auto-advances after 250ms. Back button always available. Progress bar "7 / 20".
+- **Questions**: one per screen, statement A on top, statement B below, 4-point scale in between; tapping an answer auto-advances after 250ms. Back button always available. Progress bar "7 / 12".
 - **Submit** on last question → result.
 - **Result page** (§6.6) + **"Download the full personality report for [Name]"** button.
 
@@ -140,7 +140,7 @@ Alternative considered: server-side Puppeteer — selectable text, but heavy on 
 ```
 src/lib/assessment/
   common.ts                 # shared types, zod schemas, personalize() helper, age-from-DOB
-  personality/questions.ts  # 20-item bank (ar/en), dimension + pole mapping
+  personality/questions.ts  # 12-item bank (ar/en), dimension + pole mapping
   personality/scoring.ts    # pure scoring → PersonalityResult (used client AND server)
   personality/profiles.ts   # 4 superpower profiles + 8 pole descriptions (ar/en, gendered)
   level/levels.ts           # 6 level definitions (names, can-do, next skills)
@@ -195,14 +195,38 @@ Four dimensions, each a spectrum between two poles (based on the well-known Jung
 ### 6.2 Answer scale and scoring
 - Each question shows statement **A** and statement **B**, and four choices: `Always A (−2)`, `Usually A (−1)`, `Usually B (+1)`, `Always B (+2)`.
 - Each item records which pole A and B represent (sides are randomised in the bank, §6.3).
-- Per dimension: `raw = Σ(points toward pole B)` over 5 items → range −10…+10.
-- Percent toward second pole: `pct = 50 + raw × 5` (0–100). Displayed as two percentages.
+- Per dimension: `raw = Σ(points toward pole B)` over 3 items → range −6…+6.
+- Percent toward second pole: `pct = round(50 + raw / 6 × 50)` (0–100). Displayed as two percentages.
 - Winning pole: sign of `raw`. **Tie (raw = 0)** → sign of the dimension's *anchor* item (the most discriminating question, marked ★). The report then says "shows both sides almost equally".
-- Strength label: `|raw| ≥ 6` → *clearly*; `3–5` → *moderately*; `≤ 2` → *slightly / balanced*.
+- Strength label: `|raw| ≥ 4` → *clearly*; `2–3` → *moderately*; `≤ 1` → *slightly / balanced* (60% / 30% of the maximum, as in `scoring.ts`).
 - Type code = 4 letters (e.g. ISFJ). Superpower = temperament (§6.4).
 - Scoring is a pure function in `scoring.ts`, run on the client for instant results and **re-run on the server** from the raw answers before saving (so stored results can't be tampered with).
 
-### 6.3 Question bank (20 items, final order)
+### 6.3 Question bank (12 items)
+
+**Current bank (2026-10-16): 12 items, 3 per dimension.** Each kept item covers a *different* facet of its dimension, so no two questions measure the same thing. Items about learning and correction were preferred because they also tell the tutor how to teach the child. Presentation order (original number in brackets):
+
+| # | Dim | Question (orig. #) | Facet |
+|---|---|---|---|
+| 1 | EI | Party where they know no one (1) | Approaching new people |
+| 2 | SN | New toy or game (10) | Play: use as intended vs. invent |
+| 3 | JP | Homework or a task (3) | Deadlines |
+| 4 | TF | Disagreement with a friend (4) | Values: fairness vs. harmony |
+| 5 | EI | News or a new idea (13) | Thinking out loud vs. thinking first |
+| 6 | SN | Learning something new (6) | Learning style: example-first vs. why-first |
+| 7 | JP ★ | Plans change suddenly (7) | Coping with change |
+| 8 | TF ★ | What motivates them (8) | Motivation |
+| 9 | EI ★ | After a long, busy day (9) | Recharging (the core of the dimension) |
+| 10 | SN ★ | Questions they ask most (18) | "How / what" vs. "why / what if" |
+| 11 | JP | Room, bag or desk (16) | Order |
+| 12 | TF | Corrected or told "no" (15) | Reacting to correction |
+
+Removed, and why: **2** (story recall) and **14** (retelling the day) both test narrative recall, which Q10 and Q18 already cover · **5** (free afternoon) repeats Q9's "alone vs. with people" · **17** (class participation) mixes shyness with introversion · **11** (classmate's mistake) and **19** (team choice) repeat Q4's fairness-vs-harmony · **12** (order of tasks) repeats Q3 · **20** (rule changes) overlaps with the imaginative side of SN.
+
+Balance: one anchor per dimension; the side showing each pole is split 1–2 or 2–1; no dimension appears twice in a row.
+
+The original 20-item bank is kept below for reference.
+
 
 Notation: `[pole]` shows what each option measures — not shown to parents. ★ = anchor (tie-breaker). Arabic uses the generic «طفلك» because the parent is the reader; Arabic report text (not questions) is gendered.
 
@@ -328,7 +352,7 @@ Notation: `[pole]` shows what each option measures — not shown to parents. ★
 
 Note: the first draft marked two Energy items (1 and 9) as anchors. Q9 (recharging after a busy day) is the anchor, because it is the clearest test of reflective vs. outgoing; Q1 is a normal item.
 
-Balance check: each dimension has 5 items; pole-A/pole-B side is split 2–3 or 3–2 per dimension; each dimension has exactly one anchor.
+Balance check (original 20-item bank): each dimension has 5 items; pole-A/pole-B side is split 2–3 or 3–2 per dimension; each dimension has exactly one anchor.
 
 ### 6.4 Result types: "Math Superpowers" (D2, approved)
 
@@ -396,7 +420,7 @@ Visual language borrowed from the reference: bold colour blocks, tilted "tape" l
 | 6 Powers to build next + parent tips | Two cards |
 | 7 Next step | Closing line, "Book a free trial" + QR code to site/WhatsApp, contact info, disclaimer |
 
-Technical: pages are React components rendered off-screen at 794×1123 px. They're captured with `html-to-image` at 2× pixel ratio (JPEG quality about 0.92, keeping the file around 2–4 MB) and added as `jsPDF` A4 pages. Fonts and images are same-origin, so they embed correctly. File name: `iMath-Personality-[Name].pdf`. AR locale gets the Arabic report; EN gets English.
+Technical: pages are React components rendered off-screen at 794×1123 px. They're captured with `html-to-image` at 2× pixel ratio (JPEG quality about 0.92, keeping the file around 2–4 MB) and added as `jsPDF` A4 pages. Fonts and images are same-origin, so they embed correctly. File name: `iMath-Personality-[Name].pdf`. The report defaults to the page language (AR page → Arabic report, EN page → English). A "Report language: العربية | English" switch under the download button lets parents pick the other one, without changing the site language.
 
 ---
 
@@ -475,7 +499,7 @@ assessmentSubmissions: defineTable({
   studentAge: v.number(),
   gender: v.optional(v.string()),
   // personality
-  answers: v.optional(v.array(v.number())),  // 20 values in {-2,-1,1,2}
+  answers: v.optional(v.array(v.number())),  // 12 values in {-2,-1,1,2}
   typeCode: v.optional(v.string()),          // e.g. "ISFJ"
   profile: v.optional(v.string()),           // precision | speed | visualisation | logic
   dimensionScores: v.optional(v.object({ EI: v.number(), SN: v.number(), TF: v.number(), JP: v.number() })),

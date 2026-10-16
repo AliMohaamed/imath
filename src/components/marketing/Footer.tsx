@@ -25,10 +25,7 @@ export default async function Footer({ locale }: { locale: Locale }) {
               <Image 
                 src={logo} 
                 alt="iMath Logo" 
-                width={100} 
-                height={32} 
                 className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                style={{ width: "auto" }}
               />
             </Link>
             <p className="text-muted-foreground text-sm max-w-sm leading-relaxed">

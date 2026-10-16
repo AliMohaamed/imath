@@ -29,6 +29,11 @@ export const DIMENSION_POLES: Record<Dimension, readonly [Pole, Pole]> = {
 export const DIMENSIONS = ["EI", "SN", "TF", "JP"] as const;
 
 /**
+ * Three items per dimension, each looking at a different side of it, so no question repeats
+ * another: Energy = meeting new people, thinking out loud, recharging; Information = play,
+ * learning style, the questions the child asks; Structure = deadlines, sudden change, order;
+ * Decisions = values in a conflict, motivation, reacting to correction.
+ *
  * Final presentation order. Dimensions rotate so a parent can't spot the pattern, and the
  * statement that shows each pole alternates between sides so a habit of always ticking the
  * first option doesn't skew a result.
@@ -60,21 +65,21 @@ export const PERSONALITY_QUESTIONS: readonly PersonalityQuestion[] = [
     id: 2,
     dimension: "SN",
     stem: {
-      en: "When your child watches a movie or hears a story, what do they talk about afterwards?",
-      ar: "بعد أن يشاهد طفلك فيلمًا أو يسمع قصة، عن ماذا يتحدث؟",
+      en: "With a new toy or game, your child usually…",
+      ar: "مع لعبة جديدة، طفلك عادةً…",
     },
     a: {
       pole: "S",
       text: {
-        en: "What exactly happened — names, places, and specific scenes.",
-        ar: "عمّا حدث بالضبط: الأسماء والأماكن والمشاهد.",
+        en: "Uses it the way it's meant to be used and gets really good at it.",
+        ar: "يستخدمها بالطريقة المقصودة ويتقنها جيدًا.",
       },
     },
     b: {
       pole: "N",
       text: {
-        en: "What it meant, what might happen next, or how they'd change the ending.",
-        ar: "عن معناها، أو ماذا قد يحدث بعدها، أو كيف كان سيغيّر النهاية.",
+        en: "Invents new ways to use it or makes up their own game with it.",
+        ar: "يخترع طرقًا جديدة لاستخدامها أو يؤلّف لعبته الخاصة بها.",
       },
     },
   },
@@ -126,21 +131,21 @@ export const PERSONALITY_QUESTIONS: readonly PersonalityQuestion[] = [
     id: 5,
     dimension: "EI",
     stem: {
-      en: "Given a free afternoon, your child would rather…",
-      ar: "لو كان لدى طفلك وقت فراغ، فهو يفضّل…",
+      en: "When your child has news or a new idea, they usually…",
+      ar: "عندما يكون لدى طفلك خبر أو فكرة جديدة، عادةً ما…",
     },
     a: {
       pole: "E",
       text: {
-        en: "Be with lots of people — friends over, a park, a busy activity.",
-        ar: "أن يكون مع أشخاص كثيرين: أصدقاء، حديقة، نشاط جماعي.",
+        en: "Share it right away, often thinking out loud as they talk.",
+        ar: "يشاركها فورًا، وغالبًا يفكّر بصوت عالٍ أثناء الحديث.",
       },
     },
     b: {
       pole: "I",
       text: {
-        en: "Do something on their own or with one person — drawing, reading, building.",
-        ar: "أن ينشغل بشيء وحده أو مع شخص واحد: رسم، قراءة، تركيب.",
+        en: "Think it over first, then share it with one or two people.",
+        ar: "يفكّر فيها أولًا ثم يشاركها مع شخص أو اثنين.",
       },
     },
   },
@@ -238,182 +243,6 @@ export const PERSONALITY_QUESTIONS: readonly PersonalityQuestion[] = [
   {
     id: 10,
     dimension: "SN",
-    stem: {
-      en: "With a new toy or game, your child usually…",
-      ar: "مع لعبة جديدة، طفلك عادةً…",
-    },
-    a: {
-      pole: "S",
-      text: {
-        en: "Uses it the way it's meant to be used and gets really good at it.",
-        ar: "يستخدمها بالطريقة المقصودة ويتقنها جيدًا.",
-      },
-    },
-    b: {
-      pole: "N",
-      text: {
-        en: "Invents new ways to use it or makes up their own game with it.",
-        ar: "يخترع طرقًا جديدة لاستخدامها أو يؤلّف لعبته الخاصة بها.",
-      },
-    },
-  },
-  {
-    id: 11,
-    dimension: "TF",
-    stem: {
-      en: "When a classmate makes a mistake, your child tends to…",
-      ar: "عندما يخطئ زميل، يميل طفلك إلى…",
-    },
-    a: {
-      pole: "T",
-      text: {
-        en: "Point it out directly so it gets corrected.",
-        ar: "أن ينبّهه مباشرة ليتم تصحيح الخطأ.",
-      },
-    },
-    b: {
-      pole: "F",
-      text: {
-        en: "Be gentle about it so the classmate isn't embarrassed.",
-        ar: "أن يتعامل بلطف حتى لا يُحرَج زميله.",
-      },
-    },
-  },
-  {
-    id: 12,
-    dimension: "JP",
-    stem: {
-      en: "When your child has several things to do, they prefer to…",
-      ar: "عندما يكون لدى طفلك عدة أشياء ليفعلها، يفضّل أن…",
-    },
-    a: {
-      pole: "P",
-      text: {
-        en: "Pick whatever they feel like first and switch between them.",
-        ar: "يبدأ بما يحب ويتنقّل بينها.",
-      },
-    },
-    b: {
-      pole: "J",
-      text: {
-        en: "Do them in a clear order — first, second, third.",
-        ar: "ينجزها بترتيب واضح: الأول ثم الثاني ثم الثالث.",
-      },
-    },
-  },
-  {
-    id: 13,
-    dimension: "EI",
-    stem: {
-      en: "When your child has news or a new idea, they usually…",
-      ar: "عندما يكون لدى طفلك خبر أو فكرة جديدة، عادةً ما…",
-    },
-    a: {
-      pole: "E",
-      text: {
-        en: "Share it right away, often thinking out loud as they talk.",
-        ar: "يشاركها فورًا، وغالبًا يفكّر بصوت عالٍ أثناء الحديث.",
-      },
-    },
-    b: {
-      pole: "I",
-      text: {
-        en: "Think it over first, then share it with one or two people.",
-        ar: "يفكّر فيها أولًا ثم يشاركها مع شخص أو اثنين.",
-      },
-    },
-  },
-  {
-    id: 14,
-    dimension: "SN",
-    stem: {
-      en: "When your child tells you about their day, they…",
-      ar: "عندما يحكي لك طفلك عن يومه، فهو…",
-    },
-    a: {
-      pole: "N",
-      text: {
-        en: "Jump between ideas and connect them to other things.",
-        ar: "يقفز بين الأفكار ويربطها بأشياء أخرى.",
-      },
-    },
-    b: {
-      pole: "S",
-      text: {
-        en: "Describe what happened in order, with clear details.",
-        ar: "يصف ما حدث بالترتيب وبتفاصيل واضحة.",
-      },
-    },
-  },
-  {
-    id: 15,
-    dimension: "TF",
-    stem: {
-      en: 'When your child is corrected or told "no", they usually…',
-      ar: "عندما يُصحَّح طفلك أو يُقال له \"لا\"، عادةً ما…",
-    },
-    a: {
-      pole: "F",
-      text: {
-        en: "Take it to heart and feel hurt, even if it was said kindly.",
-        ar: "يتأثر ويشعر بالضيق حتى لو قيلت بلطف.",
-      },
-    },
-    b: {
-      pole: "T",
-      text: {
-        en: "Want to know the reason, and may argue their point logically.",
-        ar: "يريد معرفة السبب، وقد يناقش وجهة نظره بالمنطق.",
-      },
-    },
-  },
-  {
-    id: 16,
-    dimension: "JP",
-    stem: {
-      en: "Your child's room, bag, or desk is usually…",
-      ar: "غرفة طفلك أو حقيبته أو مكتبه عادةً…",
-    },
-    a: {
-      pole: "J",
-      text: {
-        en: "Organised — things have their places and they notice when something is moved.",
-        ar: "منظّمة: لكل شيء مكانه ويلاحظ إذا تحرّك شيء.",
-      },
-    },
-    b: {
-      pole: "P",
-      text: {
-        en: "A bit messy — but they somehow know where things are.",
-        ar: "غير مرتّبة قليلًا، لكنه يعرف أين أشياؤه بطريقة ما.",
-      },
-    },
-  },
-  {
-    id: 17,
-    dimension: "EI",
-    stem: {
-      en: "In class, a club, or a group activity, your child…",
-      ar: "في الفصل أو النادي أو النشاط الجماعي، طفلك…",
-    },
-    a: {
-      pole: "I",
-      text: {
-        en: "Prefers listening and joins in mainly when asked.",
-        ar: "يفضّل الاستماع ويشارك غالبًا عندما يُطلب منه.",
-      },
-    },
-    b: {
-      pole: "E",
-      text: {
-        en: "Raises their hand often and enjoys being noticed.",
-        ar: "يرفع يده كثيرًا ويستمتع بأن يكون محط الانتباه.",
-      },
-    },
-  },
-  {
-    id: 18,
-    dimension: "SN",
     anchor: true,
     stem: {
       en: "The questions your child asks most are…",
@@ -435,46 +264,46 @@ export const PERSONALITY_QUESTIONS: readonly PersonalityQuestion[] = [
     },
   },
   {
-    id: 19,
-    dimension: "TF",
+    id: 11,
+    dimension: "JP",
     stem: {
-      en: "When choosing teams or making a group decision, your child cares most that…",
-      ar: "عند اختيار الفرق أو اتخاذ قرار جماعي، أكثر ما يهمّ طفلك…",
+      en: "Your child's room, bag, or desk is usually…",
+      ar: "غرفة طفلك أو حقيبته أو مكتبه عادةً…",
     },
     a: {
-      pole: "T",
+      pole: "J",
       text: {
-        en: "The choice is the smartest one to win or get the job done right.",
-        ar: "أن يكون الاختيار هو الأذكى للفوز أو لإنجاز المهمة بشكل صحيح.",
+        en: "Organised — things have their places and they notice when something is moved.",
+        ar: "منظّمة: لكل شيء مكانه ويلاحظ إذا تحرّك شيء.",
       },
     },
     b: {
-      pole: "F",
+      pole: "P",
       text: {
-        en: "Everyone is included and nobody feels left out.",
-        ar: "أن يشارك الجميع ولا يشعر أحد بأنه مستبعد.",
+        en: "A bit messy — but they somehow know where things are.",
+        ar: "غير مرتّبة قليلًا، لكنه يعرف أين أشياؤه بطريقة ما.",
       },
     },
   },
   {
-    id: 20,
-    dimension: "JP",
+    id: 12,
+    dimension: "TF",
     stem: {
-      en: "When playing a game with rules, your child…",
-      ar: "عند لعب لعبة لها قواعد، طفلك…",
+      en: 'When your child is corrected or told "no", they usually…',
+      ar: "عندما يُصحَّح طفلك أو يُقال له \"لا\"، عادةً ما…",
     },
     a: {
-      pole: "P",
+      pole: "F",
       text: {
-        en: "Likes to suggest changes to the rules to make it more fun.",
-        ar: "يحب اقتراح تغييرات على القواعد لجعلها ممتعة أكثر.",
+        en: "Take it to heart and feel hurt, even if it was said kindly.",
+        ar: "يتأثر ويشعر بالضيق حتى لو قيلت بلطف.",
       },
     },
     b: {
-      pole: "J",
+      pole: "T",
       text: {
-        en: "Likes to play exactly by the rules, and reminds others to.",
-        ar: "يحب اللعب بالقواعد تمامًا ويذكّر الآخرين بها.",
+        en: "Want to know the reason, and may argue their point logically.",
+        ar: "يريد معرفة السبب، وقد يناقش وجهة نظره بالمنطق.",
       },
     },
   },

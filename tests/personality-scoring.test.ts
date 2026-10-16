@@ -21,11 +21,11 @@ function answersFor(poles: Partial<Record<string, string>>, strength: 1 | 2 = 2)
 }
 
 describe("question bank", () => {
-  it("has 20 items, 5 per dimension", () => {
+  it("has 12 items, 3 per dimension", () => {
     assert.equal(PERSONALITY_QUESTIONS.length, QUESTION_COUNT);
-    assert.equal(QUESTION_COUNT, 20);
+    assert.equal(QUESTION_COUNT, 12);
     for (const dimension of DIMENSIONS) {
-      assert.equal(PERSONALITY_QUESTIONS.filter((q) => q.dimension === dimension).length, 5);
+      assert.equal(PERSONALITY_QUESTIONS.filter((q) => q.dimension === dimension).length, 3);
     }
   });
 
@@ -43,11 +43,11 @@ describe("question bank", () => {
     }
   });
 
-  it("balances which side shows each pole (2-3 or 3-2)", () => {
+  it("balances which side shows each pole (1-2 or 2-1)", () => {
     for (const dimension of DIMENSIONS) {
       const [first] = DIMENSION_POLES[dimension];
       const firstOnA = PERSONALITY_QUESTIONS.filter((q) => q.dimension === dimension && q.a.pole === first).length;
-      assert.ok(firstOnA === 2 || firstOnA === 3, `${dimension}: ${firstOnA}`);
+      assert.ok(firstOnA === 1 || firstOnA === 2, `${dimension}: ${firstOnA}`);
     }
   });
 
@@ -85,14 +85,16 @@ describe("scoring", () => {
 
   it("reports maximum, balanced and percentage values", () => {
     const strong = scoreAnswers(answersFor({ EI: "I", SN: "S", TF: "T", JP: "J" }));
-    assert.equal(Math.abs(strong.scores.EI), 10);
+    assert.equal(Math.abs(strong.scores.EI), 6);
     assert.equal(strong.dimensions.EI.secondPct, 100);
     assert.equal(strong.dimensions.EI.firstPct, 0);
     assert.equal(strong.dimensions.EI.strength, "clearly");
 
     const mild = scoreAnswers(answersFor({ EI: "I", SN: "S", TF: "T", JP: "J" }, 1));
-    assert.equal(Math.abs(mild.scores.EI), 5);
+    assert.equal(Math.abs(mild.scores.EI), 3);
     assert.equal(mild.dimensions.EI.strength, "moderately");
+    assert.equal(mild.dimensions.EI.secondPct + mild.dimensions.EI.firstPct, 100);
+    assert.ok([0, 25, 75, 100].includes(mild.dimensions.EI.secondPct));
   });
 
   it("splits percentages that always add up to 100", () => {
@@ -114,8 +116,8 @@ describe("scoring", () => {
       (PERSONALITY_QUESTIONS[index].b.pole === second ? contribution : -contribution) as AnswerValue;
 
     const cases = [
-      { anchor: 1, rest: [-2, 2, -2, 1], winner: second },
-      { anchor: -1, rest: [2, -2, 2, -1], winner: first },
+      { anchor: 1, rest: [-2, 1], winner: second },
+      { anchor: -1, rest: [2, -1], winner: first },
     ];
 
     for (const { anchor, rest, winner } of cases) {
@@ -134,7 +136,8 @@ describe("scoring", () => {
 
   it("rejects incomplete or invalid answers", () => {
     assert.throws(() => scoreAnswers([] as AnswerValue[]));
-    assert.throws(() => scoreAnswers(new Array(20).fill(0) as AnswerValue[]));
-    assert.throws(() => scoreAnswers(new Array(19).fill(1) as AnswerValue[]));
+    assert.throws(() => scoreAnswers(new Array(12).fill(0) as AnswerValue[]));
+    assert.throws(() => scoreAnswers(new Array(11).fill(1) as AnswerValue[]));
+    assert.throws(() => scoreAnswers(new Array(20).fill(1) as AnswerValue[]));
   });
 });
