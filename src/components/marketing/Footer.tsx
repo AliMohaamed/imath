@@ -9,6 +9,7 @@ import { FacebookIcon } from '@/components/icons/FacebookIcon';
 import { getLocale } from 'next-intl/server';
 
 import { Locale } from '@/navigation';
+import { RESOURCES } from '@/content/resources';
 
 export default async function Footer({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: 'Marketing.footer' });
@@ -19,7 +20,7 @@ export default async function Footer({ locale }: { locale: Locale }) {
   return (
     <footer className="bg-slate-50 border-t border-border pt-12 md:pt-16 pb-8">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-16">
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center mb-6">
               <Image 
@@ -39,6 +40,17 @@ export default async function Footer({ locale }: { locale: Locale }) {
               <li><Link href="/#why-imath" className="hover:text-brand-violet transition-colors">{common('sections.whyImath')}</Link></li>
               <li><Link href="/#how-it-works" className="hover:text-brand-violet transition-colors">{common('sections.howItWorks')}</Link></li>
               <li><Link href="/#pricing" className="hover:text-brand-violet transition-colors">{common('sections.pricing')}</Link></li>
+              <li><Link href="/program" className="hover:text-brand-violet transition-colors">{common('sections.program')}</Link></li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="font-bold text-sm text-slate-900 uppercase tracking-wider">{t('resources')}</h4>
+            <ul className="space-y-2 text-sm text-slate-600">
+              {RESOURCES.map((resource) => (
+                <li key={resource.slug}><Link href={`/resources/${resource.slug}`} className="hover:text-brand-violet transition-colors">{resource.copy[locale].title}</Link></li>
+              ))}
+              <li><Link href="/resources" className="font-bold hover:text-brand-violet transition-colors">{t('allGuides')}</Link></li>
             </ul>
           </div>
 

@@ -36,4 +36,5 @@ Please review before these pages go live. Read each page in both languages: run 
 - [ ] **Named reviewer:** the guides are credited to "the iMath teaching team". A named tutor with qualifications (and a photo) strengthens trust, for search engines and parents alike. Can a lead tutor be credited as reviewer?
 - [ ] **Do families need to buy an abacus?** Parents will ask. Tell us the answer (provided, sent, or bought by the family) and we'll add it to the program FAQ.
 - [ ] **Testimonial "Omar F., father of a high school student"** doesn't match the 4–14 age range. Keep, edit, or remove?
-- [ ] **Header and footer links** to "Program" and "Guides" aren't added yet, because `Header.tsx`/`Footer.tsx` have your uncommitted edits. Commit or discard those first, then we'll add the links.
+- [ ] **"Certified" wording:** existing copy calls UCMath "certified" / "المعتمد" (footer description, homepage meta description, "Certified methodology" badge, "certified tutors"). Certified by whom? If there's no certifying body to name, a neutral word ("structured", "proven") is safer and fits the neutral-UCMath rule.
+- [x] **Header and footer links** to "Program" and "Guides" added (2026-10-16). The full desktop nav now shows from 1280px wide; below that, the menu button is used (7 links don't fit on one line at 1024px).

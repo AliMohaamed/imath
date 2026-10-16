@@ -40,11 +40,13 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8 font-bold text-sm">
+        <nav className="hidden xl:flex items-center gap-6 font-bold text-sm">
           <Link href="/#why-imath" className="text-muted-foreground hover:text-brand-violet transition-colors">{t("sections.whyImath")}</Link>
           <Link href="/#how-it-works" className="text-muted-foreground hover:text-brand-violet transition-colors">{t("sections.howItWorks")}</Link>
           <Link href="/#pricing" className="text-muted-foreground hover:text-brand-violet transition-colors">{t("sections.pricing")}</Link>
           <Link href="/#faq" className="text-muted-foreground hover:text-brand-violet transition-colors">{t("sections.faq")}</Link>
+          <Link href="/program" className="text-muted-foreground hover:text-brand-violet transition-colors">{t("sections.program")}</Link>
+          <Link href="/resources" className="text-muted-foreground hover:text-brand-violet transition-colors">{t("sections.resources")}</Link>
           <Link href="/assessment" className="text-brand-orange hover:text-brand-orange/80 transition-colors">{t("sections.assessment")}</Link>
         </nav>
 
@@ -64,7 +66,7 @@ export default function Header() {
           </BookingCtaButton>
 
           <button
-            className="md:hidden p-2 rounded-full hover:bg-muted"
+            className="xl:hidden p-2 rounded-full hover:bg-muted"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-nav"
@@ -78,16 +80,18 @@ export default function Header() {
       {isMenuOpen && (
         <>
           <button
-            className="fixed inset-0 top-20 z-40 bg-slate-900/30 md:hidden"
+            className="fixed inset-0 top-20 z-40 bg-slate-900/30 xl:hidden"
             aria-label={menuAriaLabel}
             onClick={() => setIsMenuOpen(false)}
           />
-          <div id="mobile-nav" className="relative z-50 border-b border-slate-200 bg-white p-4 font-bold animate-in slide-in-from-top-3 duration-200 md:hidden">
+          <div id="mobile-nav" className="relative z-50 border-b border-slate-200 bg-white p-4 font-bold animate-in slide-in-from-top-3 duration-200 xl:hidden">
             <div className="flex flex-col items-stretch gap-3 text-center">
               <Link href="/#why-imath" onClick={() => setIsMenuOpen(false)} className="rounded-2xl px-4 py-3 hover:bg-slate-50">{t("sections.whyImath")}</Link>
               <Link href="/#how-it-works" onClick={() => setIsMenuOpen(false)} className="rounded-2xl px-4 py-3 hover:bg-slate-50">{t("sections.howItWorks")}</Link>
               <Link href="/#pricing" onClick={() => setIsMenuOpen(false)} className="rounded-2xl px-4 py-3 hover:bg-slate-50">{t("sections.pricing")}</Link>
               <Link href="/#faq" onClick={() => setIsMenuOpen(false)} className="rounded-2xl px-4 py-3 hover:bg-slate-50">{t("sections.faq")}</Link>
+              <Link href="/program" onClick={() => setIsMenuOpen(false)} className="rounded-2xl px-4 py-3 hover:bg-slate-50">{t("sections.program")}</Link>
+              <Link href="/resources" onClick={() => setIsMenuOpen(false)} className="rounded-2xl px-4 py-3 hover:bg-slate-50">{t("sections.resources")}</Link>
               <Link href="/assessment" onClick={() => setIsMenuOpen(false)} className="rounded-2xl px-4 py-3 text-brand-orange hover:bg-slate-50">{t("sections.assessment")}</Link>
               <a href={whatsAppUrl} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-full border border-slate-200 px-4 py-3 text-sm font-black text-slate-900 active:scale-95 transition-transform">
                 <WhatsAppIcon size={18} />

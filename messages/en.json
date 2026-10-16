@@ -14,6 +14,8 @@
       "pricing": "Pricing",
       "faq": "FAQ",
       "testimonials": "Parent Stories",
+      "program": "UCMath Program",
+      "resources": "Parent Guides",
       "assessment": "Free assessment"
     },
     "skipToContent": "Skip to content",
@@ -308,6 +310,8 @@
     "footer": {
       "description": "Helping children build Mental Math speed, focus, and confidence through bilingual 1:1 online sessions and the certified UCMath methodology.",
       "academy": "Academy",
+      "resources": "For Parents",
+      "allGuides": "All guides",
       "contact": "Contact",
       "email": "Email: {email}",
       "whatsapp": "WhatsApp: {phone}",
