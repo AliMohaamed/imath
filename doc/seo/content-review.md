@@ -17,7 +17,7 @@ Please review before these pages go live. Read each page in both languages: run 
 - [ ] Parents get a monthly progress report. Source: homepage FAQ.
 - [ ] Sessions can be rescheduled through WhatsApp support. Source: homepage FAQ.
 - [ ] UCMath starts with the soroban, then moves to visualisation, then tool-free calculation (your answer, 2026-10-16).
-- [ ] "UCMath is not the same as UCMAS / a different commercial program." Please confirm there is no affiliation.
+- [x] No UCMAS mentions anywhere on the site; UCMath described neutrally as the program students follow (owner decision, 2026-10-16).
 - [ ] Ages 4–14 (your answer, 2026-10-16).
 
 ## Claims backed by research (cited on the page)

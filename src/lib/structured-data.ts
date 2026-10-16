@@ -44,8 +44,8 @@ export function organizationSchema(locale: Locale): JsonLd {
     },
     description:
       locale === "ar"
-        ? "أكاديمية iMath تقدم دروس حساب ذهني فردية 1:1 أونلاين للأطفال من 4 إلى 14 سنة بمنهجها الخاص UCMath، بالعربية والإنجليزية."
-        : "iMath is an online academy offering 1:1 mental math classes for children aged 4–14 using its own UCMath methodology, in Arabic and English.",
+        ? "أكاديمية iMath تقدم دروس حساب ذهني فردية 1:1 أونلاين للأطفال من 4 إلى 14 سنة بمنهج UCMath، بالعربية والإنجليزية."
+        : "iMath is an online academy offering 1:1 mental math classes for children aged 4–14 using the UCMath methodology, in Arabic and English.",
     email: SITE_EMAIL,
     telephone: TELEPHONE,
     sameAs: [SITE_INSTAGRAM_URL, SITE_FACEBOOK_URL],
@@ -84,8 +84,8 @@ export function programSchema(locale: Locale): JsonLd {
     name: locale === "ar" ? "برنامج UCMath للحساب الذهني" : "UCMath Mental Math Program",
     description:
       locale === "ar"
-        ? "برنامج iMath الخاص لتعليم الحساب الذهني للأطفال من 4 إلى 14 سنة في حصص فردية 1:1 أونلاين، لتطوير السرعة والدقة والتركيز."
-        : "iMath's own mental math program for children aged 4–14, taught in 1:1 online sessions to build calculation speed, accuracy and focus.",
+        ? "برنامج UCMath لتعليم الحساب الذهني للأطفال من 4 إلى 14 سنة في حصص فردية 1:1 أونلاين، لتطوير السرعة والدقة والتركيز."
+        : "The UCMath mental math program for children aged 4–14, taught in 1:1 online sessions to build calculation speed, accuracy and focus.",
     provider: { "@id": ORGANIZATION_ID },
     inLanguage: ["ar", "en"],
     audience: { "@type": "EducationalAudience", educationalRole: "student", audienceType: "Children aged 4–14" },

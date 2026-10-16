@@ -28,7 +28,7 @@ export const OG_LOCALES: Record<Locale, string> = {
 /** 1200×630 share cards, rendered from HTML so Arabic shapes correctly. Bump the -vN suffix whenever an image changes: social networks cache by URL. */
 export const OG_IMAGES: Record<Locale, { url: string; alt: string }> = {
   ar: { url: "/og/imath-ar-v2.jpg", alt: "iMath: دروس حساب ذهني أونلاين 1:1 للأطفال من 4 إلى 14 سنة" },
-  en: { url: "/og/imath-en-v2.jpg", alt: "iMath: 1:1 online mental math classes for kids aged 4–14" },
+  en: { url: "/og/imath-en-v3.jpg", alt: "iMath: 1:1 online mental math classes for kids aged 4–14" },
 };
 
 type PageMetadataInput = {

@@ -88,11 +88,6 @@ export const whatIsMentalMath: Article = {
       ],
       faq: [
         {
-          question: "هل الحساب الذهني هو نفسه اليوسي ماس (UCMAS)؟",
-          answer:
-            "لا. الحساب الذهني مهارة عامة، أما UCMAS فاسم لبرنامج تجاري يعلّمها باستخدام العداد. توجد برامج كثيرة لتعليم الحساب الذهني، ومنهج UCMath هو منهج iMath الخاص.",
-        },
-        {
           question: "هل يفيد الحساب الذهني الطفل في المدرسة؟",
           answer:
             "نعم، فهو يقوّي الإحساس بالأرقام وسرعة الحساب ودقته، وهي مهارات يحتاجها الطفل في الرياضيات المدرسية. لكنه لا يغني عن فهم المنهج المدرسي نفسه.",
@@ -125,7 +120,7 @@ export const whatIsMentalMath: Article = {
             },
             {
               type: "p",
-              text: "iMath's [UCMath method](/program) starts with the abacus, because it gives children a concrete picture of numbers, and gradually moves to visualising it without tools. For a detailed comparison, read [mental math vs abacus](/resources/mental-math-vs-abacus).",
+              text: "At iMath, the [UCMath method](/program) starts with the abacus, because it gives children a concrete picture of numbers, and gradually moves to visualising it without tools. For a detailed comparison, read [mental math vs abacus](/resources/mental-math-vs-abacus).",
             },
           ],
         },
@@ -184,11 +179,6 @@ export const whatIsMentalMath: Article = {
         },
       ],
       faq: [
-        {
-          question: "Is mental math the same as UCMAS?",
-          answer:
-            "No. Mental math is a general skill; UCMAS is the name of a commercial program that teaches it with an abacus. Many programs teach mental math, and UCMath is iMath's own method.",
-        },
         {
           question: "Does mental math help at school?",
           answer:

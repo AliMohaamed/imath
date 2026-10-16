@@ -8,10 +8,10 @@ export const PROGRAM_COPY: Record<Locale, ArticleCopy> = {
   ar: {
     title: "منهج UCMath للحساب الذهني من iMath",
     description:
-      "تعرّف على UCMath، منهج iMath الخاص للحساب الذهني: من العداد (السوروبان) إلى الحساب في الذهن، بحصص فردية 1:1 أونلاين للأطفال من 4 إلى 14 سنة.",
-    h1: "منهج UCMath: منهج iMath الخاص لتعليم الحساب الذهني",
+      "تعرّف على منهج UCMath للحساب الذهني في iMath: من العداد (السوروبان) إلى الحساب في الذهن، بحصص فردية 1:1 أونلاين للأطفال من 4 إلى 14 سنة.",
+    h1: "منهج UCMath لتعليم الحساب الذهني في iMath",
     summary:
-      "UCMath هو منهج iMath الخاص لتعليم الحساب الذهني للأطفال من 4 إلى 14 سنة. يبدأ الطفل بالعداد (السوروبان) ليرى الأرقام بعينيه، ثم ينتقل تدريجيًا إلى تخيّل العداد في ذهنه، حتى يحسب بسرعة ودقة دون أي أداة. كل ذلك في حصص فردية 1:1 أونلاين، بالعربية أو الإنجليزية.",
+      "UCMath منهج منظّم لتعليم الحساب الذهني يدرسه الأطفال من 4 إلى 14 سنة في iMath. يبدأ الطفل بالعداد (السوروبان) ليرى الأرقام بعينيه، ثم ينتقل تدريجيًا إلى تخيّل العداد في ذهنه، حتى يحسب بسرعة ودقة دون أي أداة. كل ذلك في حصص فردية 1:1 أونلاين، بالعربية أو الإنجليزية.",
     sections: [
       {
         heading: "كيف يتعلّم الطفل مع UCMath؟",
@@ -82,9 +82,9 @@ export const PROGRAM_COPY: Record<Locale, ArticleCopy> = {
     ],
     faq: [
       {
-        question: "هل UCMath هو نفسه UCMAS (يوسي ماس)؟",
+        question: "ما هو UCMath؟",
         answer:
-          "لا. UCMath هو منهج iMath الخاص لتعليم الحساب الذهني. أما UCMAS فاسم لبرنامج تجاري مختلف.",
+          "UCMath منهج منظّم لتعليم الحساب الذهني خطوة بخطوة: يبدأ بالعداد (السوروبان)، ثم التخيّل الذهني، ثم الحساب في الذهن دون أدوات.",
       },
       {
         question: "هل الحصص فردية أم جماعية؟",
@@ -99,10 +99,10 @@ export const PROGRAM_COPY: Record<Locale, ArticleCopy> = {
   en: {
     title: "The UCMath Mental Math Method by iMath",
     description:
-      "Meet UCMath, iMath's own mental math method: from the abacus (soroban) to calculating in the mind, in 1:1 online classes for kids aged 4–14.",
-    h1: "UCMath: iMath's Own Method for Teaching Mental Math",
+      "Meet the UCMath mental math method at iMath: from the abacus (soroban) to calculating in the mind, in 1:1 online classes for kids aged 4–14.",
+    h1: "The UCMath Method for Teaching Mental Math at iMath",
     summary:
-      "UCMath is iMath's own method for teaching mental math to children aged 4 to 14. Children start with the abacus (soroban) so they can see numbers, then gradually learn to picture the abacus in their mind, until they calculate quickly and accurately without any tool. All of it in 1:1 online classes, in Arabic or English.",
+      "UCMath is a structured method for teaching mental math, followed by children aged 4 to 14 at iMath. Children start with the abacus (soroban) so they can see numbers, then gradually learn to picture the abacus in their mind, until they calculate quickly and accurately without any tool. All of it in 1:1 online classes, in Arabic or English.",
     sections: [
       {
         heading: "How children learn with UCMath",
@@ -173,8 +173,9 @@ export const PROGRAM_COPY: Record<Locale, ArticleCopy> = {
     ],
     faq: [
       {
-        question: "Is UCMath the same as UCMAS?",
-        answer: "No. UCMath is iMath's own mental math method. UCMAS is the name of a different commercial program.",
+        question: "What is UCMath?",
+        answer:
+          "UCMath is a structured method for teaching mental math step by step: it starts with the abacus (soroban), moves to visualisation, then to calculating in the mind without tools.",
       },
       {
         question: "Are classes 1:1 or in groups?",

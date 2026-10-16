@@ -179,7 +179,7 @@ Effort: S < 2h · M ≤ 1 day · L > 1 day.
 |---|---|---|
 | C1 | One commercial page per language; zero informational content. No page can rank for "what is mental math", "benefits of mental math for children", "mental math vs abacus", "multiplication tricks", and so on. | P1 (long-term) |
 | C2 | The brand name "iMath" is ambiguous (unrelated EU project, apps). Entity disambiguation is needed: consistent name ("iMath Academy" / "أكاديمية iMath"), `alternateName`, `sameAs`, and the same NAP everywhere. | P1 |
-| C3 | **"UCMath" is iMath's own proprietary method (confirmed by the owner).** Treat it as a second brand entity: a dedicated `/program` page explaining UCMath, consistent spelling ("UCMath" / "يو سي ماث"), and `Course` schema naming it. Don't target the unrelated UCMAS brand terms. UCMAS is well known in the region, so the program page should say plainly that UCMath is iMath's own method, so that users and AI answers don't confuse the two. | P1 |
+| C3 | **Owner decision (2026-10-16): iMath has no affiliation with UCMAS, and UCMAS must not be mentioned anywhere on the website.** UCMath is the name of the structured mental math program students follow at iMath. Describe it neutrally ("the UCMath method/program"), never as "iMath's own invention", and never compare it with UCMAS. Keep consistent spelling ("UCMath" / "يو سي ماث"). | P1 |
 | C4 | No author or tutor pages, no credentials page. E-E-A-T for a children's education service relies on visible people, qualifications, and methodology. | P1 |
 | C5 | Assessments are strong, unique, linkable assets (free level test, personality test). They are under-promoted as content, with no explanatory copy around the tool, so the pages are thin for search. | P2 |
 | C6 | **[NEEDS DATA]** Keyword volumes and difficulty for AR/EN, by country (EG, SA, AE, KW, QA). No paid tool access. Use Google Keyword Planner (free with an Ads account) + GSC + Google autocomplete/People Also Ask. | P1 |
@@ -362,7 +362,7 @@ Remaining lab LCP (~4.8 s simulated) is JS/hydration-bound. Follow-ups (P2), to 
 
 Done:
 - Query-first titles and descriptions for all 12 URLs (new `Seo` namespace in `messages/*.json`; all titles ≤ 60 chars and descriptions ≤ 155). `meta keywords` removed. "افضل" → "أفضل". Localized hero alt. Dynamic © year.
-- FAQ: all answers rendered in the HTML (collapsed ones use `hidden`); `FAQ_ITEM_KEYS` shared by the UI and the JSON-LD; the UCMath answer now says it is iMath's own method.
+- FAQ: all answers rendered in the HTML (collapsed ones use `hidden`); `FAQ_ITEM_KEYS` shared by the UI and the JSON-LD.
 - JSON-LD `@graph` (`src/lib/structured-data.ts`): EducationalOrganization (`@id`, logo, sameAs, contactPoint, areaServed), WebSite, WebPage on every page, Course for UCMath (entity only; Google retired Course rich results in 2025), BreadcrumbList on inner pages, FAQPage on home; `<` escaped.
 - Share cards: `public/og/imath-{ar,en}.jpg` (1200×630, ~60 KB, rendered from HTML in headless Chrome so Arabic shapes correctly), `summary_large_image`.
 - Validation: 69 unit tests; `seo-check.mjs` now also verifies JSON-LD parses, WebPage url = canonical, home entities present, FAQ answers visible, OG/Twitter tags, and title/description lengths. validator.schema.org: 0 errors, 0 warnings (home, `/en/assessment/level`).
@@ -464,7 +464,7 @@ Recurring process:
 
 1. ~~Production domain~~ → `https://www.imathmental.com` (live).
 2. ~~GSC / GA4 / Bing access~~ → the owner has full access and will set them up.
-3. ~~"UCMath"~~ → iMath's proprietary method.
+3. ~~"UCMath"~~ → the name of the mental math program students follow; no affiliation with UCMAS, which is never mentioned on the site.
 4. ~~Claims~~ → the owner confirms "+500 students" and "best academy". Still open: are the testimonials real, and are they used with permission?
 5. **Physical address / service area:** is there one that qualifies for a Google Business Profile?
 6. **Tutors:** can we publish names, photos, and qualifications (E-E-A-T)?

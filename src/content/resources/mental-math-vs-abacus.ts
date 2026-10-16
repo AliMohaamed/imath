@@ -10,7 +10,7 @@ export const mentalMathVsAbacus: Article = {
     ar: {
       title: "الحساب الذهني والعداد (السوروبان): ما الفرق؟",
       description:
-        "ما الفرق بين الحساب الذهني والعداد (الأباكوس/السوروبان)؟ وهل يحتاج الطفل العداد دائمًا؟ وهل الحساب الذهني هو اليوسي ماس؟ إجابات واضحة لأولياء الأمور.",
+        "ما الفرق بين الحساب الذهني والعداد (الأباكوس/السوروبان)؟ كيف يعمل السوروبان؟ وهل يحتاج الطفل العداد دائمًا؟ إجابات واضحة لأولياء الأمور.",
       h1: "الحساب الذهني والعداد (الأباكوس/السوروبان): ما الفرق؟",
       summary:
         "العداد (الأباكوس أو السوروبان الياباني) أداة يحسب بها الطفل بتحريك الخرزات. أما الحساب الذهني فهو المهارة الأوسع: الحساب في الذهن دون أدوات. والعداد من أشهر الطرق لتعليم الحساب الذهني، إذ يتعلّم الطفل الحساب عليه أولًا ثم يتخيّله في ذهنه ويحسب عليه دون أن يلمسه.",
@@ -53,15 +53,6 @@ export const mentalMathVsAbacus: Article = {
             },
           ],
         },
-        {
-          heading: "هل الحساب الذهني هو اليوسي ماس (UCMAS)؟",
-          blocks: [
-            {
-              type: "p",
-              text: "لا. الحساب الذهني مهارة عامة، والعداد أداة لتعليمها، أما UCMAS فاسم لبرنامج تجاري يستخدم العداد. توجد برامج كثيرة لتعليم الحساب الذهني، ومنهج UCMath هو منهج iMath الخاص.",
-            },
-          ],
-        },
       ],
       faq: [
         {
@@ -84,7 +75,7 @@ export const mentalMathVsAbacus: Article = {
     en: {
       title: "Mental Math vs Abacus (Soroban): The Difference",
       description:
-        "Mental math vs the abacus (soroban): how they differ, whether your child will always need an abacus, and whether it's the same as UCMAS.",
+        "Mental math vs the abacus (soroban): how they differ, how a soroban works, and whether your child will always need an abacus. Clear answers for parents.",
       h1: "Mental Math vs Abacus (Soroban): What's the Difference?",
       summary:
         "An abacus (such as the Japanese soroban) is a tool children calculate with by moving beads. Mental math is the broader skill: calculating in your head without tools. The abacus is one of the best-known ways to teach mental math: children first learn to calculate on it, then picture it in their mind and calculate on it without touching it.",
@@ -123,16 +114,7 @@ export const mentalMathVsAbacus: Article = {
             },
             {
               type: "p",
-              text: "The two complement each other. That's why iMath's [UCMath method](/program) starts with the abacus (soroban) and gradually moves children to visualising it without tools.",
-            },
-          ],
-        },
-        {
-          heading: "Is mental math the same as UCMAS?",
-          blocks: [
-            {
-              type: "p",
-              text: "No. Mental math is a general skill and the abacus is a tool for teaching it; UCMAS is the name of a commercial program that uses the abacus. Many programs teach mental math, and UCMath is iMath's own method.",
+              text: "The two complement each other. That's why, at iMath, the [UCMath method](/program) starts with the abacus (soroban) and gradually moves children to visualising it without tools.",
             },
           ],
         },

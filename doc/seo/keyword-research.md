@@ -11,7 +11,7 @@ Evidence labels: **[AC]** seen in Google Autocomplete for that market · **[SERP
 1. **The bare term "حساب ذهني" is polluted by school-curriculum searches** [AC]. Across SA, KW, AE and QA, autocomplete for "حساب ذهني" is dominated by "سنة ثالثة / الثلاثي الثالث / سنة رابعة". These are Maghreb (Algeria/Tunisia) primary-school curriculum queries for exercises, not parents looking for a course. **Don't target the bare term.** Target it with qualifiers: للأطفال، كورس، دورة، أونلاين، تعليم، فوائد، ما هو.
 2. **Abacus / soroban is a large adjacent demand cluster** [AC]: اباكوس، اباكوس اون لاين، عداد الحساب الذهني، سوروبان للاطفال، تعليم الحساب الذهني على العداد; EN "abacus classes online", "abacus classes dubai / kuwait / qatar". The homepage hero shows children holding abacuses. **Whether iMath teaches with an abacus decides whether we can honestly target this cluster** (open question Q1).
 3. **Parents ask evaluative questions that nobody answers well in Arabic** [AC][SERP]: هل الحساب الذهني مفيد للاطفال؟ هل يزيد الذكاء؟ هل له أضرار؟ ما هو الحساب الذهني؟ فوائده للدماغ؟ The Arabic results we saw are thin or outdated (e.g. a 2017 Almentor course page, generic marketplace listings). **This is the clearest content gap and the best fit for AEO/AI answers.**
-4. **"هل الحساب الذهني هو اليوسي ماس"** [AC]: parents conflate the category with the UCMAS brand. A neutral explainer ("mental math as a skill vs branded programs, and where UCMath fits") is legitimate and useful. We must not use UCMAS as a keyword target on commercial pages or imply affiliation.
+4. **"هل الحساب الذهني هو اليوسي ماس"** [AC]: parents conflate the category with the UCMAS brand. **Owner decision: UCMAS is never mentioned on the website**, so we don't answer this query directly. Our guides define mental math as a general skill, which serves the same intent without naming any brand.
 5. **Printable practice demand** [AC]: "تمارين حساب ذهني pdf", "مستوى أول pdf", "سوروبان pdf", "mental math worksheets". This is a natural linkable asset and lead magnet (graded worksheets by level, AR/EN), and it pairs with the existing level test.
 6. **Age-specific demand** [AC]: "الحساب الذهني للأطفال 5 سنوات", "لاطفال الروضة", "abacus classes for 5 year old". Supports age-band sections (M7) if the curriculum genuinely differs by age.
 7. **Gulf English market uses country landing pages** [SERP]: ReLearn Education (`/online/abacus-classes-in-saudi-arabia`, `/…-united-arab-emirates`), Cliffpoint Abacus (`/kw`), Kiya Learning (`/abacus-class-in-united-arab-emirates`). Competitors win "abacus classes in <country>" with per-country pages. That's evidence for the M7 country-page experiment, which must carry real local differences (currency prices, time zones, local testimonials) to avoid doorway pages.
@@ -72,7 +72,7 @@ Tutor-reviewed AR first, then EN, each with author byline, `Article` schema, ≥
 2. `/about`: team, tutor qualifications, story (E-E-A-T; needs owner input)
 3. `/resources/what-is-mental-math` (K3)
 4. `/resources/mental-math-benefits-for-kids`: benefits, honest limits, "does it increase intelligence?" with evidence (K4)
-5. `/resources/mental-math-vs-abacus`: incl. the "is mental math the same as UCMAS?" question, neutrally (K5)
+5. `/resources/mental-math-vs-abacus` (K5; no brand comparisons)
 6. `/resources/how-to-teach-mental-math-at-home` (K6)
 7. `/resources/mental-math-worksheets`: printable PDFs by level (K8, linkable asset)
 8. `/resources/child-struggling-with-math` (K9)

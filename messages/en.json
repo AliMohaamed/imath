@@ -284,7 +284,7 @@
         },
         "ucmath": {
           "question": "What is UCMath and why does it matter?",
-          "answer": "UCMath is iMath's own structured mental math methodology that develops calculation ability step by step. It gives parents a clearer path than unstructured tutoring because the training is systematic and measurable."
+          "answer": "UCMath is a structured Mental Math methodology that develops calculation ability step by step. It gives parents a clearer path than unstructured tutoring because the training is systematic and measurable."
         },
         "progress": {
           "question": "How can I track my child's progress?",
@@ -325,7 +325,7 @@
     "assessmentPromo": {
       "eyebrow": "Free for every family",
       "title": "Discover your child's level, free",
-      "description": "Two short, fun assessments take about five minutes each. Learn how your child thinks, and find their mental math level before the first lesson.",
+      "description": "Two short, fun assessments take just a few minutes each. Learn how your child thinks, and find their mental math level before the first lesson.",
       "personality": {
         "title": "Do you want to know how your child thinks?",
         "text": "Find your child's Math Superpower and get a beautiful personalised report to download.",
@@ -665,7 +665,7 @@
     },
     "personality": {
       "intro": {
-        "duration": "About 5 minutes",
+        "duration": "About 3 minutes",
         "title": "Do you want to know how your child thinks?",
         "description": "Discover your child's strengths, understand how they think, and learn about the skills that can help them develop better.",
         "cta": "Start Personality Assessment"
@@ -753,6 +753,7 @@
         "growthNote": "Powers are not fixed. They grow with practice, and every mistake is the brain getting stronger.",
         "scanHint": "Scan the code to chat with us on WhatsApp and book your free trial lesson.",
         "download": "Download the full personality report for \"{name}\"",
+        "language": "Report language:",
         "preparing": "Preparing your report…",
         "error": "We couldn't create the PDF. Please try again."
       }
@@ -834,7 +835,7 @@
   "Seo": {
     "home": {
       "title": "Online Mental Math Classes for Kids (1:1) | iMath",
-      "description": "1:1 online mental math classes for kids aged 4–14 with iMath's UCMath method. Certified tutors, Arabic or English, flexible times. Book a free trial."
+      "description": "1:1 online mental math classes for kids aged 4–14 using the UCMath method. Certified tutors, Arabic or English, flexible times. Book a free trial."
     },
     "assessment": {
       "title": "Free Mental Math Test for Kids",
