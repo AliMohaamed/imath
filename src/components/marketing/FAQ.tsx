@@ -4,41 +4,16 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 import { getWhatsAppUrl } from '@/lib/site';
+import { FAQ_ITEM_KEYS } from '@/lib/faq';
 
 export default function FAQ() {
   const locale = useLocale() as "ar" | "en";
   const t = useTranslations('Marketing.faq');
   const whatsAppUrl = getWhatsAppUrl(locale);
-  const faqs = [
-    {
-      q: t('items.ages.question'),
-      a: t('items.ages.answer')
-    },
-    {
-      q: t('items.format.question'),
-      a: t('items.format.answer')
-    },
-    {
-      q: t('items.mentalMath.question'),
-      a: t('items.mentalMath.answer')
-    },
-    {
-      q: t('items.ucmath.question'),
-      a: t('items.ucmath.answer')
-    },
-    {
-      q: t('items.progress.question'),
-      a: t('items.progress.answer')
-    },
-    {
-      q: t('items.schedule.question'),
-      a: t('items.schedule.answer')
-    },
-    {
-      q: t('items.languages.question'),
-      a: t('items.languages.answer')
-    }
-  ];
+  const faqs = FAQ_ITEM_KEYS.map((key) => ({
+    q: t(`items.${key}.question`),
+    a: t(`items.${key}.answer`),
+  }));
 
   const [activeIdx, setActiveIdx] = useState<number | null>(0);
 
@@ -70,24 +45,25 @@ export default function FAQ() {
                 <ChevronDown className={`w-5 h-5 transition-transform ${activeIdx === idx ? 'rotate-180 text-brand-violet' : 'text-slate-400'}`} />
               </button>
 
-              {activeIdx === idx && (
-                <div
-                  id={`faq-panel-${idx}`}
-                  role="region"
-                  aria-labelledby={`faq-trigger-${idx}`}
-                  className="px-6 pb-6 pt-0 animate-in fade-in slide-in-from-top-4 duration-300"
-                >
-                  <p className="text-sm font-medium leading-relaxed text-slate-500 border-t pt-4">
-                    {faq.a}
-                  </p>
-                </div>
-              )}
+              {/* Every answer stays in the HTML (collapsed ones are `hidden`) so search engines and the
+                  FAQPage structured data see the same content. */}
+              <div
+                id={`faq-panel-${idx}`}
+                role="region"
+                aria-labelledby={`faq-trigger-${idx}`}
+                hidden={activeIdx !== idx}
+                className="px-6 pb-6 pt-0 animate-in fade-in slide-in-from-top-4 duration-300"
+              >
+                <p className="text-sm font-medium leading-relaxed text-slate-500 border-t pt-4">
+                  {faq.a}
+                </p>
+              </div>
             </div>
           ))}
         </div>
 
         <div className="mt-16 text-center space-y-4 p-8 bg-brand-orange/5 border border-brand-orange/10 rounded-3xl">
-          <h4 className="text-lg font-black text-brand-orange">{t('ctaTitle')}</h4>
+          <h3 className="text-lg font-black text-brand-orange">{t('ctaTitle')}</h3>
           <a
             href={whatsAppUrl}
             target="_blank"

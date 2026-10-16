@@ -1,6 +1,15 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { buildPageMetadata, INDEXABLE_PAGES } from "../src/lib/seo";
+import { buildPageMetadata, INDEXABLE_PAGES, OG_IMAGES } from "../src/lib/seo";
+import {
+  breadcrumbSchema,
+  graph,
+  ORGANIZATION_ID,
+  organizationSchema,
+  programSchema,
+  serializeJsonLd,
+  websiteSchema,
+} from "../src/lib/structured-data";
 import { getLocaleAlternates, getLocalePath, normalizeBaseUrl } from "../src/lib/site";
 import sitemap from "../src/app/sitemap";
 import robots from "../src/app/robots";
@@ -86,6 +95,44 @@ describe("robots", () => {
     const rules = Array.isArray(result.rules) ? result.rules[0] : result.rules;
     for (const path of ["/admin", "/en/admin", "/api/"]) {
       assert.ok([rules.disallow].flat().includes(path), `${path} should be disallowed`);
+    }
+  });
+});
+
+describe("structured data", () => {
+  it("escapes < so content can never close the script tag", () => {
+    const serialized = serializeJsonLd({ text: "</script><b>" });
+    assert.ok(!serialized.includes("<"));
+    assert.deepEqual(JSON.parse(serialized), { text: "</script><b>" });
+  });
+
+  it("links every node of the homepage graph to one organization", () => {
+    const data = graph(organizationSchema("ar"), websiteSchema(), programSchema("en"));
+    const nodes = data["@graph"] as Array<Record<string, unknown>>;
+    assert.equal(nodes[0]["@id"], ORGANIZATION_ID);
+    assert.deepEqual(nodes[1].publisher, { "@id": ORGANIZATION_ID });
+    assert.deepEqual(nodes[2].provider, { "@id": ORGANIZATION_ID });
+    assert.match(String(nodes[0].telephone), /^\+\d+$/);
+  });
+
+  it("builds breadcrumbs from Home with absolute, locale-aware URLs", () => {
+    const crumbs = breadcrumbSchema("en", "/assessment/level", "Home", [
+      { path: "/assessment", name: "Test" },
+      { path: "/assessment/level", name: "Level" },
+    ]);
+    const items = crumbs.itemListElement as Array<Record<string, unknown>>;
+    assert.deepEqual(items.map((item) => item.position), [1, 2, 3]);
+    assert.match(String(items[0].item), /\/en$/);
+    assert.match(String(items[2].item), /\/en\/assessment\/level$/);
+  });
+
+  it("gives each locale its own 1200x630 share image", () => {
+    for (const locale of ["ar", "en"] as const) {
+      const og = buildPageMetadata({ locale, path: "/", title: "T", description: "D" }).openGraph;
+      const image = (og?.images as Array<Record<string, unknown>>)[0];
+      assert.equal(image.url, OG_IMAGES[locale].url);
+      assert.equal(image.width, 1200);
+      assert.equal(image.height, 630);
     }
   });
 });

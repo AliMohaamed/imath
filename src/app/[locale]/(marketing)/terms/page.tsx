@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { TermsContent } from "@/components/legal/TermsContent";
+import { PageJsonLd } from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/seo";
 import type { Locale } from "@/navigation";
+
+async function getPageCopy(locale: Locale) {
+  const t = await getTranslations({ namespace: "Seo", locale });
+  return { title: t("terms.title"), description: t("terms.description") };
+}
 
 export async function generateMetadata({
   params,
@@ -10,23 +16,30 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ namespace: "Terms", locale });
+  const { title, description } = await getPageCopy(locale);
 
-  return buildPageMetadata({
-    locale,
-    path: "/terms",
-    title: t("title"),
-    description: t("description"),
-  });
+  return buildPageMetadata({ locale, path: "/terms", title, description });
 }
 
-export default async function TermsPage({
+export default async function Page({
   params,
 }: {
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const { title, description } = await getPageCopy(locale);
 
-  return <TermsContent />;
+  return (
+    <>
+      <PageJsonLd
+        locale={locale}
+        path="/terms"
+        name={title}
+        description={description}
+        trail={[{ path: "/terms", name: title }]}
+      />
+      <TermsContent />
+    </>
+  );
 }

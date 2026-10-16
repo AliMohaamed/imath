@@ -28,7 +28,6 @@ export async function generateMetadata({
       template: `%s | ${SITE_NAME}`,
     },
     description: copy.description,
-    keywords: copy.keywords,
     applicationName: SITE_NAME,
     formatDetection: {
       telephone: false,

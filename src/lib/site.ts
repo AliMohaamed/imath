@@ -1,41 +1,21 @@
 import { defaultLocale, locales, type Locale } from "@/navigation";
 
+// Defaults for pages without their own metadata (admin, 404). Page-level copy lives in messages/*.json under "Seo".
 type SiteCopy = {
   title: string;
   description: string;
-  keywords: string[];
 };
 
 const SITE_COPY: Record<Locale, SiteCopy> = {
   ar: {
-    title: "iMath | أكاديمية حساب ذهني 1:1 أونلاين للأطفال",
+    title: "دروس حساب ذهني أونلاين للأطفال 1:1 | iMath",
     description:
       "iMath تقدم جلسات حساب ذهني فردية 1:1 للأطفال من عمر 4 إلى 18 سنة بمنهج UCMath المعتمد وباللغتين العربية والإنجليزية.",
-    keywords: [
-      "iMath",
-      "الحساب الذهني",
-      "يو سي ماث",
-      "UCMath",
-      "حساب ذهني للأطفال",
-      "أونلاين 1:1",
-      "تعليم الحساب الذهني",
-      "دروس بالعربية والإنجليزية",
-    ],
   },
   en: {
-    title: "iMath | 1:1 Mental Math and UCMath for Ages 4-18",
+    title: "Online Mental Math Classes for Kids (1:1) | iMath",
     description:
       "iMath delivers bilingual 1:1 Mental Math sessions for ages 4-18 using certified UCMath methodology, clear parent communication, and flexible online scheduling.",
-    keywords: [
-      "iMath",
-      "mental math",
-      "UCMath",
-      "online mental math classes",
-      "1:1 mental math tutoring",
-      "certified UCMath tutors",
-      "bilingual tutoring",
-      "mental math for kids",
-    ],
   },
 };
 
@@ -44,7 +24,6 @@ export const SITE_PHONE_NUMBER = "201144146194";
 export const SITE_EMAIL = "imath.edu.eg@gmail.com";
 export const SITE_INSTAGRAM_URL = "https://instagram.com/iMathMental";
 export const SITE_FACEBOOK_URL = "https://www.facebook.com/iMathMental";
-export const DEFAULT_OG_IMAGE = "/logo.png";
 
 export function normalizeBaseUrl(value?: string | null) {
   if (!value) {

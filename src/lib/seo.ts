@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { locales, type Locale } from "@/navigation";
-import { DEFAULT_OG_IMAGE, getLocaleAlternates, getLocalePath, SITE_NAME } from "@/lib/site";
+import { getLocaleAlternates, getLocalePath, SITE_NAME } from "@/lib/site";
 
 /**
  * Every indexable page, used by the sitemap and the SEO tests. Add new pages here.
@@ -18,6 +18,12 @@ export const INDEXABLE_PAGES = [
 export const OG_LOCALES: Record<Locale, string> = {
   ar: "ar_AR",
   en: "en_US",
+};
+
+/** 1200×630 share cards, rendered from HTML so Arabic shapes correctly (see public/og). */
+export const OG_IMAGES: Record<Locale, { url: string; alt: string }> = {
+  ar: { url: "/og/imath-ar.jpg", alt: "iMath: دروس حساب ذهني أونلاين 1:1 للأطفال من 4 إلى 18 سنة" },
+  en: { url: "/og/imath-en.jpg", alt: "iMath: 1:1 online mental math classes for kids aged 4–18" },
 };
 
 type PageMetadataInput = {
@@ -53,13 +59,13 @@ export function buildPageMetadata({ locale, path, title, description, absoluteTi
       title: socialTitle,
       description,
       url,
-      images: [{ url: DEFAULT_OG_IMAGE, width: 512, height: 512, alt: SITE_NAME }],
+      images: [{ ...OG_IMAGES[locale], width: 1200, height: 630, type: "image/jpeg" }],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: socialTitle,
       description,
-      images: [DEFAULT_OG_IMAGE],
+      images: [OG_IMAGES[locale]],
     },
   };
 }

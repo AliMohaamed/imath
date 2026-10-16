@@ -358,7 +358,17 @@ Remaining lab LCP (~4.8 s simulated) is JS/hydration-bound. Follow-ups (P2), to 
 - [ ] P4: server-component conversion of static sections; defer the booking stepper JS.
 - **Acceptance:** build output shows `●`/`○` (SSG) for marketing routes; homepage `Cache-Control` is cacheable; Lighthouse mobile performance ≥ 90 on `/` and `/en` (lab); LCP ≤ 2.5 s, CLS ≤ 0.1, TBT ≤ 200 ms in lab; hero transfer < 200 KB; geo pricing still correct for EG/SA/AE/KW/QA (manual cookie test); booking flow works.
 
-### M4: On-page and structured data — 1–2 days
+### M4: On-page and structured data — ✅ implemented and validated locally 2026-10-16 (pending deploy)
+
+Done:
+- Query-first titles and descriptions for all 12 URLs (new `Seo` namespace in `messages/*.json`; all titles ≤ 60 chars and descriptions ≤ 155). `meta keywords` removed. "افضل" → "أفضل". Localized hero alt. Dynamic © year.
+- FAQ: all answers rendered in the HTML (collapsed ones use `hidden`); `FAQ_ITEM_KEYS` shared by the UI and the JSON-LD; the UCMath answer now says it is iMath's own method.
+- JSON-LD `@graph` (`src/lib/structured-data.ts`): EducationalOrganization (`@id`, logo, sameAs, contactPoint, areaServed), WebSite, WebPage on every page, Course for UCMath (entity only; Google retired Course rich results in 2025), BreadcrumbList on inner pages, FAQPage on home; `<` escaped.
+- Share cards: `public/og/imath-{ar,en}.jpg` (1200×630, ~60 KB, rendered from HTML in headless Chrome so Arabic shapes correctly), `summary_large_image`.
+- Validation: 69 unit tests; `seo-check.mjs` now also verifies JSON-LD parses, WebPage url = canonical, home entities present, FAQ answers visible, OG/Twitter tags, and title/description lengths. validator.schema.org: 0 errors, 0 warnings (home, `/en/assessment/level`).
+- After deploy: Rich Results Test on `/` and `/en`; Facebook Sharing Debugger and a WhatsApp link preview for both languages.
+- Still open: explicit AI-crawler robots policy (G2) waits on open question 9.
+
 - [ ] O1: query-first titles and descriptions (AR/EN) for all pages, ≤ 60 chars for titles and ≤ 155 for descriptions.
 - [ ] O2: remove `keywords`. O4: localized hero alt. O7: dynamic © year.
 - [ ] S1: FAQ answers present in the DOM.

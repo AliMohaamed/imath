@@ -23,6 +23,8 @@ async function get(path, { redirect = "manual" } = {}) {
   return { response, body: await response.text() };
 }
 
+const decode = (text) =>
+  text.replace(/&#x27;/g, "'").replace(/&quot;/g, "\"").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 const attr = (tag, name) => tag.match(new RegExp(`${name}="([^"]*)"`, "i"))?.[1];
 
 // robots.txt and sitemap.xml
@@ -81,6 +83,43 @@ for (const page of PAGES) {
     }
 
     if (response.headers.get("link")?.includes("hreflang")) fail(path, "hreflang also sent in Link header");
+
+    if (title && [...decode(title)].length > 60) fail(path, `title is ${[...decode(title)].length} chars (> 60)`);
+    const description = decode(body.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? "");
+    if ([...description].length > 160) fail(path, `description is ${[...description].length} chars (> 160)`);
+
+    const ogImage = attr(body.match(/<meta property="og:image"[^>]*>/)?.[0] ?? "", "content");
+    if (!ogImage?.endsWith(`/og/imath-${locale}.jpg`)) fail(path, `og:image is ${ogImage}`);
+    if (!body.includes('<meta name="twitter:card" content="summary_large_image"/>')) fail(path, "twitter:card is not summary_large_image");
+
+    // Structured data: every block parses, and a WebPage node describes this exact URL.
+    const blocks = [...body.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+    const nodes = [];
+    for (const block of blocks) {
+      try {
+        const data = JSON.parse(block);
+        nodes.push(...(data["@graph"] ?? [data]));
+      } catch {
+        fail(path, "invalid JSON-LD");
+      }
+    }
+    const types = nodes.map((node) => node["@type"]);
+    const webPage = nodes.find((node) => node["@type"] === "WebPage");
+    if (webPage?.url !== abs(path)) fail(path, `WebPage JSON-LD url is ${webPage?.url}`);
+    if (page === "/") {
+      for (const type of ["EducationalOrganization", "WebSite", "Course", "FAQPage"]) {
+        if (!types.includes(type)) fail(path, `missing ${type} JSON-LD`);
+      }
+      // Every FAQPage answer must also be in the visible HTML, not only in the JSON-LD.
+      const visible = body.replace(/<script[\s\S]*?<\/script>/g, "");
+      const faq = nodes.find((node) => node["@type"] === "FAQPage");
+      for (const question of faq?.mainEntity ?? []) {
+        const answer = question.acceptedAnswer.text.replace(/&/g, "&amp;").replace(/'/g, "&#x27;").replace(/"/g, "&quot;");
+        if (!visible.includes(answer)) fail(path, `FAQ answer not in HTML: "${question.name}"`);
+      }
+    } else if (!types.includes("BreadcrumbList")) {
+      fail(path, "missing BreadcrumbList JSON-LD");
+    }
   }
 }
 

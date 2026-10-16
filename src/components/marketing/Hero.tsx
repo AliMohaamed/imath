@@ -23,7 +23,7 @@ export default function Hero() {
             <div className="relative z-10 mx-auto max-w-[320px] sm:max-w-[400px] lg:max-w-[600px]">
               <Image
                 src="/images/imath-student-mental-math.webp"
-                alt="iMath Student"
+                alt={t("imageAlt")}
                 width={1200}
                 height={1200}
                 className="w-full h-auto"

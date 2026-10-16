@@ -48,7 +48,7 @@ export function TermsContent() {
         <div className="mt-16 p-8 rounded-3xl bg-slate-900 text-white text-center space-y-4">
           <FileText className="w-12 h-12 mx-auto opacity-50" />
           <p className="text-sm font-medium opacity-80">
-            {t("title")} - iMath Academy © 2024
+            {t("title")} - iMath Academy © {new Date().getFullYear()}
           </p>
         </div>
       </div>

@@ -12,8 +12,18 @@ import AssessmentPromo from "@/components/marketing/AssessmentPromo";
 import { BookingStepperSection } from "@/components/booking/BookingStepperSection";
 import FinalCtaSection from "@/components/marketing/FinalCtaSection";
 import type { Metadata } from "next";
-import { getSiteCopy, getSiteUrl, getWhatsAppUrl, SITE_NAME, SITE_PHONE_NUMBER, SITE_EMAIL } from "@/lib/site";
+import { getWhatsAppUrl } from "@/lib/site";
 import { buildPageMetadata } from "@/lib/seo";
+import { FAQ_ITEM_KEYS } from "@/lib/faq";
+import {
+  faqSchema,
+  graph,
+  organizationSchema,
+  programSchema,
+  websiteSchema,
+  webPageSchema,
+} from "@/lib/structured-data";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Locale } from "@/navigation";
 import { setRequestLocale } from "next-intl/server";
 
@@ -23,13 +33,13 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const copy = getSiteCopy(locale);
+  const t = await getTranslations({ namespace: "Seo.home", locale });
 
   return buildPageMetadata({
     locale,
     path: "/",
-    title: copy.title,
-    description: copy.description,
+    title: t("title"),
+    description: t("description"),
     absoluteTitle: true,
   });
 }
@@ -42,58 +52,30 @@ export default async function LandingPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const faqT = await getTranslations({ namespace: "Marketing.faq", locale });
-  const siteUrl = getSiteUrl();
+  const seoT = await getTranslations({ namespace: "Seo.home", locale });
   const whatsAppUrl = getWhatsAppUrl(locale);
 
-  const faqItems = [
-    "ages",
-    "format",
-    "mentalMath",
-    "ucmath",
-    "progress",
-    "schedule",
-    "languages",
-  ] as const;
-
-  const organizationJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    name: SITE_NAME,
-    url: siteUrl.toString(),
-    email: SITE_EMAIL,
-    telephone: SITE_PHONE_NUMBER,
-    availableLanguage: ["ar", "en"],
-    areaServed: ["EG", "SA", "KW", "AE", "QA"],
-    description:
-      locale === "ar"
-        ? "أكاديمية iMath تقدم جلسات حساب ذهني فردية 1:1 أونلاين للأطفال من عمر 4 إلى 18 سنة عبر منهج UCMath المعتمد."
-        : "iMath provides bilingual 1:1 Mental Math sessions for children ages 4-18 through the certified UCMath methodology.",
-  };
-
+  const pageJsonLd = graph(
+    organizationSchema(locale),
+    websiteSchema(),
+    webPageSchema({ locale, path: "/", name: seoT("title"), description: seoT("description") }),
+    programSchema(locale)
+  );
   const faqJsonLd = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    inLanguage: locale,
-    mainEntity: faqItems.map((key) => ({
-      "@type": "Question",
-      name: faqT(`items.${key}.question`),
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faqT(`items.${key}.answer`),
-      },
-    })),
+    ...faqSchema(
+      locale,
+      FAQ_ITEM_KEYS.map((key) => ({
+        question: faqT(`items.${key}.question`),
+        answer: faqT(`items.${key}.answer`),
+      }))
+    ),
   };
 
   return (
     <div className="flex flex-col">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+      <JsonLd data={pageJsonLd} />
+      <JsonLd data={faqJsonLd} />
       <Hero />
       <SocialProofBar />
       <Benefits locale={locale} />

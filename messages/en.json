@@ -59,7 +59,8 @@
             "label": "ages"
           }
         }
-      }
+      },
+      "imageAlt": "Two children holding abacuses while learning mental math with iMath"
     },
     "socialProofBar": {
       "students": {
@@ -283,7 +284,7 @@
         },
         "ucmath": {
           "question": "What is UCMath and why does it matter?",
-          "answer": "UCMath is a structured Mental Math methodology that develops calculation ability step by step. It gives parents a clearer path than unstructured tutoring because the training is systematic and measurable."
+          "answer": "UCMath is iMath's own structured mental math methodology that develops calculation ability step by step. It gives parents a clearer path than unstructured tutoring because the training is systematic and measurable."
         },
         "progress": {
           "question": "How can I track my child's progress?",
@@ -829,5 +830,32 @@
         "disclaimer": "This is a quick placement check. Your tutor will confirm the exact level in the first lesson."
       }
     }
+  },
+  "Seo": {
+    "home": {
+      "title": "Online Mental Math Classes for Kids (1:1) | iMath",
+      "description": "1:1 online mental math classes for kids aged 4–18 with iMath's UCMath method. Certified tutors, Arabic or English, flexible times. Book a free trial."
+    },
+    "assessment": {
+      "title": "Free Mental Math Test for Kids",
+      "description": "Two free, fun assessments: a mental math level test and a learning personality quiz. Find your child's level and strengths in minutes."
+    },
+    "level": {
+      "title": "Free Mental Math Level Test for Kids",
+      "description": "A free interactive test that finds your child's mental math level in minutes, with an instant result and a recommended next step."
+    },
+    "personality": {
+      "title": "Learning Personality Quiz for Kids (Free)",
+      "description": "Discover how your child thinks and learns, their strengths, and the skills that help them grow, with a free downloadable PDF report."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "How iMath collects, uses and protects your and your child's data when you book classes or take our assessments."
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "description": "The terms for using iMath's services: 1:1 sessions, cancellations and rescheduling, and payments."
+    },
+    "breadcrumbHome": "Home"
   }
 }
