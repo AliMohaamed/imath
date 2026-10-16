@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
 import { NextIntlClientProvider } from 'next-intl';
-import { defaultLocale, locales, type Locale } from "@/navigation";
+import { locales, type Locale } from "@/navigation";
 import { notFound } from "next/navigation";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
-import { DEFAULT_OG_IMAGE, getLocaleAlternates, getSiteCopy, getSiteUrl, SITE_NAME } from "@/lib/site";
+import { getSiteCopy, getSiteUrl, SITE_NAME } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -17,10 +17,10 @@ export async function generateMetadata({
     notFound();
   }
 
-  const currentLocale = locale as Locale;
-  const copy = getSiteCopy(currentLocale);
-  const path = currentLocale === defaultLocale ? "/" : `/${currentLocale}`;
+  const copy = getSiteCopy(locale as Locale);
 
+  // Canonical, hreflang and Open Graph URLs are deliberately not set here: each page
+  // sets its own via buildPageMetadata() so nothing inherits the homepage canonical.
   return {
     metadataBase: getSiteUrl(),
     title: {
@@ -30,36 +30,10 @@ export async function generateMetadata({
     description: copy.description,
     keywords: copy.keywords,
     applicationName: SITE_NAME,
-    alternates: {
-      canonical: path,
-      languages: getLocaleAlternates("/"),
-    },
     formatDetection: {
       telephone: false,
       email: false,
       address: false,
-    },
-    openGraph: {
-      type: "website",
-      siteName: SITE_NAME,
-      locale: currentLocale === "ar" ? "ar_EG" : "en_US",
-      title: copy.title,
-      description: copy.description,
-      url: path,
-      images: [
-        {
-          url: DEFAULT_OG_IMAGE,
-          width: 512,
-          height: 512,
-          alt: `${SITE_NAME} logo`,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: copy.title,
-      description: copy.description,
-      images: [DEFAULT_OG_IMAGE],
     },
     icons: {
       icon: "/logo.png",
@@ -95,9 +69,9 @@ export default async function LocaleLayout({
   const direction = locale === 'ar' ? 'rtl' : 'ltr';
 
   return (
+    <html lang={locale} dir={direction} suppressHydrationWarning>
+    <body className="antialiased bg-white text-slate-900 font-sans">
     <div
-      lang={locale}
-      dir={direction}
       className={`font-sans light min-h-screen`}
       style={{ colorScheme: 'light' }}
     >
@@ -115,5 +89,7 @@ export default async function LocaleLayout({
           </ConvexClientProvider>
         </ConvexAuthNextjsServerProvider>
     </div>
+    </body>
+    </html>
   );
 }

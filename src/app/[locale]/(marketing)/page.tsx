@@ -11,9 +11,28 @@ import SocialProofBar from "@/components/marketing/SocialProofBar";
 import AssessmentPromo from "@/components/marketing/AssessmentPromo";
 import { BookingStepperSection } from "@/components/booking/BookingStepperSection";
 import FinalCtaSection from "@/components/marketing/FinalCtaSection";
-import { getSiteUrl, getWhatsAppUrl, SITE_NAME, SITE_PHONE_NUMBER, SITE_EMAIL } from "@/lib/site";
+import type { Metadata } from "next";
+import { getSiteCopy, getSiteUrl, getWhatsAppUrl, SITE_NAME, SITE_PHONE_NUMBER, SITE_EMAIL } from "@/lib/site";
+import { buildPageMetadata } from "@/lib/seo";
 import { Locale } from "@/navigation";
 import { setRequestLocale } from "next-intl/server";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const copy = getSiteCopy(locale);
+
+  return buildPageMetadata({
+    locale,
+    path: "/",
+    title: copy.title,
+    description: copy.description,
+    absoluteTitle: true,
+  });
+}
 
 export default async function LandingPage({
   params,

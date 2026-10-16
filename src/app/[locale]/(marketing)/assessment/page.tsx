@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AssessmentHub } from "@/components/assessment/AssessmentHub";
-import { getLocaleAlternates, getLocalePath } from "@/lib/site";
+import { buildPageMetadata } from "@/lib/seo";
 import type { Locale } from "@/navigation";
 
 export async function generateMetadata({
@@ -12,14 +12,12 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ namespace: "Assessment.hub", locale });
 
-  return {
+  return buildPageMetadata({
+    locale,
+    path: "/assessment",
     title: t("title"),
     description: t("subtitle"),
-    alternates: {
-      canonical: getLocalePath(locale, "/assessment"),
-      languages: getLocaleAlternates("/assessment"),
-    },
-  };
+  });
 }
 
 export default async function AssessmentPage({

@@ -46,16 +46,20 @@ export const SITE_INSTAGRAM_URL = "https://instagram.com/iMathMental";
 export const SITE_FACEBOOK_URL = "https://www.facebook.com/iMathMental";
 export const DEFAULT_OG_IMAGE = "/logo.png";
 
-function normalizeBaseUrl(value?: string | null) {
+export function normalizeBaseUrl(value?: string | null) {
   if (!value) {
     return "http://localhost:3000";
   }
 
-  if (value.startsWith("http://") || value.startsWith("https://")) {
-    return value;
-  }
+  const url = value.startsWith("http://") || value.startsWith("https://") ? value : `https://${value}`;
+  return url.replace(/\/+$/, "");
+}
 
-  return `https://${value}`;
+// Canonicals, hreflang and the sitemap are built from this, so a production build
+// must never fall back to a preview hostname. VERCEL_ENV is server-only, so this
+// check never fires in the client bundle.
+if (process.env.VERCEL_ENV === "production" && !process.env.NEXT_PUBLIC_SITE_URL) {
+  throw new Error("NEXT_PUBLIC_SITE_URL must be set for production builds (e.g. https://www.imathmental.com).");
 }
 
 export const SITE_URL = normalizeBaseUrl(
@@ -73,10 +77,16 @@ export function getLocalePath(locale: Locale, pathname = "/") {
   return locale === defaultLocale ? normalizedPath || "/" : `/${locale}${normalizedPath}`;
 }
 
+/** hreflang set for a path: every locale plus x-default (the unprefixed default-locale URL). */
 export function getLocaleAlternates(pathname = "/") {
-  return Object.fromEntries(
-    locales.map((locale) => [locale, getLocalePath(locale, pathname)])
-  ) as Record<Locale, string>;
+  return {
+    ...Object.fromEntries(locales.map((locale) => [locale, getLocalePath(locale, pathname)])),
+    "x-default": getLocalePath(defaultLocale, pathname),
+  } as Record<Locale | "x-default", string>;
+}
+
+export function getAbsoluteUrl(pathname: string) {
+  return pathname === "/" ? SITE_URL : `${SITE_URL}${pathname}`;
 }
 
 export function getSiteCopy(locale: Locale) {

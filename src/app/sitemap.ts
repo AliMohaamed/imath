@@ -1,27 +1,17 @@
 import type { MetadataRoute } from "next";
-import { defaultLocale, locales } from "@/navigation";
-import { DEFAULT_OG_IMAGE, getLocaleAlternates, getLocalePath, SITE_URL } from "@/lib/site";
+import { locales } from "@/navigation";
+import { getAbsoluteUrl, getLocaleAlternates, getLocalePath } from "@/lib/site";
+import { INDEXABLE_PAGES } from "@/lib/seo";
 
+// Google ignores <priority> and <changefreq>, so only <lastmod> and hreflang alternates are emitted.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
-  const pages = [
-    { path: "/", priority: 1, changeFrequency: "weekly" as const },
-    { path: "/assessment", priority: 0.8, changeFrequency: "monthly" as const },
-    { path: "/assessment/personality", priority: 0.7, changeFrequency: "monthly" as const },
-    { path: "/assessment/level", priority: 0.7, changeFrequency: "monthly" as const },
-  ];
-
-  return pages.flatMap((page) =>
+  return INDEXABLE_PAGES.flatMap((page) =>
     locales.map((locale) => ({
-      url: `${SITE_URL}${getLocalePath(locale, page.path)}`,
-      lastModified,
-      changeFrequency: page.changeFrequency,
-      // Rounded so the XML gets 0.7, not 0.7000000000000001.
-      priority: locale === defaultLocale ? page.priority : Math.round((page.priority - 0.1) * 10) / 10,
-      ...(page.path === "/" ? { images: [`${SITE_URL}${DEFAULT_OG_IMAGE}`] } : {}),
+      url: getAbsoluteUrl(getLocalePath(locale, page.path)),
+      lastModified: page.lastModified,
       alternates: {
         languages: Object.fromEntries(
-          Object.entries(getLocaleAlternates(page.path)).map(([key, value]) => [key, `${SITE_URL}${value}`])
+          Object.entries(getLocaleAlternates(page.path)).map(([key, value]) => [key, getAbsoluteUrl(value)])
         ),
       },
     }))

@@ -67,6 +67,7 @@ export default convexAuthNextjsMiddleware(async (request, { convexAuth }) => {
 export const config = {
   matcher: [
     '/api/auth/:path*',
-    '/((?!api|_next/static|_next/image|favicon.ico|logo.png|images|.*\\.(?:png|jpg|jpeg|gif|svg|ico|webp|webmanifest)$|font).*)'
+    // Metadata files (robots.txt, sitemap.xml, manifest) must skip the locale rewrite or they 404.
+    '/((?!api|_next/static|_next/image|favicon.ico|logo.png|images|.*\\.(?:png|jpg|jpeg|gif|svg|ico|webp|webmanifest|xml|txt)$|font).*)'
   ]
 };

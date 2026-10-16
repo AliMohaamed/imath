@@ -9,7 +9,10 @@ export type Locale = (typeof locales)[number];
 export const routing = defineRouting({
   locales,
   defaultLocale,
-  localePrefix
+  localePrefix,
+  // hreflang is emitted in <head> and the sitemap (see src/lib/seo.ts); a third,
+  // header-based copy from the middleware would only risk disagreeing with them.
+  alternateLinks: false
 });
 
 export const { Link, redirect, usePathname, useRouter } = createNavigation(routing);

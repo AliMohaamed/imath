@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { AdminShellClient } from "@/components/admin/AdminShellClient";
+
+export const metadata: Metadata = {
+  title: { absolute: "iMath Admin" },
+  robots: { index: false, follow: false },
+};
 
 export default async function AdminLayout({
   children,
