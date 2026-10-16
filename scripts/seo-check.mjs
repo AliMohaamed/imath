@@ -92,7 +92,7 @@ for (const page of PAGES) {
     if ([...description].length > 160) fail(path, `description is ${[...description].length} chars (> 160)`);
 
     const ogImage = attr(body.match(/<meta property="og:image"[^>]*>/)?.[0] ?? "", "content");
-    if (!ogImage?.endsWith(`/og/imath-${locale}.jpg`)) fail(path, `og:image is ${ogImage}`);
+    if (!new RegExp(`/og/imath-${locale}(-v\\d+)?\\.jpg$`).test(ogImage ?? "")) fail(path, `og:image is ${ogImage}`);
     if (!body.includes('<meta name="twitter:card" content="summary_large_image"/>')) fail(path, "twitter:card is not summary_large_image");
 
     // Structured data: every block parses, and a WebPage node describes this exact URL.
