@@ -39,9 +39,9 @@ export default async function Footer({ locale }: { locale: Locale }) {
           <div className="space-y-4">
             <h4 className="font-bold text-sm text-slate-900 uppercase tracking-wider">{t('academy')}</h4>
             <ul className="space-y-2 text-sm text-slate-600">
-              <li><Link href="#why-imath" className="hover:text-brand-violet transition-colors">{common('sections.whyImath')}</Link></li>
-              <li><Link href="#how-it-works" className="hover:text-brand-violet transition-colors">{common('sections.howItWorks')}</Link></li>
-              <li><Link href="#pricing" className="hover:text-brand-violet transition-colors">{common('sections.pricing')}</Link></li>
+              <li><Link href="/#why-imath" className="hover:text-brand-violet transition-colors">{common('sections.whyImath')}</Link></li>
+              <li><Link href="/#how-it-works" className="hover:text-brand-violet transition-colors">{common('sections.howItWorks')}</Link></li>
+              <li><Link href="/#pricing" className="hover:text-brand-violet transition-colors">{common('sections.pricing')}</Link></li>
             </ul>
           </div>
 

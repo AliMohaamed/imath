@@ -1,33 +1,13 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
-import type { QueryCtx, MutationCtx } from "./_generated/server";
 import { LEAD_STATUS_OPTIONS } from "../src/lib/leads";
-
-function getAllowedAdminEmails() {
-  return (process.env.ADMIN_EMAIL_ALLOWLIST ?? "")
-    .split(",")
-    .map((value) => value.trim().toLowerCase())
-    .filter(Boolean);
-}
-
-async function requireAdmin(ctx: QueryCtx | MutationCtx) {
-  const identity = await ctx.auth.getUserIdentity();
-  if (!identity) {
-    throw new Error("Unauthorized");
-  }
-  const allowedEmails = getAllowedAdminEmails();
-  const identityEmail = identity.email?.toLowerCase();
-  if (allowedEmails.length > 0 && (!identityEmail || !allowedEmails.includes(identityEmail))) {
-    throw new Error("Forbidden");
-  }
-  return identity;
-}
+import { getViewerEmail, isAllowedAdmin, requireAdmin } from "./lib/admin";
 
 export const getViewer = query({
   args: {},
   handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
+    const email = await getViewerEmail(ctx);
+    if (email === null) {
       return {
         isAuthenticated: false,
         isAuthorized: false,
@@ -35,29 +15,10 @@ export const getViewer = query({
       };
     }
 
-    // Try to get email from identity or fetch the user doc
-    let email = identity.email?.toLowerCase();
-    if (!email && identity.subject) {
-      const user = await ctx.db.get(identity.subject as any) as any;
-      email = user?.email?.toLowerCase();
-    }
-
-    if (!email) {
-      return {
-        isAuthenticated: true,
-        isAuthorized: false,
-        email: "unknown",
-      };
-    }
-
-    const allowedEmails = getAllowedAdminEmails();
-    const isAuthorized =
-      allowedEmails.length === 0 ? true : allowedEmails.includes(email);
-
     return {
       isAuthenticated: true,
-      isAuthorized,
-      email,
+      isAuthorized: isAllowedAdmin(email),
+      email: email || "unknown",
     };
   },
 });

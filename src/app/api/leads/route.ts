@@ -1,4 +1,3 @@
-import { createHash } from "node:crypto";
 import { ConvexHttpClient } from "convex/browser";
 import { makeFunctionReference } from "convex/server";
 import { cookies } from "next/headers";
@@ -11,6 +10,8 @@ import {
   OVERRIDE_COUNTRY_COOKIE,
   resolveSupportedCountryCode,
 } from "@/lib/pricing";
+import { createRateLimitKey } from "@/lib/server/rate-limit";
+import { sendTelegramNotification } from "@/lib/telegram";
 
 type SubmitLeadArgs = {
   parentName: string;
@@ -50,24 +51,6 @@ const recordDeliveryAttemptReference = makeFunctionReference<
   { ok: true }
 >("notifications:recordDeliveryAttempt");
 
-function getClientIp(headers: Headers) {
-  const forwardedFor = headers.get("x-forwarded-for");
-  if (forwardedFor) {
-    return forwardedFor.split(",")[0]?.trim();
-  }
-
-  return headers.get("x-real-ip") ?? "unknown";
-}
-
-function createRateLimitKey(headers: Headers) {
-  const ip = getClientIp(headers);
-  const userAgent = headers.get("user-agent") ?? "unknown";
-
-  return createHash("sha256")
-    .update(`${ip}:${userAgent}`)
-    .digest("hex");
-}
-
 function formatTelegramMessage(params: {
   parentName: string;
   studentName: string;
@@ -100,32 +83,6 @@ function formatTelegramMessage(params: {
     separator,
     `<i>تم الإرسال تلقائيًا من موقع iMath</i>`
   ].join("\n");
-}
-
-async function sendTelegramNotification(params: {
-  botToken: string;
-  chatId: string;
-  message: string;
-}) {
-  const response = await fetch(`https://api.telegram.org/bot${params.botToken}/sendMessage`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      chat_id: params.chatId,
-      text: params.message,
-      parse_mode: "HTML",
-    }),
-  });
-
-  const payload = await response.json();
-
-  if (!response.ok || !payload.ok) {
-    throw new Error(payload.description ?? "Telegram delivery failed.");
-  }
-
-  return payload.result?.message_id ? String(payload.result.message_id) : undefined;
 }
 
 export async function POST(request: Request) {

@@ -22,6 +22,7 @@ import { DateSelector } from "@/components/booking/DateSelector";
 import { TimeSelector } from "@/components/booking/TimeSelector";
 import { BOOKING_STEPPER_ID, useBookingFlow } from "@/components/booking/BookingFlowProvider";
 import { trackEvent } from "@/lib/analytics";
+import { consumeBookingPrefill } from "@/lib/assessment/storage";
 import { cn } from "@/lib/utils";
 
 type SubmissionState =
@@ -108,6 +109,24 @@ export function BookingStepperSection() {
     setValue("timezone", defaultTimezone);
     setValue("locale", locale);
   }, [defaultTimezone, locale, setValue]);
+
+  // A family arriving from an assessment result shouldn't have to retype what they already told us.
+  useEffect(() => {
+    const prefill = consumeBookingPrefill();
+    if (!prefill) {
+      return;
+    }
+
+    const options = { shouldDirty: true } as const;
+    if (prefill.studentName) setValue("studentName", prefill.studentName, options);
+    if (prefill.studentAge && AGE_OPTIONS.includes(prefill.studentAge)) setValue("studentAge", prefill.studentAge, options);
+    if (prefill.parentName) setValue("parentName", prefill.parentName, options);
+    if (prefill.phoneCountryCode) setValue("phoneCountryCode", prefill.phoneCountryCode, options);
+    if (prefill.phoneNumber) setValue("phoneNumber", prefill.phoneNumber, options);
+    if (prefill.previousExperience) setValue("previousExperience", prefill.previousExperience, options);
+
+    trackEvent("booking_prefilled", { source: prefill.source, locale });
+  }, [setValue, locale]);
 
   useEffect(() => {
     if (lastSource && lastSource.startsWith("pricing_")) {

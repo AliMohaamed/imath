@@ -7,6 +7,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { useRouter } from "@/navigation";
 import { trackEvent } from "@/lib/analytics";
 
 type BookingFlowContextValue = {
@@ -19,6 +20,7 @@ const BookingFlowContext = createContext<BookingFlowContextValue | null>(null);
 
 export function BookingFlowProvider({ children }: { children: ReactNode }) {
   const [lastSource, setLastSource] = useState("unknown");
+  const router = useRouter();
 
   const value = useMemo<BookingFlowContextValue>(
     () => ({
@@ -28,12 +30,18 @@ export function BookingFlowProvider({ children }: { children: ReactNode }) {
 
         if (typeof document !== "undefined") {
           const element = document.getElementById(BOOKING_STEPPER_ID);
-          element?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+          } else {
+            // The stepper only exists on the home page; other pages send the visitor there.
+            router.push(`/#${BOOKING_STEPPER_ID}`);
+          }
         }
       },
       lastSource,
     }),
-    [lastSource]
+    [lastSource, router]
   );
 
   return (

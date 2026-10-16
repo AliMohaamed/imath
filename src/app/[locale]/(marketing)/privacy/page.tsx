@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Shield, Lock, Eye, Database } from "lucide-react";
+import { Shield, Lock, Eye, Database, ClipboardCheck } from "lucide-react";
 
 export default function PrivacyPage() {
   const t = useTranslations("Privacy");
@@ -10,6 +10,7 @@ export default function PrivacyPage() {
     { key: "collection", icon: Database, color: "bg-brand-violet/10 text-brand-violet" },
     { key: "usage", icon: Eye, color: "bg-brand-orange/10 text-brand-orange" },
     { key: "protection", icon: Shield, color: "bg-emerald-100 text-emerald-700" },
+    { key: "assessments", icon: ClipboardCheck, color: "bg-sky-100 text-sky-700" },
   ];
 
   return (

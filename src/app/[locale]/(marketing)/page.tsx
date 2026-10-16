@@ -8,6 +8,7 @@ import Testimonials from "@/components/marketing/Testimonials";
 import TrustSection from "@/components/marketing/TrustSection";
 import MentalMathSection from "@/components/marketing/MentalMathSection";
 import SocialProofBar from "@/components/marketing/SocialProofBar";
+import AssessmentPromo from "@/components/marketing/AssessmentPromo";
 import { BookingStepperSection } from "@/components/booking/BookingStepperSection";
 import FinalCtaSection from "@/components/marketing/FinalCtaSection";
 import { getSiteUrl, getWhatsAppUrl, SITE_NAME, SITE_PHONE_NUMBER, SITE_EMAIL } from "@/lib/site";
@@ -80,6 +81,7 @@ export default async function LandingPage({
       <TrustSection locale={locale} />
       <MentalMathSection />
       <HowItWorks />
+      <AssessmentPromo />
       <Testimonials />
       <Pricing />
       <BookingStepperSection />

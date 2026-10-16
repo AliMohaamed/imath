@@ -13,7 +13,8 @@
       "howItWorks": "How It Works",
       "pricing": "Pricing",
       "faq": "FAQ",
-      "testimonials": "Parent Stories"
+      "testimonials": "Parent Stories",
+      "assessment": "Free assessment"
     },
     "skipToContent": "Skip to content",
     "navigationMenu": {
@@ -319,6 +320,21 @@
       "defaultMessage": "Hello iMath, I'm interested in a free trial!",
       "ariaLabel": "Contact us on WhatsApp",
       "label": "Chat with us"
+    },
+    "assessmentPromo": {
+      "eyebrow": "Free for every family",
+      "title": "Discover your child's level, free",
+      "description": "Two short, fun assessments take about five minutes each. Learn how your child thinks, and find their mental math level before the first lesson.",
+      "personality": {
+        "title": "Do you want to know how your child thinks?",
+        "text": "Find your child's Math Superpower and get a beautiful personalised report to download.",
+        "cta": "Start Personality Assessment"
+      },
+      "level": {
+        "title": "What is your child's mental math level?",
+        "text": "A short, playful puzzle game that places your child on our six-level scale.",
+        "cta": "Start Level Assessment"
+      }
     }
   },
   "BookingModal": {
@@ -441,7 +457,9 @@
       "login": "Login",
       "signOut": "Sign Out",
       "loading": "Loading admin data...",
-      "goToDashboard": "Go to Dashboard"
+      "goToDashboard": "Go to Dashboard",
+      "menu": "Menu",
+      "signedInAs": "Signed in as {email}"
     },
     "login": {
       "eyebrow": "Secure Access",
@@ -482,7 +500,11 @@
         "allCountries": "All countries",
         "newestFirst": "Newest first",
         "oldestFirst": "Oldest first",
-        "byStatus": "By status"
+        "byStatus": "By status",
+        "search": "Search",
+        "searchPlaceholder": "Name, phone or email",
+        "reset": "Reset filters",
+        "results": "{shown} of {total} leads"
       },
       "table": {
         "parent": "Parent",
@@ -503,7 +525,14 @@
         "locale": "Locale",
         "country": "Country / Currency",
         "preferredSlots": "Preferred Slots",
-        "statusLabel": "Update status"
+        "statusLabel": "Update status",
+        "interestedPackage": "Interested package",
+        "packageMonths": "{months} months",
+        "notSure": "Not sure yet",
+        "copyPhone": "Copy phone",
+        "copied": "Copied",
+        "saving": "Saving…",
+        "unread": "New"
       },
       "actions": {
         "whatsapp": "Open WhatsApp",
@@ -529,7 +558,11 @@
         "notAuthorizedTitle": "Account Not Authorized",
         "notAuthorizedDescription": "The signed-in account ({email}) is not included in the admin allowlist.",
         "empty": "No leads match the current filters.",
-        "selectLead": "Select a lead to view the full details."
+        "selectLead": "Select a lead to view the full details.",
+        "signInPrompt": "Please sign in to access the dashboard."
+      },
+      "pipeline": {
+        "all": "All"
       }
     }
   },
@@ -540,7 +573,7 @@
   },
   "Privacy": {
     "title": "Privacy Policy",
-    "lastUpdated": "Last updated: March 2024",
+    "lastUpdated": "Last updated: October 2026",
     "description": "At iMath, we take your privacy and your child's data security very seriously. This policy explains how we collect, use, and protect the information you share with us.",
     "sections": {
       "collection": {
@@ -554,6 +587,10 @@
       "protection": {
         "title": "3. Data Protection",
         "content": "Your data is stored securely using modern encryption technologies. We do not sell or share your personal data with third parties for marketing purposes."
+      },
+      "assessments": {
+        "title": "4. Free Assessments",
+        "content": "If you take our free Personality or Level assessment, we also store the answers, the results and the details you enter: parent name, email and phone number, and the child's name, date of birth or age, and gender. We use them to show your results and to contact you about a free trial. The results are educational snapshots, not psychological or clinical evaluations. Your progress is also kept in your own browser for 30 days so you can continue later; clear your browser data to remove it. To have your assessment data deleted, email us at imath.edu.eg@gmail.com."
       }
     }
   },
@@ -573,6 +610,223 @@
       "payments": {
         "title": "3. Payments",
         "content": "Payment packages and transfer details are agreed upon manually via WhatsApp after the successful completion of the trial session."
+      }
+    }
+  },
+  "Assessment": {
+    "hub": {
+      "title": "Discover your child's level — free",
+      "subtitle": "Two short, fun assessments that help you understand how your child thinks and find their mental math level.",
+      "minutes": "About 5 minutes",
+      "inProgress": "In progress",
+      "completed": "Completed",
+      "viewResult": "View result",
+      "continueHint": "You have an unfinished assessment. You can pick up where you left off.",
+      "note": "These assessments are educational and are not a psychological or clinical evaluation.",
+      "personality": {
+        "label": "Personality Assessment",
+        "forWho": "For parents",
+        "question": "Do you want to know how your child thinks?",
+        "description": "Discover your child's strengths, understand how they think, and learn about the skills that can help them develop better.",
+        "cta": "Start Personality Assessment",
+        "profiles": "One of 4 math superpowers",
+        "traits": "A breakdown of 4 learning traits",
+        "pdf": "A personalised PDF report to download"
+      },
+      "level": {
+        "label": "Level Assessment",
+        "forWho": "For the child",
+        "question": "What's your mental math level?",
+        "description": "Solve a series of fun mental math puzzles and we'll work out your current level.",
+        "cta": "Start Level Assessment",
+        "ladder": "6 levels, from {first} to {last}",
+        "flash": "Flash Numbers: add them up in your head",
+        "speed": "Speed stars for quick answers",
+        "adaptive": "Adapts to the child's age"
+      },
+      "heading": "Discover your child's level — <highlight>free</highlight>",
+      "free": "100% free",
+      "saveAnytime": "Save and continue anytime",
+      "questions": "{count} questions",
+      "yourResult": "What you'll get",
+      "sample": "Sample",
+      "steps": {
+        "title": "How it works",
+        "info": "Tell us about your child",
+        "answer": "Answer short, fun questions",
+        "result": "Get the result and a free trial shaped around it"
+      }
+    },
+    "resume": {
+      "title": "You have a submission in progress. Would you like to continue?",
+      "continue": "Continue",
+      "restart": "Start again"
+    },
+    "personality": {
+      "intro": {
+        "duration": "About 5 minutes",
+        "title": "Do you want to know how your child thinks?",
+        "description": "Discover your child's strengths, understand how they think, and learn about the skills that can help them develop better.",
+        "cta": "Start Personality Assessment"
+      },
+      "info": {
+        "title": "Tell us about you and your child",
+        "description": "We use these details to personalise your child's results.",
+        "parentName": "Parent/Guardian Name",
+        "parentEmail": "Parent/Guardian Email",
+        "parentPhone": "Parent/Guardian WhatsApp Number",
+        "phonePlaceholder": "10 1234 5678",
+        "studentName": "Student Name",
+        "studentDob": "Student Date of Birth",
+        "gender": "Your child is a",
+        "boy": "Boy",
+        "girl": "Girl",
+        "next": "Next",
+        "saving": "Saving…",
+        "privacyNote": "We use these details to send your child's results and to contact you about a free trial. We never share them.",
+        "errors": {
+          "parentName": "Please enter the parent or guardian's name.",
+          "parentEmail": "Please enter a valid email address.",
+          "parentPhone": "Please enter a valid phone number.",
+          "phoneCountryCode": "Please choose a country code.",
+          "phoneNumber": "Please enter a valid phone number.",
+          "studentName": "Please enter the student's name.",
+          "studentDob": "Please enter a valid date of birth (ages 3 to 18).",
+          "gender": "Please choose one."
+        }
+      },
+      "errors": {
+        "generic": "Something went wrong. Please check your details and try again."
+      },
+      "questions": {
+        "progress": "Question {current} of {total}",
+        "heading": "Questions about {name}",
+        "hint": "Pick the statement that sounds more like {name}, then say how well it fits.",
+        "strength": {
+          "question": "How well does this fit {name}?",
+          "strong": "Fits perfectly",
+          "slight": "Closer than the other"
+        },
+        "back": "Back",
+        "submit": "See results"
+      },
+      "result": {
+        "title": "{name}'s Math Superpower: {profile}",
+        "howThinks": "How {name} thinks",
+        "retake": "Take it again",
+        "disclaimer": "This is an educational snapshot based on a parent's answers, not a psychological or clinical assessment.",
+        "poles": {
+          "E": "Outgoing",
+          "I": "Reflective",
+          "S": "Practical",
+          "N": "Imaginative",
+          "T": "Logical",
+          "F": "Caring",
+          "J": "Planner",
+          "P": "Explorer"
+        },
+        "weThink": "We think {name} is",
+        "traitsTitle": "Key traits",
+        "strengths": "Strengths",
+        "challenges": "Areas to grow",
+        "mathPowerTitle": "{name}'s superpower in mental math",
+        "buildNext": "Powers we'll build next",
+        "buildNextHint": "Mental math grows all four powers. These are the ones iMath will focus on for {name}, starting with the one with the most room to grow.",
+        "parentTips": "Tips for home",
+        "learnAtImath": "How {name} learns best at iMath",
+        "strength": {
+          "clearly": "Clearly",
+          "moderately": "Moderately",
+          "slightly": "Slightly"
+        },
+        "bookCta": "Book a free trial for {name}",
+        "bookHint": "Our tutor will shape the first session around {name}'s profile.",
+        "share": "Share on WhatsApp",
+        "shareText": "{name}'s Math Superpower is {profile}! Discover how your child thinks, free:",
+        "levelCta": "Now test {name}'s mental math level"
+      },
+      "pdf": {
+        "coverEyebrow": "Math Superpower · {profile}",
+        "coverTitle": "{name}'s Personality Report",
+        "academy": "Mental Math Academy",
+        "growthNote": "Powers are not fixed. They grow with practice, and every mistake is the brain getting stronger.",
+        "scanHint": "Scan the code to chat with us on WhatsApp and book your free trial lesson.",
+        "download": "Download the full personality report for \"{name}\"",
+        "preparing": "Preparing your report…",
+        "error": "We couldn't create the PDF. Please try again."
+      }
+    },
+    "level": {
+      "intro": {
+        "duration": "About 5 minutes",
+        "title": "Discover your mental math level",
+        "description": "Solve a series of fun mental math puzzles and we will find your current level.",
+        "tip": "It's not a school test. Just have fun and do your best!",
+        "cta": "Start Level Assessment"
+      },
+      "info": {
+        "title": "Let's get to know you",
+        "description": "Tell us a little about yourself so we can show your result.",
+        "studentName": "What is your name?",
+        "studentAge": "How old are you?",
+        "phone": "What is your phone number?",
+        "phoneHint": "A grown-up's number is fine.",
+        "phonePlaceholder": "10 1234 5678",
+        "ageOptionFew": "{age} years old",
+        "ageOptionMany": "{age} years old",
+        "next": "Next",
+        "saving": "Saving…",
+        "privacyNote": "We use these details to show your result and to contact your family about a free trial. We never share them.",
+        "errors": {
+          "studentName": "Please enter your name.",
+          "studentAge": "Please choose your age.",
+          "phoneCountryCode": "Please choose a country code.",
+          "phoneNumber": "Please enter a valid phone number."
+        }
+      },
+      "errors": {
+        "generic": "Something went wrong. Please check your details and try again."
+      },
+      "howto": {
+        "title": "Let's warm up!",
+        "text": "Type the answer with the number pad. Some questions flash numbers on the screen, so add them up in your head. This one doesn't count."
+      },
+      "play": {
+        "level": "Level {level}",
+        "question": "Question {current} of 3",
+        "ready": "Get ready!",
+        "dotsAsk": "How many dots were there?",
+        "flashAsk": "What is the total?",
+        "half": "Half of {value} = ?",
+        "double": "Double {value} = ?",
+        "answer": "Your answer",
+        "delete": "Delete",
+        "check": "Check answer",
+        "great": "Great job!",
+        "tryAgain": "Nice try!",
+        "timeUp": "Time's up. No problem!",
+        "levelUp": "Level up!",
+        "levelUpText": "Great work! Here come some trickier ones.",
+        "tryEasier": "Let's try some friendlier ones.",
+        "warmupDone": "Warm-up done. Let's begin!"
+      },
+      "result": {
+        "title": "{name} is at Level {level}",
+        "titleZero": "{name} is ready to start!",
+        "levelLabel": "Level {level}",
+        "speed": "Speed",
+        "accuracy": "Accuracy",
+        "ladder": "The 6 levels",
+        "canDo": "What {name} can already do",
+        "next": "What's next",
+        "recommend": "At iMath, we would start {name} with: {topic}.",
+        "bookCta": "Book a free trial for {name}",
+        "bookHint": "Our tutor will plan the first lesson around {name}'s level.",
+        "share": "Share on WhatsApp",
+        "shareText": "{name} just reached Level {level} in mental math! Find your level, free:",
+        "personalityCta": "Discover how {name} thinks",
+        "retake": "Take it again",
+        "disclaimer": "This is a quick placement check. Your tutor will confirm the exact level in the first lesson."
       }
     }
   }

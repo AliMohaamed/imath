@@ -4,6 +4,7 @@ import Header from "@/components/marketing/Header";
 import Footer from "@/components/marketing/Footer";
 import WhatsAppFloat from "@/components/marketing/WhatsAppFloat";
 import MobileStickyCTA from "@/components/marketing/MobileStickyCTA";
+import { HideOnLevelTest } from "@/components/marketing/HideOnLevelTest";
 import { GeoPricingProvider } from "@/components/pricing/GeoPricingProvider";
 import {
   DETECTED_COUNTRY_COOKIE,
@@ -38,8 +39,10 @@ export default async function MarketingLayout({
             {children}
           </main>
           <Footer locale={locale as any} />
-          <WhatsAppFloat />
-          <MobileStickyCTA />
+          <HideOnLevelTest>
+            <WhatsAppFloat />
+            <MobileStickyCTA />
+          </HideOnLevelTest>
         </div>
       </BookingFlowProvider>
     </GeoPricingProvider>

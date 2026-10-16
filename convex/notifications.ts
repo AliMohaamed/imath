@@ -1,25 +1,6 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
-import type { MutationCtx, QueryCtx } from "./_generated/server";
-
-function getAllowedAdminEmails() {
-  return (process.env.ADMIN_EMAIL_ALLOWLIST ?? "")
-    .split(",")
-    .map((value) => value.trim().toLowerCase())
-    .filter(Boolean);
-}
-
-async function requireAdmin(ctx: QueryCtx | MutationCtx) {
-  const identity = await ctx.auth.getUserIdentity();
-  if (!identity) {
-    throw new Error("Unauthorized");
-  }
-  const allowedEmails = getAllowedAdminEmails();
-  const identityEmail = identity.email?.toLowerCase();
-  if (allowedEmails.length > 0 && (!identityEmail || !allowedEmails.includes(identityEmail))) {
-    throw new Error("Forbidden");
-  }
-}
+import { requireAdmin } from "./lib/admin";
 
 export const listUnread = query({
   args: {},

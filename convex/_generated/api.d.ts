@@ -9,9 +9,12 @@
  */
 
 import type * as admin from "../admin.js";
+import type * as assessments from "../assessments.js";
 import type * as auth from "../auth.js";
 import type * as http from "../http.js";
 import type * as leads from "../leads.js";
+import type * as lib_admin from "../lib/admin.js";
+import type * as lib_serverSecret from "../lib/serverSecret.js";
 import type * as notifications from "../notifications.js";
 
 import type {
@@ -22,9 +25,12 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   admin: typeof admin;
+  assessments: typeof assessments;
   auth: typeof auth;
   http: typeof http;
   leads: typeof leads;
+  "lib/admin": typeof lib_admin;
+  "lib/serverSecret": typeof lib_serverSecret;
   notifications: typeof notifications;
 }>;
 
