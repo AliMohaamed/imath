@@ -1,5 +1,3 @@
-"use client";
-
 import { useTranslations } from 'next-intl';
 import { CalendarCheck, BookOpen, GraduationCap } from 'lucide-react';
 import { BookingCtaButton } from '@/components/booking/BookingCtaButton';

@@ -322,7 +322,35 @@ Decision: `alternateLinks: false` in next-intl routing, so hreflang has two sour
 - [ ] Add `tests/seo.test.ts`: unit tests for `buildPageMetadata`, sitemap output (all URLs absolute, hreflang reciprocal, x-default present), robots rules.
 - **Acceptance:** events visible in GA4 DebugView; GSC shows the sitemap as "Success"; `npm test` covers SEO helpers.
 
-### M3: Performance and Core Web Vitals — 2–3 days
+### M3: Performance and Core Web Vitals — ✅ implemented and validated locally 2026-10-16 (pending deploy)
+
+Lab results, local Lighthouse 13.5, mobile (simulated slow 4G, 4× CPU), homepage, median of runs. PageSpeed API quota was exhausted, so re-measure with PSI after deploy.
+
+| Metric | Before (M1 build) | After |
+|---|---|---|
+| Performance score | 51–69 | 80–83 (one 70 outlier) |
+| LCP | 24.9 s | 4.6–5.0 s |
+| FCP | 3.0–3.2 s | 1.5–1.7 s |
+| CLS | 0 | 0 |
+| Page weight | 4.5 MB | 611 KB |
+| JS transferred | 309 KB / 17 scripts | 279 KB / 16 scripts |
+| Rendering | all pages dynamic, `no-store` | all 12 public pages SSG, `s-maxage` (CDN-cacheable) |
+| Lighthouse SEO / a11y | — | 100 / 90 |
+
+Done:
+- Hero: 3.85 MB PNG → 1200 px WebP (105 KB source; 32 KB AVIF served at mobile width); `unoptimized` removed; correct 1:1 dimensions; `fetchPriority="high"`; no opacity animation on LCP elements. Unused hero PNGs deleted.
+- Fonts: 6 TTF (~900 KB) → 4 subset WOFF2 (157 KB); 400 and 800 preloaded; immutable caching. TTFs kept because the PDF report embeds them.
+- Static rendering: Convex auth providers scoped to `(admin)`; geo pricing read client-side via `useSyncExternalStore` (verified SA → SAR with an injected `x-vercel-ip-country`); `setRequestLocale` + `generateStaticParams`; next-intl `requestLocale` config; proxy only checks auth on admin routes.
+- 5 static sections converted to server components (Hero, HowItWorks, MentalMathSection, SocialProofBar, Testimonials).
+- `<main>` entrance animation made transform-only (opacity 0 made the hero ineligible as LCP).
+- Tried and rejected: `experimental.inlineCss` doubled HTML to 496 KB with no LCP gain.
+
+Remaining lab LCP (~4.8 s simulated) is JS/hydration-bound. Follow-ups (P2), to be decided against field data after deploy:
+- [ ] Defer the booking stepper's form code (zod is the largest chunk, 61 KB, 82% unused at load) until it scrolls into view.
+- [ ] Pass only the needed message namespaces to `NextIntlClientProvider` (all ~27 KB are serialized into every page).
+- [ ] Set the Vercel function region next to the Convex deployment (T12).
+- [ ] 3 `font-semibold` uses now render at 700 (SemiBold face dropped); restore it if the difference is noticeable.
+
 - [ ] P1: optimized hero (WebP/AVIF, no `unoptimized`); remove unused hero PNGs.
 - [ ] P5: no entrance animation on the LCP element.
 - [ ] P2: `next/font/local` WOFF2 subset, ≤4 weights.

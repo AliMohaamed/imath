@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { BookingFlowProvider } from "@/components/booking/BookingFlowProvider";
 import Header from "@/components/marketing/Header";
 import Footer from "@/components/marketing/Footer";
@@ -6,11 +5,7 @@ import WhatsAppFloat from "@/components/marketing/WhatsAppFloat";
 import MobileStickyCTA from "@/components/marketing/MobileStickyCTA";
 import { HideOnLevelTest } from "@/components/marketing/HideOnLevelTest";
 import { GeoPricingProvider } from "@/components/pricing/GeoPricingProvider";
-import {
-  DETECTED_COUNTRY_COOKIE,
-  getInitialCountrySelection,
-  OVERRIDE_COUNTRY_COOKIE,
-} from "@/lib/pricing";
+import type { Locale } from "@/navigation";
 
 export default async function MarketingLayout({
   children,
@@ -20,25 +15,16 @@ export default async function MarketingLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const cookieStore = await cookies();
-  const geoState = getInitialCountrySelection({
-    detectedCountry: cookieStore.get(DETECTED_COUNTRY_COOKIE)?.value,
-    overrideCountry: cookieStore.get(OVERRIDE_COUNTRY_COOKIE)?.value,
-  });
 
   return (
-    <GeoPricingProvider
-      initialDetectedCountry={geoState.detectedCountry}
-      initialSelectedCountry={geoState.selectedCountry}
-      initialSelectionMode={geoState.selectionMode}
-    >
+    <GeoPricingProvider>
       <BookingFlowProvider>
         <div className="min-h-screen flex flex-col relative">
           <Header />
           <main className="flex-grow pt-20 animate-fade-in">
             {children}
           </main>
-          <Footer locale={locale as any} />
+          <Footer locale={locale as Locale} />
           <HideOnLevelTest>
             <WhatsAppFloat />
             <MobileStickyCTA />

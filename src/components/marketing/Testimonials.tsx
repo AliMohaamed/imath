@@ -1,5 +1,3 @@
-"use client";
-
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowDown, Quote } from "lucide-react";
 import { BookingCtaButton } from "@/components/booking/BookingCtaButton";

@@ -1,16 +1,10 @@
 @import "tailwindcss";
 
+/* WOFF2 subsets (Latin, Arabic, Greek, punctuation) of the TTFs in /public/font, which the
+   PDF report still embeds. 600 renders with 700 and 900 (font-black) with 800. */
 @font-face {
   font-family: 'SomarRounded';
-  src: url('/font/SomarRounded-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SomarRounded';
-  src: url('/font/SomarRounded-Regular.ttf') format('truetype');
+  src: url('/font/SomarRounded-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -18,7 +12,7 @@
 
 @font-face {
   font-family: 'SomarRounded';
-  src: url('/font/SomarRounded-Medium.ttf') format('truetype');
+  src: url('/font/SomarRounded-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -26,15 +20,7 @@
 
 @font-face {
   font-family: 'SomarRounded';
-  src: url('/font/SomarRounded-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SomarRounded';
-  src: url('/font/SomarRounded-Bold.ttf') format('truetype');
+  src: url('/font/SomarRounded-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -42,8 +28,8 @@
 
 @font-face {
   font-family: 'SomarRounded';
-  src: url('/font/SomarRounded-ExtraBold.ttf') format('truetype');
-  font-weight: 800;
+  src: url('/font/SomarRounded-ExtraBold.woff2') format('woff2');
+  font-weight: 800 900;
   font-style: normal;
   font-display: swap;
 }
@@ -131,15 +117,14 @@
     direction: ltr;
   }
 
-  /* Fade-in animation for smoother page transitions */
+  /* Entrance motion for page transitions. Transform-only on purpose: content that starts at
+     opacity 0 is not eligible as the Largest Contentful Paint until it fades in. */
   @keyframes fadeIn {
     from {
-      opacity: 0;
       transform: translateY(8px);
     }
 
     to {
-      opacity: 1;
       transform: translateY(0);
     }
   }

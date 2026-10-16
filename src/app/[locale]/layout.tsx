@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
+import { preload } from "react-dom";
 import { NextIntlClientProvider } from 'next-intl';
+import { setRequestLocale } from "next-intl/server";
 import { locales, type Locale } from "@/navigation";
 import { notFound } from "next/navigation";
-import { ConvexClientProvider } from "@/components/ConvexClientProvider";
 import { getSiteCopy, getSiteUrl, SITE_NAME } from "@/lib/site";
 
 export async function generateMetadata({
@@ -48,6 +48,10 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
 export default async function LocaleLayout({
   children,
   params
@@ -62,11 +66,18 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  // Lets next-intl resolve the locale without reading request headers, so pages can be static.
+  setRequestLocale(locale);
+
   // Load messages directly for the current locale to ensure reliability
   const messages = (await import(`../../../messages/${locale}.json`)).default;
 
   // Set the text direction based on the locale
   const direction = locale === 'ar' ? 'rtl' : 'ltr';
+
+  // Body text (400) and headings (font-black → 800) are above the fold on every page.
+  preload("/font/SomarRounded-Regular.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
+  preload("/font/SomarRounded-ExtraBold.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
 
   return (
     <html lang={locale} dir={direction} suppressHydrationWarning>
@@ -81,13 +92,9 @@ export default async function LocaleLayout({
         >
           {messages.Common.skipToContent}
         </a>
-        <ConvexAuthNextjsServerProvider>
-          <ConvexClientProvider>
-            <NextIntlClientProvider locale={locale} messages={messages}>
-              {children}
-            </NextIntlClientProvider>
-          </ConvexClientProvider>
-        </ConvexAuthNextjsServerProvider>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
     </div>
     </body>
     </html>

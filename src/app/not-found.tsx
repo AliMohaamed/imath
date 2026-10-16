@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Home, HelpCircle } from "lucide-react";
 
 export default function RootNotFound() {
@@ -28,13 +29,13 @@ export default function RootNotFound() {
                 <span className="block text-base opacity-75">The page you are looking for does not exist.</span>
               </p>
             </div>
-            <a
+            <Link
               href="/"
               className="inline-flex items-center gap-2 px-10 py-4 bg-brand-violet text-white rounded-full font-black text-sm shadow-premium active:scale-95 transition-transform"
             >
               <Home className="w-4 h-4" />
               العودة للرئيسية | Back to Home
-            </a>
+            </Link>
           </div>
         </div>
       </body>

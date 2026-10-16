@@ -55,9 +55,8 @@ export default convexAuthNextjsMiddleware(async (request, { convexAuth }) => {
   const url = new URL(request.url);
   const locale = url.pathname.startsWith('/en') ? 'en' : 'ar';
   const prefix = locale === 'en' ? '/en' : '/ar';
-  const isAuth = await convexAuth.isAuthenticated();
-
-  if (isProtectedPage(request) && !isLoginPage(request) && !isAuth) {
+  // Only admin pages need the auth check; skipping it elsewhere keeps it off the public pages' TTFB.
+  if (isProtectedPage(request) && !isLoginPage(request) && !(await convexAuth.isAuthenticated())) {
     return applyGeoCookies(request, nextjsMiddlewareRedirect(request, `${prefix}/admin/login`));
   }
 
