@@ -1,19 +1,24 @@
 import type { Metadata } from "next";
 import { locales, type Locale } from "@/navigation";
 import { getLocaleAlternates, getLocalePath, SITE_NAME } from "@/lib/site";
+import { PROGRAM_UPDATED_AT } from "@/content/program";
+import { RESOURCES } from "@/content/resources";
 
 /**
  * Every indexable page, used by the sitemap and the SEO tests. Add new pages here.
  * `lastModified` is the date the page's content last changed meaningfully.
  */
-export const INDEXABLE_PAGES = [
+export const INDEXABLE_PAGES: ReadonlyArray<{ path: string; lastModified: string }> = [
   { path: "/", lastModified: "2026-10-16" },
+  { path: "/program", lastModified: PROGRAM_UPDATED_AT },
+  { path: "/resources", lastModified: RESOURCES.map((r) => r.updatedAt).sort().at(-1) ?? PROGRAM_UPDATED_AT },
+  ...RESOURCES.map((r) => ({ path: `/resources/${r.slug}`, lastModified: r.updatedAt })),
   { path: "/assessment", lastModified: "2026-10-16" },
   { path: "/assessment/personality", lastModified: "2026-10-16" },
   { path: "/assessment/level", lastModified: "2026-10-16" },
   { path: "/privacy", lastModified: "2026-10-01" },
   { path: "/terms", lastModified: "2024-03-01" },
-] as const;
+];
 
 export const OG_LOCALES: Record<Locale, string> = {
   ar: "ar_AR",

@@ -857,5 +857,26 @@
       "description": "The terms for using iMath's services: 1:1 sessions, cancellations and rescheduling, and payments."
     },
     "breadcrumbHome": "Home"
+  },
+  "Resources": {
+    "hub": {
+      "title": "Mental Math Guides for Parents",
+      "description": "Simple guides for parents on mental math for kids: what it is, its real benefits, how it differs from the abacus, and iMath's UCMath method.",
+      "h1": "Mental Math Guides for Parents",
+      "intro": "Clear, evidence-based answers to the questions parents ask most, written and reviewed by the iMath teaching team.",
+      "programTitle": "The UCMath method",
+      "programText": "How iMath teaches mental math: from the abacus to calculating in the mind, in 1:1 classes.",
+      "readMore": "Read the guide"
+    },
+    "breadcrumb": "Guides for parents",
+    "updated": "Last updated: {date}",
+    "author": "Written and reviewed by the iMath teaching team",
+    "faqTitle": "Frequently asked questions",
+    "sourcesTitle": "Sources",
+    "relatedTitle": "Related guides",
+    "ctaTitle": "Find your child's level today",
+    "ctaText": "Start with the free level test, then book a free trial class with an iMath tutor.",
+    "ctaTest": "Free level test",
+    "ctaTrial": "Book a free trial class"
   }
 }

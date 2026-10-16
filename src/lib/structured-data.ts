@@ -142,6 +142,35 @@ export function breadcrumbSchema(
   };
 }
 
+type ArticleInput = {
+  locale: Locale;
+  path: string;
+  headline: string;
+  description: string;
+  image: string;
+  datePublished: string;
+  dateModified: string;
+};
+
+/** A guide. Authored by the organization until named tutor authors are available. */
+export function articleSchema({ locale, path, headline, description, image, datePublished, dateModified }: ArticleInput): JsonLd {
+  const url = getAbsoluteUrl(getLocalePath(locale, path));
+  return {
+    "@type": "Article",
+    "@id": `${url}#article`,
+    headline,
+    description,
+    inLanguage: locale,
+    image: getAbsoluteUrl(image),
+    datePublished,
+    dateModified,
+    author: { "@id": ORGANIZATION_ID },
+    publisher: { "@id": ORGANIZATION_ID },
+    mainEntityOfPage: { "@id": `${url}#webpage` },
+    about: { "@id": PROGRAM_ID },
+  };
+}
+
 export function faqSchema(locale: Locale, items: Array<{ question: string; answer: string }>): JsonLd {
   return {
     "@type": "FAQPage",

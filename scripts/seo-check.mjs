@@ -7,7 +7,19 @@
 const base = (process.argv[2] ?? "http://localhost:3000").replace(/\/+$/, "");
 const origin = (process.argv[3] ?? process.env.NEXT_PUBLIC_SITE_URL ?? base).replace(/\/+$/, "");
 
-const PAGES = ["/", "/assessment", "/assessment/personality", "/assessment/level", "/privacy", "/terms"];
+const PAGES = [
+  "/",
+  "/program",
+  "/resources",
+  "/resources/what-is-mental-math",
+  "/resources/mental-math-benefits-for-kids",
+  "/resources/mental-math-vs-abacus",
+  "/assessment",
+  "/assessment/personality",
+  "/assessment/level",
+  "/privacy",
+  "/terms",
+];
 const LOCALES = { ar: { prefix: "", dir: "rtl" }, en: { prefix: "/en", dir: "ltr" } };
 
 const errors = [];

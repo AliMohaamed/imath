@@ -377,7 +377,18 @@ Done:
 - [ ] Explicit robots.txt bot policy (G2).
 - **Acceptance:** Rich Results Test and the Schema.org validator report zero errors for `/`, `/en`, `/assessment`; FAQ answer text found in the raw HTML via `curl`; OG previews correct in the Facebook Sharing Debugger and the WhatsApp preview.
 
-### M5: Content foundation (E-E-A-T + hub) — 2–3 weeks
+### M5: Content foundation (E-E-A-T + hub) — 🟡 in progress
+
+Done (2026-10-16, committed locally, **awaiting owner content review** before deploy):
+- Research: `doc/seo/keyword-research.md` (clusters K1–K11, competitor review) and `doc/seo/keyword-planner-seeds.txt` (81 seeds). Volumes pending the owner's Keyword Planner export.
+- Owner decisions: method = soroban → visualisation → tool-free; kids only, ages 4–14 (site copy, meta, schema and share cards updated; forms still accept up to 18); no adult or teacher-training courses.
+- Content system: typed bilingual content in `src/content/` with `[label](/path)` links, `ArticleLayout` (answer-first summary, visible breadcrumbs, native `<details>` FAQ, sources, CTA to the free test and trial, related guides).
+- Pages (SSG, AR + EN): `/program` (UCMath; Course + FAQPage), `/resources` hub, and 3 guides: what-is-mental-math, mental-math-benefits-for-kids (cites Barner 2016 and Wang 2019), mental-math-vs-abacus. Article schema with dates, BreadcrumbList.
+- Quality gates: `tests/content.test.ts` (title/description limits, no broken internal links, AR/EN structure parity, related guides exist); seo-check covers 22 URLs; validator.schema.org 0 errors.
+- Review checklist: `doc/seo/content-review.md`.
+
+Next: owner review → header/footer links → deploy → submit new URLs in GSC; then the next batch once keyword volumes arrive (how-to-teach-at-home, worksheets PDF asset, child-struggling-with-math, `/about` with named tutors).
+
 - [ ] Install `content-strategy` and `competitors` skills.
 - [ ] Validate keyword clusters (Keyword Planner per country + GSC queries + PAA). Output: `doc/seo/keyword-map.md` (one primary query per URL).
 - [ ] Competitor SERP review for the top 10 queries per language (who ranks, content type, depth, gaps).
