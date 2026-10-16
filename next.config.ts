@@ -16,7 +16,8 @@ const nextConfig: NextConfig = {
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
       {
-        source: "/(images|assessment)/:file*",
+        // Image files only: a bare "/assessment/:path*" would also match the /assessment pages.
+        source: "/:dir(images|assessment|og)/:file([^/]+\\.(?:png|jpe?g|webp|svg))",
         headers: [{ key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }],
       },
     ];

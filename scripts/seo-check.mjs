@@ -83,6 +83,9 @@ for (const page of PAGES) {
     }
 
     if (response.headers.get("link")?.includes("hreflang")) fail(path, "hreflang also sent in Link header");
+    if (/(?:^|[,\s])max-age=[1-9]/.test(response.headers.get("cache-control") ?? "")) {
+      fail(path, `HTML is browser-cached: ${response.headers.get("cache-control")}`);
+    }
 
     if (title && [...decode(title)].length > 60) fail(path, `title is ${[...decode(title)].length} chars (> 60)`);
     const description = decode(body.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? "");
