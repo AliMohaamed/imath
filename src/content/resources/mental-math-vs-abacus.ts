@@ -68,7 +68,7 @@ export const mentalMathVsAbacus: Article = {
         {
           question: "في أي عمر يبدأ الطفل تعلّم العداد؟",
           answer:
-            "يمكن أن يبدأ من سن الرابعة تقريبًا بمهارات بسيطة. في iMath نعلّم الأطفال من 4 إلى 14 سنة، ونحدّد نقطة البداية بعد [اختبار المستوى المجاني](/assessment/level).",
+            "يمكن أن يبدأ من سن الرابعة تقريبًا بمهارات بسيطة. في iMath نعلّم الأطفال من 4 إلى 18 سنة، ونحدّد نقطة البداية بعد [اختبار المستوى المجاني](/assessment/level).",
         },
       ],
     },
@@ -133,7 +133,7 @@ export const mentalMathVsAbacus: Article = {
         {
           question: "At what age can a child start learning the abacus?",
           answer:
-            "From around age four with simple skills. At iMath we teach children aged 4 to 14 and set the starting point after the [free level test](/assessment/level).",
+            "From around age four with simple skills. At iMath we teach children aged 4 to 18 and set the starting point after the [free level test](/assessment/level).",
         },
       ],
     },

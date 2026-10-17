@@ -8,10 +8,10 @@ export const PROGRAM_COPY: Record<Locale, ArticleCopy> = {
   ar: {
     title: "منهج UCMath للحساب الذهني من iMath",
     description:
-      "تعرّف على منهج UCMath للحساب الذهني في iMath: من العداد (السوروبان) إلى الحساب في الذهن، بحصص فردية 1:1 أونلاين للأطفال من 4 إلى 14 سنة.",
+      "تعرّف على منهج UCMath للحساب الذهني في iMath: من العداد (السوروبان) إلى الحساب في الذهن، بحصص فردية 1:1 أونلاين للأطفال من 4 إلى 18 سنة.",
     h1: "منهج UCMath لتعليم الحساب الذهني في iMath",
     summary:
-      "UCMath منهج منظّم لتعليم الحساب الذهني يدرسه الأطفال من 4 إلى 14 سنة في iMath. يبدأ الطفل بالعداد (السوروبان) ليرى الأرقام بعينيه، ثم ينتقل تدريجيًا إلى تخيّل العداد في ذهنه، حتى يحسب بسرعة ودقة دون أي أداة. كل ذلك في حصص فردية 1:1 أونلاين، بالعربية أو الإنجليزية.",
+      "UCMath منهج منظّم لتعليم الحساب الذهني يدرسه الأطفال من 4 إلى 18 سنة في iMath. يبدأ الطفل بالعداد (السوروبان) ليرى الأرقام بعينيه، ثم ينتقل تدريجيًا إلى تخيّل العداد في ذهنه، حتى يحسب بسرعة ودقة دون أي أداة. كل ذلك في حصص فردية 1:1 أونلاين، بالعربية أو الإنجليزية.",
     sections: [
       {
         heading: "كيف يتعلّم الطفل مع UCMath؟",
@@ -50,7 +50,7 @@ export const PROGRAM_COPY: Record<Locale, ArticleCopy> = {
           {
             type: "ul",
             items: [
-              "يتقدّم الطفل مستوى بعد مستوى، ويستغرق المستوى الواحد عادةً نحو ثلاثة أشهر (24 حصة).",
+              "يتقدّم الطفل مستوى بعد مستوى، وتختلف مدة المستوى حسب قدرة كل طالب وتقدّمه: بعضهم يُنهيه في شهر، وآخرون في شهرين أو ثلاثة.",
               "شهادة إتمام عند إنهاء كل مستوى.",
               "تقرير شهري لولي الأمر عن تقدّم الطفل ونقاط قوته وأهداف الشهر التالي.",
             ],
@@ -72,7 +72,7 @@ export const PROGRAM_COPY: Record<Locale, ArticleCopy> = {
           {
             type: "ul",
             items: [
-              "الأطفال من 4 إلى 14 سنة، سواء كانوا مبتدئين تمامًا أو لديهم أساس في الحساب.",
+              "الأطفال من 4 إلى 18 سنة، سواء كانوا مبتدئين تمامًا أو لديهم أساس في الحساب.",
               "الطفل الذي يعتمد على العدّ بالأصابع أو يتردّد أمام مسائل الرياضيات.",
               "الطفل المتفوّق الذي يريد سرعة ودقة أعلى.",
             ],
@@ -99,10 +99,10 @@ export const PROGRAM_COPY: Record<Locale, ArticleCopy> = {
   en: {
     title: "The UCMath Mental Math Method by iMath",
     description:
-      "Meet the UCMath mental math method at iMath: from the abacus (soroban) to calculating in the mind, in 1:1 online classes for kids aged 4–14.",
+      "Meet the UCMath mental math method at iMath: from the abacus (soroban) to calculating in the mind, in 1:1 online classes for kids aged 4–18.",
     h1: "The UCMath Method for Teaching Mental Math at iMath",
     summary:
-      "UCMath is a structured method for teaching mental math, followed by children aged 4 to 14 at iMath. Children start with the abacus (soroban) so they can see numbers, then gradually learn to picture the abacus in their mind, until they calculate quickly and accurately without any tool. All of it in 1:1 online classes, in Arabic or English.",
+      "UCMath is a structured method for teaching mental math, followed by children aged 4 to 18 at iMath. Children start with the abacus (soroban) so they can see numbers, then gradually learn to picture the abacus in their mind, until they calculate quickly and accurately without any tool. All of it in 1:1 online classes, in Arabic or English.",
     sections: [
       {
         heading: "How children learn with UCMath",
@@ -141,7 +141,7 @@ export const PROGRAM_COPY: Record<Locale, ArticleCopy> = {
           {
             type: "ul",
             items: [
-              "Children progress level by level; one level usually takes about three months (24 sessions).",
+              "Children progress level by level; how long a level takes depends on each student's ability and progress: some finish one in a month, others take two or three.",
               "A completion certificate at the end of each level.",
               "A monthly report for parents on progress, strengths and next month's goals.",
             ],
@@ -163,7 +163,7 @@ export const PROGRAM_COPY: Record<Locale, ArticleCopy> = {
           {
             type: "ul",
             items: [
-              "Children aged 4 to 14, whether complete beginners or already comfortable with basic arithmetic.",
+              "Children aged 4 to 18, whether complete beginners or already comfortable with basic arithmetic.",
               "Children who count on their fingers or hesitate in front of math problems.",
               "Strong students who want more speed and accuracy.",
             ],

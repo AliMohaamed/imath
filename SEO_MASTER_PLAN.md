@@ -381,7 +381,7 @@ Done:
 
 Done (2026-10-16, committed locally, **awaiting owner content review** before deploy):
 - Research: `doc/seo/keyword-research.md` (clusters K1–K11, competitor review) and `doc/seo/keyword-planner-seeds.txt` (81 seeds). Volumes pending the owner's Keyword Planner export.
-- Owner decisions: method = soroban → visualisation → tool-free; kids only, ages 4–14 (site copy, meta, schema and share cards updated; forms still accept up to 18); no adult or teacher-training courses.
+- Owner decisions: method = soroban → visualisation → tool-free; kids and teens, ages 4–18 (2026-10-17; briefly 4–14 on 2026-10-16, reverted before deploy); no adult or teacher-training courses.
 - Content system: typed bilingual content in `src/content/` with `[label](/path)` links, `ArticleLayout` (answer-first summary, visible breadcrumbs, native `<details>` FAQ, sources, CTA to the free test and trial, related guides).
 - Pages (SSG, AR + EN): `/program` (UCMath; Course + FAQPage), `/resources` hub, and 3 guides: what-is-mental-math, mental-math-benefits-for-kids (cites Barner 2016 and Wang 2019), mental-math-vs-abacus. Article schema with dates, BreadcrumbList.
 - Quality gates: `tests/content.test.ts` (title/description limits, no broken internal links, AR/EN structure parity, related guides exist); seo-check covers 22 URLs; validator.schema.org 0 errors.
@@ -480,3 +480,4 @@ Recurring process:
 |---|---|
 | 2026-10-16 | Initial plan: discovery, skill evaluation, audit, strategy, roadmap (no code changes). |
 | 2026-10-16 | Owner answers: domain, access, UCMath ownership, claims. Live checks confirm T1/T2/I1 in production; added T11 (307 apex) and T12 (TTFB/region). |
+| 2026-10-17 | Owner content review: ages 4–18, variable level length, no named reviewer, accreditation wording kept. Header/footer links to /program and /resources. Share cards re-rendered (source now in `scripts/og-card.html`). |

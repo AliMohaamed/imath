@@ -1,0 +1,76 @@
+<!doctype html>
+<!--
+  Share card (Open Graph / Twitter) source, 1200x630. Render with headless Chrome, e.g.:
+  chrome --headless=new --hide-scrollbars --force-device-scale-factor=1 --window-size=1200,630
+         --screenshot=out.png "file:///<repo>/scripts/og-card.html#en"   (or #ar)
+  then convert to JPEG and save as public/og/imath-<locale>-v<N+1>.jpg (bump N; social networks cache by URL).
+  next/og can't shape Arabic, which is why this is plain HTML.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: SomarRounded; src: url(../public/font/SomarRounded-Regular.ttf); font-weight: 400; }
+  @font-face { font-family: SomarRounded; src: url(../public/font/SomarRounded-Medium.ttf); font-weight: 500; }
+  @font-face { font-family: SomarRounded; src: url(../public/font/SomarRounded-Bold.ttf); font-weight: 700; }
+  @font-face { font-family: SomarRounded; src: url(../public/font/SomarRounded-ExtraBold.ttf); font-weight: 800; }
+  * { margin: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; background: #fff; font-family: SomarRounded, sans-serif; }
+  .card { position: relative; width: 1200px; height: 630px; overflow: hidden; }
+  .blob { position: absolute; border-radius: 50%; }
+  .violet { width: 760px; height: 760px; background: #f3f0fd; top: -400px; right: -160px; }
+  .orange { width: 420px; height: 420px; background: #fef4ec; bottom: -260px; left: -130px; }
+  .kids { position: absolute; width: 500px; height: 500px; top: 60px; right: 40px; object-fit: contain; }
+  .text { position: absolute; left: 58px; top: 118px; width: 640px; }
+  .logo { height: 58px; display: block; margin-bottom: 30px; }
+  h1 { font-size: 54px; font-weight: 800; line-height: 1.12; color: #111827; letter-spacing: -0.5px; }
+  h1 span { color: #7c3aed; }
+  .sub { margin-top: 22px; font-size: 26px; color: #475569; }
+  .pills { display: flex; gap: 12px; margin-top: 30px; }
+  .pill { padding: 11px 20px; border-radius: 999px; background: #f1f3f6; font-size: 20px; font-weight: 700; color: #1e293b; }
+  .pill.cta { background: #f97316; color: #fff; }
+  .url { position: absolute; left: 62px; bottom: 30px; font-size: 22px; font-weight: 700; color: #7c3aed; }
+  [dir=rtl] .violet { right: auto; left: -160px; }
+  [dir=rtl] .orange { left: auto; right: -130px; }
+  [dir=rtl] .kids { right: auto; left: 40px; }
+  [dir=rtl] .text { left: auto; right: 58px; }
+  [dir=rtl] .logo { margin-right: 0; margin-left: auto; }
+  [dir=rtl] h1 { letter-spacing: 0; }
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="blob violet"></div>
+  <div class="blob orange"></div>
+  <img class="kids" src="../public/images/imath-student-mental-math.webp" alt="">
+  <div class="text">
+    <img class="logo" src="../public/logo.png" alt="">
+    <h1 id="title"></h1>
+    <p class="sub" id="sub"></p>
+    <div class="pills" id="pills"></div>
+  </div>
+  <div class="url">imathmental.com</div>
+</div>
+<script>
+  const copy = {
+    en: {
+      title: 'Online 1:1 <span>Mental Math</span><br>Classes for Kids',
+      sub: 'Ages 4–18 · The UCMath mental math method',
+      pills: ['Free trial class', 'Arabic &amp; English', 'Certified tutors'],
+    },
+    ar: {
+      title: 'دروس <span>الحساب الذهني</span><br>أونلاين للأطفال 1:1',
+      sub: 'للأعمار من 4 إلى 18 سنة بمنهج UCMath',
+      pills: ['حصة تجريبية مجانية', 'عربي وإنجليزي', 'معلمون معتمدون'],
+    },
+  };
+  const locale = location.hash.slice(1) === 'ar' ? 'ar' : 'en';
+  const c = copy[locale];
+  document.documentElement.lang = locale;
+  document.getElementById('card').dir = locale === 'ar' ? 'rtl' : 'ltr';
+  document.getElementById('title').innerHTML = c.title;
+  document.getElementById('sub').textContent = c.sub;
+  document.getElementById('pills').innerHTML = c.pills.map((p, i) => `<span class="pill${i ? '' : ' cta'}">${p}</span>`).join('');
+</script>
+</body>
+</html>

@@ -113,7 +113,7 @@ export const mentalMathBenefits: Article = {
         {
           question: "في أي عمر تظهر فوائد الحساب الذهني؟",
           answer:
-            "شملت أهم تجربة منضبطة أطفالًا بدأوا بين 5 و7 سنوات. في iMath نعلّم الأطفال من 4 إلى 14 سنة ونحدّد نقطة البداية حسب المستوى.",
+            "شملت أهم تجربة منضبطة أطفالًا بدأوا بين 5 و7 سنوات. في iMath نعلّم الأطفال من 4 إلى 18 سنة ونحدّد نقطة البداية حسب المستوى.",
         },
       ],
     },
@@ -212,7 +212,7 @@ export const mentalMathBenefits: Article = {
         {
           question: "At what age do the benefits show?",
           answer:
-            "The main controlled trial followed children who started at ages 5 to 7. At iMath we teach children aged 4 to 14 and set the starting point by level.",
+            "The main controlled trial followed children who started at ages 5 to 7. At iMath we teach children aged 4 to 18 and set the starting point by level.",
         },
       ],
     },

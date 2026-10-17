@@ -50,7 +50,7 @@ export const whatIsMentalMath: Article = {
           blocks: [
             {
               type: "p",
-              text: "يمكن أن يبدأ الطفل في سن الرابعة تقريبًا بمهارات بسيطة مثل التعرّف على الكميات الصغيرة بنظرة واحدة والجمع داخل العدد 10. ويستفيد الأطفال الأكبر أيضًا، لأنهم يبنون على ما تعلّموه في المدرسة. في iMath نعمل مع الأطفال من 4 إلى 14 سنة، ونحدّد نقطة البداية لكل طفل حسب مستواه لا حسب عمره فقط.",
+              text: "يمكن أن يبدأ الطفل في سن الرابعة تقريبًا بمهارات بسيطة مثل التعرّف على الكميات الصغيرة بنظرة واحدة والجمع داخل العدد 10. ويستفيد الأطفال الأكبر أيضًا، لأنهم يبنون على ما تعلّموه في المدرسة. في iMath نعمل مع الأطفال من 4 إلى 18 سنة، ونحدّد نقطة البداية لكل طفل حسب مستواه لا حسب عمره فقط.",
             },
           ],
         },
@@ -95,7 +95,7 @@ export const whatIsMentalMath: Article = {
         {
           question: "كم يحتاج الطفل من الوقت ليتقن الحساب الذهني؟",
           answer:
-            "يعتمد ذلك على عمر الطفل ونقطة بدايته وانتظامه في التدريب. في iMath يستغرق المستوى الواحد عادةً نحو ثلاثة أشهر بمعدل حصتين أسبوعيًا.",
+            "يعتمد ذلك على عمر الطفل ونقطة بدايته وانتظامه في التدريب. في iMath تختلف مدة المستوى الواحد حسب قدرة الطالب وتقدّمه: بعض الطلاب يُنهيه في شهر، وآخرون في شهرين أو ثلاثة.",
         },
       ],
     },
@@ -142,7 +142,7 @@ export const whatIsMentalMath: Article = {
           blocks: [
             {
               type: "p",
-              text: "Children can start from around age four with simple skills such as recognising small quantities at a glance and adding within 10. Older children benefit too, building on what they learn at school. At iMath we teach children aged 4 to 14 and set each child's starting point by their level, not just their age.",
+              text: "Children can start from around age four with simple skills such as recognising small quantities at a glance and adding within 10. Older children benefit too, building on what they learn at school. At iMath we teach children aged 4 to 18 and set each child's starting point by their level, not just their age.",
             },
           ],
         },
@@ -187,7 +187,7 @@ export const whatIsMentalMath: Article = {
         {
           question: "How long does it take to learn mental math?",
           answer:
-            "It depends on the child's age, starting point and how regularly they practise. At iMath one level usually takes about three months at two sessions a week.",
+            "It depends on the child's age, starting point and how regularly they practise. At iMath the time a level takes depends on each student's ability and progress: some finish one in a month, others take two or three.",
         },
       ],
     },

@@ -12,13 +12,13 @@ Please review before these pages go live. Read each page in both languages: run 
 
 ## Facts to confirm (taken from the existing site; please verify they are current)
 
-- [ ] Classes are 1:1, 60 minutes, twice a week (8 per month). Source: pricing plan features.
-- [ ] One level takes about 3 months (24 sessions); a certificate is given per level. Source: pricing plans.
+- [x] Classes are 1:1, 60 minutes (owner, 2026-10-17). Twice a week / 8 per month still comes from the pricing plans.
+- [x] Level length depends on the student: some finish a level in one month, others in two or three (owner, 2026-10-17). Program page and "what is mental math" guide updated.
 - [ ] Parents get a monthly progress report. Source: homepage FAQ.
 - [ ] Sessions can be rescheduled through WhatsApp support. Source: homepage FAQ.
 - [ ] UCMath starts with the soroban, then moves to visualisation, then tool-free calculation (your answer, 2026-10-16).
 - [x] No UCMAS mentions anywhere on the site; UCMath described neutrally as the program students follow (owner decision, 2026-10-16).
-- [ ] Ages 4–14 (your answer, 2026-10-16).
+- [x] Ages 4–18 (owner, 2026-10-17; replaces the earlier 4–14). Copy, meta, schema and share cards (`imath-ar-v3`, `imath-en-v4`) updated.
 
 ## Claims backed by research (cited on the page)
 
@@ -33,8 +33,9 @@ Please review before these pages go live. Read each page in both languages: run 
 
 ## Open items for you
 
-- [ ] **Named reviewer:** the guides are credited to "the iMath teaching team". A named tutor with qualifications (and a photo) strengthens trust, for search engines and parents alike. Can a lead tutor be credited as reviewer?
-- [ ] **Do families need to buy an abacus?** Parents will ask. Tell us the answer (provided, sent, or bought by the family) and we'll add it to the program FAQ.
-- [ ] **Testimonial "Omar F., father of a high school student"** doesn't match the 4–14 age range. Keep, edit, or remove?
-- [ ] **"Certified" wording:** existing copy calls UCMath "certified" / "المعتمد" (footer description, homepage meta description, "Certified methodology" badge, "certified tutors"). Certified by whom? If there's no certifying body to name, a neutral word ("structured", "proven") is safer and fits the neutral-UCMath rule.
+- [ ] **Byline:** no tutor will be credited; articles will be written and reviewed with Claude Code (owner, 2026-10-17). The byline and hub intro still say "Written and reviewed by the iMath teaching team". Keep, or change to e.g. "By the iMath team"?
+- [x] **Abacus:** families buy it themselves. Not added to the site (owner, 2026-10-17).
+- [x] **Testimonial "Omar F., father of a high school student"**: fits again with ages 4–18. Kept.
+- [x] **"Certified" wording:** kept; iMath has a genuine accreditation (owner, 2026-10-17). Don't add it to schema as a credential without a named body.
+- [ ] **Pricing copy** "24 live sessions (completing one full level)" in the 3-month plan conflicts with the variable level length. Not changed (pricing is your copy).
 - [x] **Header and footer links** to "Program" and "Guides" added (2026-10-16). The full desktop nav now shows from 1280px wide; below that, the menu button is used (7 links don't fit on one line at 1024px).
