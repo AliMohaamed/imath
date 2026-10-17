@@ -65,7 +65,7 @@ export default async function Benefits({ locale }: { locale: Locale }) {
         </div>
 
         <div className="mt-10 flex justify-center">
-          <BookingCtaButton source="benefits_cta" className="rounded-full bg-brand-orange px-8 py-4 text-sm font-black text-white shadow-premium transition-all hover:opacity-90">
+          <BookingCtaButton source="benefits_cta">
             {t('cta')}
           </BookingCtaButton>
         </div>

@@ -61,7 +61,7 @@ export default function Header() {
             <span className="uppercase">{locale === "ar" ? "EN" : "AR"}</span>
           </button>
 
-          <BookingCtaButton source="header_desktop" className="hidden sm:block px-6 py-2.5 bg-brand-orange text-white rounded-full font-black text-sm hover:opacity-90 transition-all shadow-premium hover:scale-105">
+          <BookingCtaButton source="header_desktop" size="sm" className="hidden sm:inline-flex hover:scale-105">
             {t("bookFreeTrial")}
           </BookingCtaButton>
 
@@ -97,7 +97,7 @@ export default function Header() {
                 <WhatsAppIcon size={18} />
                 {t("contactViaWhatsApp")}
               </a>
-              <BookingCtaButton source="header_mobile" className="w-full py-3 bg-brand-orange text-white rounded-full font-black">
+              <BookingCtaButton source="header_mobile" className="w-full py-3">
                 {t("bookFreeTrial")}
               </BookingCtaButton>
             </div>

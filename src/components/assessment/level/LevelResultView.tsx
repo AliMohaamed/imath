@@ -108,7 +108,7 @@ export function LevelResultView({
               });
               trackEvent("assessment_cta_booking", { type: "level", level });
             }}
-            className="rounded-full bg-brand-orange px-8 py-3.5 text-sm font-black text-white shadow-premium transition-all hover:opacity-90"
+            className="py-3.5"
           >
             {t("bookCta", { name })}
           </BookingCtaButton>

@@ -54,7 +54,7 @@ export default function HowItWorks() {
         </div>
 
         <div className="mt-12 flex justify-center">
-          <BookingCtaButton source="how_it_works_cta" className="rounded-full bg-brand-orange px-8 py-4 text-sm font-black text-white shadow-premium transition-all hover:opacity-90">
+          <BookingCtaButton source="how_it_works_cta">
             {t('cta')}
           </BookingCtaButton>
         </div>

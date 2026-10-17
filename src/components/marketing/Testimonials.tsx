@@ -111,7 +111,6 @@ export default function Testimonials() {
           <p className="text-pretty text-base font-medium text-slate-700">{t("ctaText")}</p>
           <BookingCtaButton
             source="testimonials_cta"
-            className="rounded-full bg-brand-orange px-8 py-4 text-sm font-extrabold text-white shadow-premium transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange"
           >
             {t("cta")}
           </BookingCtaButton>

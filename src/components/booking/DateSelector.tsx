@@ -27,7 +27,7 @@ export function DateSelector({
             key={option.value}
             variant={isSelected ? "default" : "outline"}
             className={cn(
-              "h-auto min-h-24 flex-col items-start gap-1 rounded-3xl px-4 py-4 text-left shadow-sm",
+              "h-auto min-h-24 flex-col items-start gap-1 rounded-3xl px-4 py-4 text-start shadow-sm",
               isSelected ? "bg-brand-violet text-white" : "text-slate-700"
             )}
             onClick={() => onSelect(option.value)}

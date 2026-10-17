@@ -92,7 +92,7 @@ export async function ArticleLayout({ locale, copy, breadcrumbs, updatedAt, sour
             <Link href="/assessment/level" className="rounded-full bg-white px-8 py-3 text-sm font-black text-slate-900 hover:opacity-90">
               {t("ctaTest")}
             </Link>
-            <BookingCtaButton source="article_cta" className="rounded-full bg-brand-orange px-8 py-3 text-sm font-black text-white hover:opacity-90">
+            <BookingCtaButton source="article_cta" className="py-3">
               {t("ctaTrial")}
             </BookingCtaButton>
           </div>

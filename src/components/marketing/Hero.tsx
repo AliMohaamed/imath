@@ -51,7 +51,7 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col justify-center gap-3 pt-2 sm:flex-row lg:justify-start">
-              <BookingCtaButton source="hero_primary" className="flex items-center justify-center gap-2 rounded-full bg-brand-orange px-10 py-4 text-lg font-black text-white shadow-premium transition-all hover:scale-105 hover:opacity-90">
+              <BookingCtaButton source="hero_primary" size="lg" className="hover:scale-105">
                 {common("bookFreeTrial")}
                 <ArrowRight className="h-5 w-5 rtl:rotate-180" />
               </BookingCtaButton>

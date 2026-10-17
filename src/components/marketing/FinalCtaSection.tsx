@@ -28,9 +28,10 @@ export default async function FinalCtaSection({ locale, whatsAppUrl }: FinalCtaS
               {t("description")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center pt-2 md:pt-6">
-              <BookingCtaButton 
-                source="final_cta_primary" 
-                className="px-12 py-5 bg-brand-orange text-white rounded-full font-black text-lg md:text-xl hover:bg-white hover:text-brand-orange transition-all shadow-premium hover:scale-105 active:scale-95"
+              <BookingCtaButton
+                source="final_cta_primary"
+                size="lg"
+                className="px-12 py-5 md:text-xl hover:scale-105 hover:bg-white hover:text-brand-orange hover:opacity-100"
               >
                 {common("bookFreeTrial")}
               </BookingCtaButton>

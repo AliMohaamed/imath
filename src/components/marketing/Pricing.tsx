@@ -175,13 +175,8 @@ export default function Pricing() {
                   {/* CTA */}
                   <BookingCtaButton
                     source={`pricing_${selectedCountry}_${plan.months}_months`}
-                    className={`w-full py-3.5 rounded-2xl font-black text-sm transition-all flex items-center justify-center gap-2 mt-auto
-                      ${isHighlighted
-                        ? (isBestValue
-                          ? 'bg-brand-orange text-white hover:opacity-90 shadow-md shadow-brand-orange/25'
-                          : 'bg-brand-violet text-white hover:opacity-90 shadow-md shadow-brand-violet/25')
-                        : 'bg-slate-100 text-slate-900 hover:bg-slate-200'
-                      }`}
+                    variant={isHighlighted ? (isBestValue ? 'primary' : 'violet') : 'muted'}
+                    className="mt-auto w-full rounded-2xl py-3.5"
                   >
                     {common('startWithFreeTrial')}
                   </BookingCtaButton>

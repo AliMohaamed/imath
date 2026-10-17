@@ -9,7 +9,6 @@ import TrustSection from "@/components/marketing/TrustSection";
 import MentalMathSection from "@/components/marketing/MentalMathSection";
 import SocialProofBar from "@/components/marketing/SocialProofBar";
 import AssessmentPromo from "@/components/marketing/AssessmentPromo";
-import { BookingStepperSection } from "@/components/booking/BookingStepperSection";
 import FinalCtaSection from "@/components/marketing/FinalCtaSection";
 import type { Metadata } from "next";
 import { getWhatsAppUrl } from "@/lib/site";
@@ -85,7 +84,6 @@ export default async function LandingPage({
       <AssessmentPromo />
       <Testimonials />
       <Pricing />
-      <BookingStepperSection />
       <FAQ />
       <FinalCtaSection locale={locale} whatsAppUrl={whatsAppUrl} />
     </div>

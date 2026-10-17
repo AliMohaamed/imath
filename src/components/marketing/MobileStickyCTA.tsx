@@ -1,20 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Calendar } from "lucide-react";
 import { BookingCtaButton } from "@/components/booking/BookingCtaButton";
 import { getWhatsAppUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
-import { BOOKING_STEPPER_ID } from "@/components/booking/BookingFlowProvider";
+import { useBookingFlow } from "@/components/booking/BookingFlowProvider";
 
 export default function MobileStickyCTA() {
   const t = useTranslations("Common");
   const locale = useLocale() as "ar" | "en";
   const whatsAppUrl = getWhatsAppUrl(locale);
   const [scrolledPastHero, setScrolledPastHero] = useState(false);
-  const [isBookingSectionVisible, setIsBookingSectionVisible] = useState(false);
+  const { isOpen: isBookingOpen } = useBookingFlow();
 
   // Track scroll position to show after 400px
   useEffect(() => {
@@ -26,23 +26,7 @@ export default function MobileStickyCTA() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Track when BookingStepperSection is in viewport
-  useEffect(() => {
-    const bookingSection = document.getElementById(BOOKING_STEPPER_ID);
-    if (!bookingSection) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsBookingSectionVisible(entry.isIntersecting);
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(bookingSection);
-    return () => observer.disconnect();
-  }, []);
-
-  const isVisible = scrolledPastHero && !isBookingSectionVisible;
+  const isVisible = scrolledPastHero && !isBookingOpen;
 
   return (
     <div
@@ -64,7 +48,7 @@ export default function MobileStickyCTA() {
         
         <BookingCtaButton
           source="mobile_sticky_cta"
-          className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand-orange px-4 text-sm font-black text-white shadow-lg active:scale-95 transition-all"
+          className="h-12 flex-1 px-4 py-0 shadow-lg"
         >
           <Calendar className="h-4 w-4" />
           {t("bookFreeTrial")}

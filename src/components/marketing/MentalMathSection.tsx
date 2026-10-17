@@ -38,7 +38,7 @@ export default function MentalMathSection() {
         </div>
 
         <div className="mt-10 flex justify-center">
-          <BookingCtaButton source="mental_math_section_cta" className="rounded-full bg-brand-orange px-8 py-4 text-sm font-black text-white shadow-premium transition-all hover:opacity-90">
+          <BookingCtaButton source="mental_math_section_cta">
             {t("cta")}
           </BookingCtaButton>
         </div>
