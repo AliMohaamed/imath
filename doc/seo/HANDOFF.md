@@ -12,7 +12,7 @@ iMath (https://www.imathmental.com, Vercel) is an online academy teaching **1:1 
 - **UCMath** = the name of the structured mental math program students follow. Describe it neutrally ("the UCMath method/program"). **Never** call it "iMath's own/proprietary method".
 - **Ages 4–18** in all copy, meta, schema and images (owner, 2026-10-17; this reverses a short-lived 4–14 decision). Forms accept up to 18.
 - Level length varies by student (about 1–3 months). Sessions are 60 minutes. Families buy the abacus themselves (not mentioned on the site).
-- No named tutor/reviewer: articles are written and reviewed with Claude Code. "Certified/accredited" wording stays (the owner confirms a genuine accreditation).
+- No named tutor/reviewer: articles are written and reviewed with Claude Code; the byline is "By the iMath team" / "بقلم فريق iMath". Pricing copy never promises a number of completed levels. "Certified/accredited" wording stays (the owner confirms a genuine accreditation).
 - Teaching method: soroban → visualisation → tool-free. Kids only: no adult courses, no tutor training.
 - "+500 students" and "best academy in the Arab world" are owner-confirmed claims. Never put them in review or rating schema.
 - AI training crawlers (GPTBot, Google-Extended, CCBot): **undecided**, so robots.txt currently allows all.
@@ -34,7 +34,7 @@ Unpushed local commits: run `git log --oneline origin/main..HEAD`. **Ask the own
 ## 4. Next actions
 
 1. Push with approval → submit the new URLs in Search Console. (Header/footer links are done.)
-2. Owner open items (in `doc/seo/content-review.md`): byline wording; pricing copy "24 sessions = one level" vs variable level length.
+2. Owner content review: all items answered (2026-10-17); see `doc/seo/content-review.md`.
 3. When the GA4 ID arrives: M2 (gate on an env var, conversions for booking steps, WhatsApp and assessment completion).
 4. When the Keyword Planner CSVs arrive (seeds: `doc/seo/keyword-planner-seeds.txt`, 81 terms, 5 countries): rank clusters K1–K11 in `doc/seo/keyword-research.md`, then the next content batch: how-to-teach-at-home, printable worksheets PDF (linkable asset), child-struggling-with-math, `/about` with named tutors.
 5. Owner/Vercel tasks still open: apex `imathmental.com` → www redirect is 307 (should be 308); report the Vercel function region + Convex region (TTFB, T12); confirm the sitemap was submitted in GSC and Bing.

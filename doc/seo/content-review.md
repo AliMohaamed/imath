@@ -33,9 +33,9 @@ Please review before these pages go live. Read each page in both languages: run 
 
 ## Open items for you
 
-- [ ] **Byline:** no tutor will be credited; articles will be written and reviewed with Claude Code (owner, 2026-10-17). The byline and hub intro still say "Written and reviewed by the iMath teaching team". Keep, or change to e.g. "By the iMath team"?
+- [x] **Byline:** no tutor will be credited; articles are written and reviewed with Claude Code. Byline and hub intro now say "By the iMath team" (owner, 2026-10-17).
 - [x] **Abacus:** families buy it themselves. Not added to the site (owner, 2026-10-17).
 - [x] **Testimonial "Omar F., father of a high school student"**: fits again with ages 4–18. Kept.
 - [x] **"Certified" wording:** kept; iMath has a genuine accreditation (owner, 2026-10-17). Don't add it to schema as a credential without a named body.
-- [ ] **Pricing copy** "24 live sessions (completing one full level)" in the 3-month plan conflicts with the variable level length. Not changed (pricing is your copy).
+- [x] **Pricing copy** reworded so no plan promises a set number of completed levels: plan 2 "24 sessions, at your child's own pace", "certificate for each completed level"; plan 3 "48 sessions, steady progress at your child's pace" (owner, 2026-10-17).
 - [x] **Header and footer links** to "Program" and "Guides" added (2026-10-16). The full desktop nav now shows from 1280px wide; below that, the menu button is used (7 links don't fit on one line at 1024px).

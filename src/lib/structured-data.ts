@@ -152,7 +152,7 @@ type ArticleInput = {
   dateModified: string;
 };
 
-/** A guide. Authored by the organization until named tutor authors are available. */
+/** A guide. Authored by the organization: the owner chose not to credit named authors. */
 export function articleSchema({ locale, path, headline, description, image, datePublished, dateModified }: ArticleInput): JsonLd {
   const url = getAbsoluteUrl(getLocalePath(locale, path));
   return {
