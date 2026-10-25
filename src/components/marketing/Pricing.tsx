@@ -93,10 +93,11 @@ export default function Pricing() {
                   {/* Price block */}
                   <div className="mb-4">
                     {/* Main price */}
-                    <div className={`text-5xl font-black tracking-tight leading-none mb-1
+                    <div className={`${plan.price >= 100000 ? 'text-4xl' : 'text-5xl'} font-black tracking-tight leading-none mb-1
                       ${isHighlighted ? (isBestValue ? 'text-brand-orange' : 'text-brand-violet') : 'text-slate-900'}`}
                     >
-                      {t('priceLabel', { price: plan.price, currency })}
+                      {/* Grouped so dinar prices read as 150,000, not 150000. */}
+                      {t('priceLabel', { price: plan.price.toLocaleString('en-US'), currency })}
                     </div>
 
                     {/* Price per session row */}

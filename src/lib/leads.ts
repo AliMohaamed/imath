@@ -11,5 +11,5 @@ export type LeadStatus = (typeof LEAD_STATUS_OPTIONS)[number];
 export const LEAD_FILTER_STATUS_OPTIONS = ["all", ...LEAD_STATUS_OPTIONS] as const;
 export type LeadFilterStatus = (typeof LEAD_FILTER_STATUS_OPTIONS)[number];
 
-export const LEAD_COUNTRY_FILTER_OPTIONS = ["all", "EG", "SA", "KW", "AE", "QA"] as const;
+export const LEAD_COUNTRY_FILTER_OPTIONS = ["all", "EG", "SA", "KW", "AE", "QA", "OM", "IQ"] as const;
 export type LeadCountryFilter = (typeof LEAD_COUNTRY_FILTER_OPTIONS)[number];

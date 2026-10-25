@@ -8,6 +8,8 @@ export const PHONE_COUNTRY_OPTIONS = [
   { value: "+965", country: "KW" },
   { value: "+971", country: "AE" },
   { value: "+974", country: "QA" },
+  { value: "+968", country: "OM" },
+  { value: "+964", country: "IQ" },
   { value: "+1", country: "US" },
   { value: "+44", country: "GB" },
 ] as const;

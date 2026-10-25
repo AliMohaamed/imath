@@ -4,8 +4,25 @@ export const DEFAULT_PRICING_REGION = "INTL";
 export const DETECTED_COUNTRY_COOKIE = "imath-country-detected";
 /** Cookies from the retired country picker; the proxy deletes them so they can't change prices. */
 export const LEGACY_COUNTRY_COOKIES = ["imath-country", "imath-country-override"] as const;
-// The riyal is pegged at 3.75 to the dollar.
+// The riyal is pegged at 3.75 to the dollar and the Omani rial at 0.3845; 1,310 dinars is the Central Bank of Iraq's official rate.
 const SAR_PER_USD = 3.75;
+const OMR_PER_USD = 0.3845;
+const IQD_PER_USD = 1310;
+
+const SA_PLANS = [
+  { months: 1, price: 160, savingsPercent: 0, isPopular: false },
+  { months: 3, price: 428, savingsPercent: 11, isPopular: false },
+  { months: 6, price: 800, savingsPercent: 16, isPopular: true },
+  { months: 12, price: 1500, savingsPercent: 21, isPopular: false },
+] as const;
+
+/** The Saudi plans in another currency, rounded to the nearest roundTo (e.g. 1,000 dinars). */
+function convertSaudiPlans(currencyPerUsd: number, roundTo = 1) {
+  return SA_PLANS.map((plan) => ({
+    ...plan,
+    price: Math.round((plan.price / SAR_PER_USD) * currencyPerUsd / roundTo) * roundTo,
+  }));
+}
 
 export const EG_PLAN_DETAILS = [
   {
@@ -81,12 +98,15 @@ export const PRICING_CONFIG = {
   },
   SA: {
     currency: "SAR",
-    plans: [
-      { months: 1, price: 160, savingsPercent: 0, isPopular: false },
-      { months: 3, price: 428, savingsPercent: 11, isPopular: false },
-      { months: 6, price: 800, savingsPercent: 16, isPopular: true },
-      { months: 12, price: 1500, savingsPercent: 21, isPopular: false },
-    ],
+    plans: SA_PLANS,
+  },
+  OM: {
+    currency: "OMR",
+    plans: convertSaudiPlans(OMR_PER_USD),
+  },
+  IQ: {
+    currency: "IQD",
+    plans: convertSaudiPlans(IQD_PER_USD, 1000),
   },
   KW: {
     currency: "KWD",
@@ -119,7 +139,7 @@ export const PRICING_CONFIG = {
 
 const DEFAULT_PRICING = {
   currency: "USD",
-  plans: PRICING_CONFIG.SA.plans.map((plan) => ({ ...plan, price: Math.round(plan.price / SAR_PER_USD) })),
+  plans: convertSaudiPlans(1),
 };
 
 export type SupportedCountryCode = keyof typeof PRICING_CONFIG;
