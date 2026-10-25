@@ -1,7 +1,11 @@
-export const DEFAULT_COUNTRY_CODE = "EG";
-export const EFFECTIVE_COUNTRY_COOKIE = "imath-country";
+/** Countries without their own prices see the Saudi prices converted to US dollars. */
+export const DEFAULT_PRICING_REGION = "INTL";
+/** The visitor's real country (from x-vercel-ip-country), whether or not it has its own prices. */
 export const DETECTED_COUNTRY_COOKIE = "imath-country-detected";
-export const OVERRIDE_COUNTRY_COOKIE = "imath-country-override";
+/** Cookies from the retired country picker; the proxy deletes them so they can't change prices. */
+export const LEGACY_COUNTRY_COOKIES = ["imath-country", "imath-country-override"] as const;
+// The riyal is pegged at 3.75 to the dollar.
+const SAR_PER_USD = 3.75;
 
 export const EG_PLAN_DETAILS = [
   {
@@ -113,7 +117,13 @@ export const PRICING_CONFIG = {
   },
 } as const;
 
+const DEFAULT_PRICING = {
+  currency: "USD",
+  plans: PRICING_CONFIG.SA.plans.map((plan) => ({ ...plan, price: Math.round(plan.price / SAR_PER_USD) })),
+};
+
 export type SupportedCountryCode = keyof typeof PRICING_CONFIG;
+export type PricingRegion = SupportedCountryCode | typeof DEFAULT_PRICING_REGION;
 
 export const SUPPORTED_COUNTRY_CODES = Object.keys(
   PRICING_CONFIG,
@@ -121,7 +131,8 @@ export const SUPPORTED_COUNTRY_CODES = Object.keys(
 
 export function normalizeCountryCode(countryCode?: string | null) {
   const normalized = countryCode?.trim().toUpperCase();
-  return normalized && /^[A-Z]{2}$/.test(normalized) ? normalized : undefined;
+  // Vercel sends XX when it can't place the address.
+  return normalized && /^[A-Z]{2}$/.test(normalized) && normalized !== "XX" ? normalized : undefined;
 }
 
 export function isSupportedCountryCode(
@@ -133,45 +144,19 @@ export function isSupportedCountryCode(
     : false;
 }
 
-export function resolveSupportedCountryCode(countryCode?: string | null) {
-  return isSupportedCountryCode(countryCode)
-    ? countryCode
-    : DEFAULT_COUNTRY_CODE;
+export function resolvePricingRegion(countryCode?: string | null): PricingRegion {
+  const normalized = normalizeCountryCode(countryCode);
+  return isSupportedCountryCode(normalized) ? normalized : DEFAULT_PRICING_REGION;
 }
 
+/** Prices follow the visitor's country only; there is no way to pick another country's prices. */
 export function getPricingForCountry(countryCode?: string | null) {
-  const resolvedCountryCode = resolveSupportedCountryCode(countryCode);
-  const config = PRICING_CONFIG[resolvedCountryCode];
+  const region = resolvePricingRegion(countryCode);
+  const config = region === DEFAULT_PRICING_REGION ? DEFAULT_PRICING : PRICING_CONFIG[region];
 
   return {
-    countryCode: resolvedCountryCode,
+    region,
     currency: config.currency,
     plans: config.plans,
-  };
-}
-
-export function getDetectedCountryFromHeader(countryCode?: string | null) {
-  return resolveSupportedCountryCode(countryCode);
-}
-
-export function getInitialCountrySelection(params: {
-  detectedCountry?: string | null;
-  overrideCountry?: string | null;
-}) {
-  const detectedCountry = resolveSupportedCountryCode(params.detectedCountry);
-  const overrideCountry = params.overrideCountry;
-
-  if (isSupportedCountryCode(overrideCountry)) {
-    return {
-      detectedCountry,
-      selectedCountry: overrideCountry,
-      selectionMode: "override" as const,
-    };
-  }
-
-  return {
-    detectedCountry,
-    selectedCountry: detectedCountry,
-    selectionMode: "auto" as const,
   };
 }

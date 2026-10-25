@@ -14,10 +14,10 @@ export default function Pricing() {
   const {
     currency,
     plans,
-    selectedCountry,
+    pricingRegion,
   } = useGeoPricing();
 
-  const isEG = selectedCountry === 'EG';
+  const isEG = pricingRegion === 'EG';
 
   return (
     <section id="pricing" className="scroll-mt-28 py-16 md:py-28 bg-slate-50 relative overflow-hidden">
@@ -174,7 +174,7 @@ export default function Pricing() {
 
                   {/* CTA */}
                   <BookingCtaButton
-                    source={`pricing_${selectedCountry}_${plan.months}_months`}
+                    source={`pricing_${pricingRegion}_${plan.months}_months`}
                     variant={isHighlighted ? (isBestValue ? 'primary' : 'violet') : 'muted'}
                     className="mt-auto w-full rounded-2xl py-3.5"
                   >

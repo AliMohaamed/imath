@@ -7,12 +7,6 @@ import { getAgeFromDob } from "@/lib/assessment/common";
 import { scoreAnswers } from "@/lib/assessment/personality/scoring";
 import { formatPhoneNumber } from "@/lib/booking";
 import { getGeoContext } from "@/lib/geo";
-import {
-  DETECTED_COUNTRY_COOKIE,
-  EFFECTIVE_COUNTRY_COOKIE,
-  OVERRIDE_COUNTRY_COOKIE,
-  resolveSupportedCountryCode,
-} from "@/lib/pricing";
 import { createRateLimitKey } from "@/lib/server/rate-limit";
 import { escapeTelegramHtml, sendTelegramNotification } from "@/lib/telegram";
 
@@ -161,14 +155,7 @@ async function handleStart(
   payload: Extract<AssessmentRequest, { action: "start" }>
 ) {
   const cookieStore = await cookies();
-  const resolvedCountry = resolveSupportedCountryCode(
-    payload.countryCode ||
-      cookieStore.get(OVERRIDE_COUNTRY_COOKIE)?.value ||
-      cookieStore.get(EFFECTIVE_COUNTRY_COOKIE)?.value ||
-      cookieStore.get(DETECTED_COUNTRY_COOKIE)?.value ||
-      request.headers.get("x-vercel-ip-country")
-  );
-  const { country } = getGeoContext(resolvedCountry);
+  const { country } = getGeoContext(request, cookieStore);
 
   const args: StartArgs = {
     serverSecret,

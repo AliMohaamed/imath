@@ -24,7 +24,6 @@ import {
   PHONE_COUNTRY_OPTIONS,
   type BookingFormValues,
 } from "@/lib/booking";
-import { useGeoPricing } from "@/components/pricing/GeoPricingProvider";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { DateSelector } from "@/components/booking/DateSelector";
@@ -183,7 +182,6 @@ function BookingForm({ source, openId, onStepChange, onComplete, onRequestClose 
   const locale = useLocale() as "ar" | "en";
   const t = useTranslations("BookingModal");
   const common = useTranslations("Common");
-  const { selectedCountry } = useGeoPricing();
   const idPrefix = useId();
   const [activeStep, setActiveStep] = useState(0);
   const [submissionState, setSubmissionState] = useState<SubmissionState>({ status: "idle" });
@@ -221,7 +219,6 @@ function BookingForm({ source, openId, onStepChange, onComplete, onRequestClose 
       previousExperience: "none",
       timezone: defaultTimezone,
       preferredSlots: [],
-      countryCode: selectedCountry,
       locale,
       interestedPackage: "not_sure",
     },
@@ -243,10 +240,6 @@ function BookingForm({ source, openId, onStepChange, onComplete, onRequestClose 
   const field = (name: FieldName, options?: { valueAsNumber?: true }) =>
     register(name, { ...options, onChange: () => clearErrors(name) });
   const fieldId = (name: string) => `${idPrefix}-${name}`;
-
-  useEffect(() => {
-    setValue("countryCode", selectedCountry);
-  }, [selectedCountry, setValue]);
 
   useEffect(() => {
     setValue("timezone", defaultTimezone);
@@ -606,7 +599,6 @@ function BookingForm({ source, openId, onStepChange, onComplete, onRequestClose 
 
         <input type="hidden" {...register("locale")} />
         <input type="hidden" {...register("timezone")} />
-        <input type="hidden" {...register("countryCode")} />
         <input type="hidden" {...register("email")} />
 
         {submitError ? (

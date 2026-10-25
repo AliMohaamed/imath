@@ -1,5 +1,5 @@
 import createMiddleware from 'next-intl/middleware';
-import { NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import {
   convexAuthNextjsMiddleware,
   createRouteMatcher,
@@ -7,10 +7,8 @@ import {
 } from "@convex-dev/auth/nextjs/server";
 import {
   DETECTED_COUNTRY_COOKIE,
-  EFFECTIVE_COUNTRY_COOKIE,
-  getDetectedCountryFromHeader,
-  OVERRIDE_COUNTRY_COOKIE,
-  resolveSupportedCountryCode,
+  LEGACY_COUNTRY_COOKIES,
+  normalizeCountryCode,
 } from '@/lib/pricing';
 import { routing } from './navigation';
 
@@ -26,27 +24,21 @@ const isLoginPage = createRouteMatcher([
   "/(ar|en)/admin/login",
 ]);
 
-function applyGeoCookies(request: Request, response: NextResponse) {
-  const overrideCountry = request.headers.get("cookie")
-    ?.split(";")
-    .map((part) => part.trim())
-    .find((part) => part.startsWith(`${OVERRIDE_COUNTRY_COOKIE}=`))
-    ?.split("=")[1];
-  const detectedCountry = getDetectedCountryFromHeader(request.headers.get("x-vercel-ip-country"));
-  const effectiveCountry = overrideCountry
-    ? resolveSupportedCountryCode(overrideCountry)
-    : detectedCountry;
+function applyGeoCookies(request: NextRequest, response: NextResponse) {
+  const detectedCountry = normalizeCountryCode(request.headers.get("x-vercel-ip-country"));
 
-  response.cookies.set(DETECTED_COUNTRY_COOKIE, detectedCountry, {
-    path: "/",
-    maxAge: 60 * 60 * 24 * 30,
-    sameSite: "lax",
-  });
-  response.cookies.set(EFFECTIVE_COUNTRY_COOKIE, effectiveCountry, {
-    path: "/",
-    maxAge: 60 * 60 * 24 * 30,
-    sameSite: "lax",
-  });
+  if (detectedCountry) {
+    response.cookies.set(DETECTED_COUNTRY_COOKIE, detectedCountry, {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 30,
+      sameSite: "lax",
+    });
+  }
+  for (const name of LEGACY_COUNTRY_COOKIES) {
+    if (request.cookies.has(name)) {
+      response.cookies.delete(name);
+    }
+  }
 
   return response;
 }

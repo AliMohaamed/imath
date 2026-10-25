@@ -5,39 +5,30 @@ import {
   type ReactNode,
   useContext,
   useMemo,
-  useState,
   useSyncExternalStore,
 } from "react";
-import { trackEvent } from "@/lib/analytics";
 import {
-  DEFAULT_COUNTRY_CODE,
   DETECTED_COUNTRY_COOKIE,
-  EFFECTIVE_COUNTRY_COOKIE,
-  getInitialCountrySelection,
   getPricingForCountry,
-  OVERRIDE_COUNTRY_COOKIE,
-  type SupportedCountryCode,
-  SUPPORTED_COUNTRY_CODES,
+  normalizeCountryCode,
+  type PricingRegion,
 } from "@/lib/pricing";
 
 type GeoPricingContextValue = {
-  detectedCountry: SupportedCountryCode;
-  selectedCountry: SupportedCountryCode;
-  selectionMode: "auto" | "override";
+  /** The visitor's real country, or undefined when it couldn't be detected. */
+  detectedCountry: string | undefined;
+  /** The price list shown: the visitor's country when it has its own prices, otherwise INTL (USD). */
+  pricingRegion: PricingRegion;
   currency: string;
   plans: ReturnType<typeof getPricingForCountry>["plans"];
-  supportedCountries: SupportedCountryCode[];
-  setCountrySelection: (country: SupportedCountryCode | "auto") => void;
 };
 
+const defaultPricing = getPricingForCountry(undefined);
 const GeoPricingContext = createContext<GeoPricingContextValue>({
-  detectedCountry: DEFAULT_COUNTRY_CODE,
-  selectedCountry: DEFAULT_COUNTRY_CODE,
-  selectionMode: "auto",
-  currency: "EGP",
-  plans: getPricingForCountry(DEFAULT_COUNTRY_CODE).plans,
-  supportedCountries: SUPPORTED_COUNTRY_CODES,
-  setCountrySelection: () => {},
+  detectedCountry: undefined,
+  pricingRegion: defaultPricing.region,
+  currency: defaultPricing.currency,
+  plans: defaultPricing.plans,
 });
 
 function readCookie(cookies: string, name: string) {
@@ -48,62 +39,32 @@ function readCookie(cookies: string, name: string) {
     ?.slice(name.length + 1);
 }
 
-// The cookies only change through setCountrySelection below, which also updates state,
+// The proxy sets the cookie before the page loads and nothing changes it afterwards,
 // so there is nothing to subscribe to.
 const subscribeToNothing = () => () => {};
 const getCookieSnapshot = () => document.cookie;
 const getServerCookieSnapshot = () => "";
 
 /**
- * Prices render for the default country on the server and switch to the visitor's country
- * during hydration, using the cookies the proxy sets from x-vercel-ip-country. Reading them
+ * Prices render for the default region on the server and switch to the visitor's country
+ * during hydration, using the cookie the proxy sets from x-vercel-ip-country. Reading it
  * on the server would make every marketing page dynamic; the pricing section is far below the fold.
+ * Visitors can't choose another country's prices.
  */
 export function GeoPricingProvider({ children }: { children: ReactNode }) {
   const cookies = useSyncExternalStore(subscribeToNothing, getCookieSnapshot, getServerCookieSnapshot);
-  // null until the visitor picks a country in this session.
-  const [choice, setChoice] = useState<SupportedCountryCode | "auto" | null>(null);
 
   const value = useMemo(() => {
-    const initial = getInitialCountrySelection({
-      detectedCountry: readCookie(cookies, DETECTED_COUNTRY_COOKIE),
-      overrideCountry: readCookie(cookies, OVERRIDE_COUNTRY_COOKIE),
-    });
-    const detectedCountry = initial.detectedCountry;
-    const selectionMode = choice === null ? initial.selectionMode : choice === "auto" ? "auto" : "override";
-    const selectedCountry =
-      choice === null ? initial.selectedCountry : choice === "auto" ? detectedCountry : choice;
-    const pricing = getPricingForCountry(selectedCountry);
+    const detectedCountry = normalizeCountryCode(readCookie(cookies, DETECTED_COUNTRY_COOKIE));
+    const pricing = getPricingForCountry(detectedCountry);
 
     return {
       detectedCountry,
-      selectedCountry,
-      selectionMode,
+      pricingRegion: pricing.region,
       currency: pricing.currency,
       plans: pricing.plans,
-      supportedCountries: SUPPORTED_COUNTRY_CODES,
-      setCountrySelection: (country: SupportedCountryCode | "auto") => {
-        setChoice(country);
-
-        if (country === "auto") {
-          document.cookie = `${OVERRIDE_COUNTRY_COOKIE}=; Path=/; Max-Age=0; SameSite=Lax`;
-          document.cookie = `${EFFECTIVE_COUNTRY_COOKIE}=${detectedCountry}; Path=/; Max-Age=${60 * 60 * 24 * 30}; SameSite=Lax`;
-          trackEvent("pricing_country_override", {
-            mode: "auto",
-            country: detectedCountry,
-          });
-          return;
-        }
-
-        document.cookie = `${OVERRIDE_COUNTRY_COOKIE}=${country}; Path=/; Max-Age=${60 * 60 * 24 * 30}; SameSite=Lax`;
-        document.cookie = `${EFFECTIVE_COUNTRY_COOKIE}=${country}; Path=/; Max-Age=${60 * 60 * 24 * 30}; SameSite=Lax`;
-        trackEvent("pricing_country_override", {
-          mode: "override",
-          country,
-        });
-      },
     } satisfies GeoPricingContextValue;
-  }, [cookies, choice]);
+  }, [cookies]);
 
   return (
     <GeoPricingContext.Provider value={value}>

@@ -2,16 +2,18 @@ import { ConvexHttpClient } from "convex/browser";
 import { makeFunctionReference } from "convex/server";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { bookingFormSchema, formatPhoneNumber, formatPreferredSlotValue } from "@/lib/booking";
-import { getGeoContext } from "@/lib/geo";
 import {
-  DETECTED_COUNTRY_COOKIE,
-  EFFECTIVE_COUNTRY_COOKIE,
-  OVERRIDE_COUNTRY_COOKIE,
-  resolveSupportedCountryCode,
-} from "@/lib/pricing";
+  bookingFormSchema,
+  EGYPT_TIME_ZONE,
+  formatDateInTimeZone,
+  formatPhoneNumber,
+  formatPreferredSlotValue,
+  preferredSlotToDate,
+} from "@/lib/booking";
+import { getGeoContext } from "@/lib/geo";
+import { DEFAULT_PRICING_REGION } from "@/lib/pricing";
 import { createRateLimitKey } from "@/lib/server/rate-limit";
-import { sendTelegramNotification } from "@/lib/telegram";
+import { escapeTelegramHtml, sendTelegramNotification } from "@/lib/telegram";
 
 type SubmitLeadArgs = {
   parentName: string;
@@ -51,35 +53,63 @@ const recordDeliveryAttemptReference = makeFunctionReference<
   { ok: true }
 >("notifications:recordDeliveryAttempt");
 
+function formatCountry(countryCode: string | undefined) {
+  if (!countryCode) {
+    return "غير معروفة";
+  }
+
+  const flag = String.fromCodePoint(...[...countryCode].map((letter) => 0x1f1a5 + letter.charCodeAt(0)));
+  const name = new Intl.DisplayNames(["ar"], { type: "region" }).of(countryCode) ?? countryCode;
+  return `${flag} ${name} (${countryCode})`;
+}
+
+function formatSessionTimes(slot: string, timezone: string) {
+  const date = preferredSlotToDate(slot, timezone);
+
+  // An unrecognised time zone leaves only the time the parent picked, with no conversion.
+  if (!date) {
+    return [`🕐 <b>بتوقيت ولي الأمر:</b> ${formatPreferredSlotValue(slot, "ar")} (<code>${escapeTelegramHtml(timezone)}</code>)`];
+  }
+
+  return [
+    `🕐 <b>بتوقيت ولي الأمر</b> (<code>${escapeTelegramHtml(timezone)}</code>): ${formatDateInTimeZone(date, "ar", timezone)}`,
+    `🇪🇬 <b>بتوقيت مصر:</b> ${formatDateInTimeZone(date, "ar", EGYPT_TIME_ZONE)}`,
+  ];
+}
+
 function formatTelegramMessage(params: {
   parentName: string;
   studentName: string;
   studentAge: number;
   phoneNumber: string;
+  email?: string;
   timezone: string;
   preferredSlots: string[];
-  country: string;
+  country: string | undefined;
+  pricingRegion: string;
   currency: string;
   locale: string;
   interestedPackage?: string;
 }) {
   const title = "<b>🔔 طلب حصة تجريبية جديدة</b>";
   const separator = "──────────────────";
-  
+  const pricing =
+    params.pricingRegion === DEFAULT_PRICING_REGION ? `${params.currency} (السعر الدولي)` : params.currency;
+
   return [
     title,
     separator,
-    `👤 <b>ولي الأمر:</b> ${params.parentName}`,
-    `👶 <b>الطالب:</b> ${params.studentName} (${params.studentAge} سنوات)`,
-    `📞 <b>الهاتف:</b> <code>${params.phoneNumber}</code>`,
-    `🌍 <b>الدولة:</b> ${params.country}`,
-    `💰 <b>العملة:</b> ${params.currency}`,
+    `👤 <b>ولي الأمر:</b> ${escapeTelegramHtml(params.parentName)}`,
+    `📞 <b>الهاتف:</b> <code>${escapeTelegramHtml(params.phoneNumber)}</code>`,
+    ...(params.email ? [`✉️ <b>البريد:</b> ${escapeTelegramHtml(params.email)}`] : []),
+    `👶 <b>الطالب:</b> ${escapeTelegramHtml(params.studentName)} (${params.studentAge} سنوات)`,
+    `🌍 <b>الدولة:</b> ${formatCountry(params.country)}`,
+    `💰 <b>الأسعار المعروضة:</b> ${pricing}`,
     `🗣️ <b>اللغة المفضلة:</b> ${params.locale.toUpperCase()}`,
-    `⏰ <b>توقيت المستخدم:</b> <code>${params.timezone}</code>`,
-    ...(params.interestedPackage && params.interestedPackage !== "not_sure" ? [`📦 <b>الباقة المهتم بها:</b> ${params.interestedPackage} أشهر`] : []),
+    ...(params.interestedPackage && params.interestedPackage !== "not_sure" ? [`📦 <b>الباقة المهتم بها:</b> ${escapeTelegramHtml(params.interestedPackage)} أشهر`] : []),
     separator,
-    `📅 <b>الموعد المختار:</b>`,
-    ...params.preferredSlots.map((slot) => `▫️ ${formatPreferredSlotValue(slot, "ar")}`),
+    `📅 <b>موعد الحصة التجريبية:</b>`,
+    ...params.preferredSlots.flatMap((slot) => formatSessionTimes(slot, params.timezone)),
     separator,
     `<i>تم الإرسال تلقائيًا من موقع iMath</i>`
   ].join("\n");
@@ -135,14 +165,7 @@ async function handlePost(request: Request) {
 
   const cookieStore = await cookies();
   const submittedAt = Date.now();
-  const resolvedCountry = resolveSupportedCountryCode(
-    parsed.data.countryCode ||
-      cookieStore.get(OVERRIDE_COUNTRY_COOKIE)?.value ||
-      cookieStore.get(EFFECTIVE_COUNTRY_COOKIE)?.value ||
-      cookieStore.get(DETECTED_COUNTRY_COOKIE)?.value ||
-      request.headers.get("x-vercel-ip-country")
-  );
-  const { country, currency } = getGeoContext(resolvedCountry);
+  const { country, pricingRegion, currency } = getGeoContext(request, cookieStore);
   const client = new ConvexHttpClient(convexUrl);
   const payload = parsed.data;
 
@@ -180,9 +203,11 @@ async function handlePost(request: Request) {
       studentName: payload.studentName,
       studentAge: payload.studentAge,
       phoneNumber: formatPhoneNumber(payload.phoneCountryCode, payload.phoneNumber),
+      email: payload.email || undefined,
       timezone: payload.timezone,
       preferredSlots: payload.preferredSlots,
       country,
+      pricingRegion,
       currency,
       locale: payload.locale,
       interestedPackage: payload.interestedPackage,

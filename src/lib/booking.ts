@@ -28,7 +28,6 @@ export const bookingFormSchema = z.object({
   previousExperience: z.enum(EXPERIENCE_OPTIONS),
   timezone: z.string().trim().min(1).max(80),
   preferredSlots: z.array(z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/)).length(1),
-  countryCode: z.string().trim().length(2).optional(),
   locale: z.enum(["ar", "en"]),
   interestedPackage: z.string().optional(),
 });
@@ -163,6 +162,66 @@ export function formatPreferredSlotValue(value: string, locale: BookingLocale) {
   return new Intl.DateTimeFormat(locale, {
     weekday: "short",
     month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(date);
+}
+
+export const EGYPT_TIME_ZONE = "Africa/Cairo";
+
+export function isValidTimeZone(timeZone: string) {
+  try {
+    new Intl.DateTimeFormat("en", { timeZone });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function getTimeZoneOffsetMs(timeZone: string, instant: number) {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("en-US", {
+      timeZone,
+      hourCycle: "h23",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    })
+      .formatToParts(instant)
+      .map((part) => [part.type, Number(part.value)])
+  );
+  const wallTime = Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute, parts.second);
+  return wallTime - Math.floor(instant / 1000) * 1000;
+}
+
+/**
+ * The form offers slots in the visitor's own clock (e.g. "2026-10-26T18:00"); this turns one back
+ * into the real moment, given the time zone their browser reported.
+ */
+export function preferredSlotToDate(value: string, timeZone: string) {
+  const parsed = parsePreferredSlotValue(value);
+
+  if (!parsed || !isValidTimeZone(timeZone)) {
+    return null;
+  }
+
+  const [year, month, day] = parsed.dateKey.split("-").map(Number);
+  const [hours, minutes] = parsed.timeValue.split(":").map(Number);
+  const wallTime = Date.UTC(year, month - 1, day, hours, minutes);
+  // Checking the offset a second time lands on the right side of a daylight-saving change.
+  const firstGuess = wallTime - getTimeZoneOffsetMs(timeZone, wallTime);
+  return new Date(wallTime - getTimeZoneOffsetMs(timeZone, firstGuess));
+}
+
+export function formatDateInTimeZone(date: Date, locale: BookingLocale, timeZone: string) {
+  return new Intl.DateTimeFormat(locale, {
+    timeZone,
+    weekday: "long",
+    month: "long",
     day: "numeric",
     hour: "numeric",
     minute: "2-digit",
