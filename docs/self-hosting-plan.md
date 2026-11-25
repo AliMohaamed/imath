@@ -90,7 +90,7 @@ Nginx `techworld-*`, `techworld.pem`), ali's PM2, `nginx.conf`, existing certs, 
 | Name | Required | Original source (Vercel hides sensitive values) |
 |---|---|---|
 | `NEXT_PUBLIC_CONVEX_URL` | yes | as above. Also read at runtime by `@convex-dev/auth/nextjs` middleware and the API routes. |
-| `CONVEX_SERVER_SECRET` | yes | Convex dashboard → Production → Settings → Environment Variables → `CONVEX_SERVER_SECRET` (must be the same value). |
+| `CONVEX_SERVER_SECRET` | **optional** | **Not on Vercel** (Project tab). Empty keeps today's behavior: `/api/assessments` → 500, results not saved (child still sees the result). If set: Convex dashboard → Production → Settings → Environment Variables (same value). Owner decides; see §10. |
 | `TELEGRAM_BOT_TOKEN` | yes (to match prod) | Telegram @BotFather → /mybots → your bot → API Token. Without it leads still save but no Telegram alert. |
 | `TELEGRAM_CHAT_ID` | yes (to match prod) | The chat/group the alerts go to today (same as in your local `.env.local` if that's the same group; otherwise from `https://api.telegram.org/bot<token>/getUpdates`). |
 
@@ -123,12 +123,14 @@ Then: first deploy from GitHub Actions (on `self-host`), smoke test through Ngin
 
 ## 8. DNS cutover (you, last; I'll give exact values after step 1 shows the VPS IP)
 
-I only received the Vercel **Domains** screenshot; please also send the **Cloudflare DNS** and **Vercel env**
-screenshots before cutover. Expected change (only these two records; MX/TXT/others untouched):
+Today (screenshot): `imathmental.com` and `www` are both `CNAME → 31d703a4526a2fcc.vercel-dns-017.com`, DNS only, TTL 10 min;
+two `_vercel` TXT records (verification). No MX. Change ONLY the two CNAMEs; leave both `_vercel` TXT records:
 
 1. Cloudflare SSL/TLS → **Full (strict)** for the imathmental.com zone (other zones like edusuite/techworld are unaffected).
-2. `A  imathmental.com  → <VPS IP>`, **Proxied** (orange).
-3. `www`: `CNAME www → imathmental.com` (or `A → <VPS IP>`), **Proxied**.
+   Also SSL/TLS → Edge Certificates: Universal certificate **Active** (covers imathmental.com + *.imathmental.com).
+2. Apex: Cloudflare can't change a record's type, so **delete** the `imathmental.com` CNAME and **add**
+   `A  imathmental.com → <VPS IP>`, Proxied (orange), TTL Auto.
+3. `www`: **edit** the CNAME: content `imathmental.com`, Proxied (orange), TTL Auto.
 4. Network → IP Geolocation **On**.
 
 5. SSL/TLS → Edge Certificates → **Always Use HTTPS: Off** keeps `http://imathmental.com` a single 301 hop
@@ -157,3 +159,18 @@ After it's stable: disconnect the Vercel project's Git integration so a Dec 24 u
 3. You: run steps 1–5 (I give the exact PowerShell).
 4. Push `self-host` (with your OK) → first deploy → smoke test.
 5. Verification (§7), then DNS (§8), then final checks, then merge to `main` with your OK (removing the `self-host` trigger).
+
+## 10. Findings from the Vercel env + Cloudflare DNS screenshots (2026-11-25)
+
+- **All Vercel values are revealable** (eye icon; none are marked Sensitive). Copy `NEXT_PUBLIC_CONVEX_URL`,
+  `NEXT_PUBLIC_SITE_URL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` straight from Vercel: those are exactly what production runs.
+  Don't click "Needs Attention" → mark Sensitive before copying.
+- **`CONVEX_SERVER_SECRET` is not in the Project tab.** `/api/assessments` needs it, so unless it is in the **Shared** tab,
+  assessment results have not been saved in production since 2026-10-16 (the client hides the failure). Booking (`/api/leads`)
+  doesn't use it. Matching Vercel = leave it empty; fixing it is a behavior change the owner must approve.
+- **`CONVEX_DEPLOY_KEY` on Vercel** suggests the Vercel Build Command may be `npx convex deploy --cmd ...`. If so:
+  (a) the bundle used the deploy key's production URL, so compare it with Vercel's `NEXT_PUBLIC_CONVEX_URL`;
+  (b) Convex functions were deployed on every push. CI never deploys Convex, so after the move run `npx convex deploy`
+  yourself when `convex/` changes.
+- Not needed on the VPS: `JWT_PRIVATE_KEY`, `CONVEX_DEPLOYMENT`, `CONVEX_DEPLOY_KEY`, `NEXT_PUBLIC_CONVEX_SITE_URL`,
+  `DEFAULT_COUNTRY_CODE`, `DEFAULT_CURRENCY`, `ADMIN_EMAIL_ALLOWLIST` (the Next app never reads them; Convex has its own copies).

@@ -17,7 +17,10 @@ DEST=$DEST_DIR/imath.env
 NODE=/home/deploy/node/bin/node
 [[ -d $DEST_DIR ]] || { echo "$DEST_DIR missing: run step2 first." >&2; exit 1; }
 
-REQUIRED=(NEXT_PUBLIC_CONVEX_URL CONVEX_SERVER_SECRET TELEGRAM_BOT_TOKEN TELEGRAM_CHAT_ID)
+REQUIRED=(NEXT_PUBLIC_CONVEX_URL TELEGRAM_BOT_TOKEN TELEGRAM_CHAT_ID)
+# Not set on Vercel today (owner to confirm). Empty = same as Vercel: /api/assessments answers 500 and test results
+# are not saved (the child still sees the result). Set = results saved + Telegram alert (needs the same value in Convex).
+OPTIONAL=(CONVEX_SERVER_SECRET)
 REFUSED=(CONVEX_DEPLOY_KEY CONVEX_DEPLOYMENT CONVEX_SITE_URL JWT_PRIVATE_KEY JWKS ADMIN_EMAIL_ALLOWLIST)
 
 tmp="$(mktemp -d)"; trap 'rm -rf "$tmp"' EXIT
@@ -39,7 +42,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
   if [[ -n "${V[$key]+x}" ]]; then echo "   duplicate: $key"; FAIL=1; continue; fi
   V[$key]="$val"
   if [[ -z "$val" ]]; then echo "   empty: $key"; in_list "$key" "${REQUIRED[@]}" && FAIL=1; continue; fi
-  in_list "$key" "${REQUIRED[@]}" || echo "   note: unlisted variable kept: $key"
+  in_list "$key" "${REQUIRED[@]}" "${OPTIONAL[@]}" || echo "   note: unlisted variable kept: $key"
   printf '%s=%s\n' "$key" "$val" >> "$OUT"
 done < "$SRC"
 for r in "${REQUIRED[@]}"; do [[ -n "${V[$r]:-}" ]] || { echo "   REQUIRED but missing/empty: $r"; FAIL=1; }; done
@@ -48,7 +51,12 @@ check() { if eval "$2"; then echo "   ok    $1"; else echo "   FAIL  $1"; FAIL=1
 echo "==> format checks"
 check "NEXT_PUBLIC_CONVEX_URL looks like https://<name>.convex.cloud" '[[ "${V[NEXT_PUBLIC_CONVEX_URL]:-}" =~ ^https://[a-z0-9-]+\.convex\.cloud/?$ ]]'
 SECRET="${V[CONVEX_SERVER_SECRET]:-}"
-check "CONVEX_SERVER_SECRET is at least 16 chars, no spaces" '[[ ${#SECRET} -ge 16 && ! "$SECRET" =~ [[:space:]] ]]'
+if [[ -n "$SECRET" ]]; then
+  check "CONVEX_SERVER_SECRET is at least 16 chars, no spaces" '[[ ${#SECRET} -ge 16 && ! "$SECRET" =~ [[:space:]] ]]'
+  ASSESS="CONVEX_SERVER_SECRET set: assessment results are saved (Convex must have the same value)"
+else
+  ASSESS="CONVEX_SERVER_SECRET not set: assessment results are NOT saved (same as Vercel if it is not set there)"
+fi
 unset SECRET
 check "TELEGRAM_BOT_TOKEN looks like <digits>:<token>" '[[ "${V[TELEGRAM_BOT_TOKEN]:-}" =~ ^[0-9]+:[A-Za-z0-9_-]{30,}$ ]]'
 check "TELEGRAM_CHAT_ID is a number" '[[ "${V[TELEGRAM_CHAT_ID]:-}" =~ ^-?[0-9]+$ ]]'
@@ -87,6 +95,7 @@ echo "================ SUMMARY ================"
 ls -l "$DEST"
 echo "variables: $(cut -d= -f1 "$DEST" | tr '\n' ' ')"
 echo "convex url sha256 (compare with the deploy log): $(grep '^NEXT_PUBLIC_CONVEX_URL=' "$DEST" | cut -d= -f2- | sed 's#/$##' | tr -d '\n' | sha256sum | cut -c1-12)"
+echo "$ASSESS"
 echo "upload removed: $([[ ! -e $SRC ]] && echo yes || echo NO)"
 echo "im-web restarted: $RESTARTED"
 echo "========================================="
