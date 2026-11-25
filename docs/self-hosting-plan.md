@@ -129,7 +129,7 @@ two `_vercel` TXT records (verification). No MX. Change ONLY the two CNAMEs; lea
 1. Cloudflare SSL/TLS → **Full (strict)** for the imathmental.com zone (other zones like edusuite/techworld are unaffected).
    Also SSL/TLS → Edge Certificates: Universal certificate **Active** (covers imathmental.com + *.imathmental.com).
 2. Apex: Cloudflare can't change a record's type, so **delete** the `imathmental.com` CNAME and **add**
-   `A  imathmental.com → <VPS IP>`, Proxied (orange), TTL Auto.
+   `A  imathmental.com → 62.83.16.12`, Proxied (orange), TTL Auto.
 3. `www`: **edit** the CNAME: content `imathmental.com`, Proxied (orange), TTL Auto.
 4. Network → IP Geolocation **On**.
 
@@ -174,3 +174,10 @@ After it's stable: disconnect the Vercel project's Git integration so a Dec 24 u
   yourself when `convex/` changes.
 - Not needed on the VPS: `JWT_PRIVATE_KEY`, `CONVEX_DEPLOYMENT`, `CONVEX_DEPLOY_KEY`, `NEXT_PUBLIC_CONVEX_SITE_URL`,
   `DEFAULT_COUNTRY_CODE`, `DEFAULT_CURRENCY`, `ADMIN_EMAIL_ALLOWLIST` (the Next app never reads them; Convex has its own copies).
+
+## 11. Step 1 result (2026-11-25)
+
+x86_64, Ubuntu 24.04.5, 2.5 GB RAM free, 107 GB disk free, IPv4 62.83.16.12, port 3300 free, Nginx 1.24 OK,
+no existing imathmental config. Node resolves `localhost` to `::1`, so the app listens on `[::1]:3300` and step4 proxies there.
+Baseline: edusuite.software 200, api.edusuite.software 404, www/admin.techworldegypt.com 307.
+Note: `pm2-deploy` is enabled but inactive (deploy's PM2 was started outside systemd); it resurrects the saved list on reboot. Not changed.
