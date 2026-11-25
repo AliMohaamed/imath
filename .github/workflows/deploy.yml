@@ -1,0 +1,131 @@
+name: Deploy to VPS
+on:
+  push:
+    # `self-host` only while the migration is being set up; remove it before merging to main.
+    branches: [main, self-host]
+    # docs and one-off server scripts don't change what runs on the server
+    paths-ignore:
+      - "docs/**"
+      - "doc/**"
+      - "deploy/server/**"
+      - "deploy/env/**"
+      - "**/*.md"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      # Build-time public values (inlined into the bundle). Repo Variables, not Secrets.
+      NEXT_PUBLIC_CONVEX_URL: ${{ vars.NEXT_PUBLIC_CONVEX_URL }}
+      NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Check build variables
+        run: |
+          set -euo pipefail
+          # src/lib/site.ts only enforces this on Vercel; without it canonicals/sitemap/hreflang would point at localhost.
+          [ "$NEXT_PUBLIC_SITE_URL" = "https://www.imathmental.com" ] || { echo "Variable NEXT_PUBLIC_SITE_URL must be https://www.imathmental.com"; exit 1; }
+          echo "$NEXT_PUBLIC_CONVEX_URL" | grep -Eq '^https://[a-z0-9-]+\.convex\.cloud/?$' || { echo "Variable NEXT_PUBLIC_CONVEX_URL is missing or not a *.convex.cloud URL"; exit 1; }
+
+      # The lockfile was written by npm 11; Node 22 ships npm 10. Use the same npm as the lockfile.
+      - run: npm install -g npm@11.12.1
+      - run: npm ci
+      # No Convex access in CI: convex/_generated is committed, and `convex deploy` is never run here.
+      - run: npm test
+      - run: npm run build
+
+      - name: Assemble release
+        run: |
+          set -euo pipefail
+          mkdir release
+          cp -a .next/standalone/. release/
+          # standalone omits static assets and public/; put them next to server.js
+          mkdir -p release/.next
+          cp -a .next/static release/.next/static
+          cp -a public release/public
+          cp deploy/ecosystem.config.js release/
+          # the image optimizer cache is linked to a shared dir on the server
+          rm -rf release/.next/cache
+          test -f release/server.js
+          tar -czf release.tgz -C release .
+          ls -lh release.tgz
+
+      - name: Upload, switch release, smoke test
+        env:
+          SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          HOST: ${{ secrets.VPS_HOST }}
+          USER_: ${{ secrets.VPS_USER }}
+          PORT_: ${{ secrets.VPS_SSH_PORT }}
+        run: |
+          set -euo pipefail
+          install -m 600 /dev/null key && printf '%s\n' "$SSH_KEY" | tr -d '\r' > key   # strip Windows CRLF
+          # fail with a clear message (never prints the key) if the secret is not a valid private key
+          ssh-keygen -y -f key > /dev/null || { echo "VPS_SSH_KEY is not a valid unencrypted private key"; exit 1; }
+          echo "key fingerprint: $(ssh-keygen -l -f key | awk '{print $2}')"
+          OPTS="-i key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+          REL_NAME="$(date -u +%Y%m%d%H%M%S)-${GITHUB_SHA::7}"
+          URL_SHA="$(printf '%s' "${NEXT_PUBLIC_CONVEX_URL%/}" | sha256sum | cut -c1-12)"
+          echo "convex url sha256 (build): $URL_SHA"
+          scp $OPTS -P "${PORT_:-22}" release.tgz "$USER_@$HOST:/tmp/im-release.tgz"
+          ssh $OPTS -p "${PORT_:-22}" "$USER_@$HOST" bash -s -- "$REL_NAME" "$URL_SHA" <<'REMOTE'
+          set -euo pipefail
+          export PATH=/home/deploy/node/bin:$PATH   # deploy's own Node/PM2
+          REL_NAME="$1"; URL_SHA="$2"
+          R=/home/deploy/imath
+          REL="$R/releases/$REL_NAME"
+          ENVF="$R/env/imath.env"
+          [ -s "$ENVF" ] || { echo "MISSING $ENVF: run deploy/server/step5-env.sh first. Nothing was switched."; rm -f /tmp/im-release.tgz; exit 1; }
+          RUN_SHA="$(grep '^NEXT_PUBLIC_CONVEX_URL=' "$ENVF" | cut -d= -f2- | sed 's#/$##' | tr -d '\n' | sha256sum | cut -c1-12)"
+          [ "$RUN_SHA" = "$URL_SHA" ] || { echo "NEXT_PUBLIC_CONVEX_URL differs between the GitHub Variable and $ENVF. Nothing was switched."; rm -f /tmp/im-release.tgz; exit 1; }
+          mkdir -p "$REL" "$R/cache" "$R/logs"
+          tar -xzf /tmp/im-release.tgz -C "$REL" && rm /tmp/im-release.tgz
+          # secrets live outside releases (Next loads .env.production from its cwd); image cache is shared
+          ln -sfn "$ENVF" "$REL/.env.production"
+          ln -sfn "$R/cache" "$REL/.next/cache"
+          PREV="$(readlink -f "$R/current" 2>/dev/null || true)"
+          ln -sfn "$REL" "$R/current.new" && mv -T "$R/current.new" "$R/current"
+          pm2 startOrReload "$R/current/ecosystem.config.js" --update-env
+          pm2 save >/dev/null
+
+          code() { curl -sk -o /dev/null -w '%{http_code}' --max-time 15 --resolve "$1:443:127.0.0.1" "https://$1$2" || true; }
+          FAILED=0
+          # Wait for the app (through Nginx, ~60 s max).
+          for i in $(seq 1 30); do c="$(code www.imathmental.com /)"; [ "$c" = 200 ] && break; sleep 2; done
+          for p in / /en /program /en/program /resources /assessment /assessment/personality /en/assessment/level /privacy /en/terms /admin/login /en/admin/login /robots.txt /sitemap.xml /manifest.webmanifest /logo.png "/_next/image?url=%2Flogo.png&w=64&q=75"; do
+            c="$(code www.imathmental.com "$p")"; echo "smoke $p -> $c"; [ "$c" = 200 ] || FAILED=1
+          done
+          c="$(code www.imathmental.com /this-page-does-not-exist)"; echo "smoke unknown path -> $c (want 404)"; [ "$c" = 404 ] || FAILED=1
+          loc="$(curl -sk -o /dev/null -w '%{http_code} %{redirect_url}' --max-time 15 --resolve imathmental.com:443:127.0.0.1 'https://imathmental.com/en?x=1' || true)"
+          echo "smoke apex -> $loc"; [ "$loc" = "301 https://www.imathmental.com/en?x=1" ] || FAILED=1
+          # Geo: the app sets its country cookie only from X-Vercel-IP-Country, which Nginx fills from CF-IPCountry.
+          geo="$(curl -sk -o /dev/null -D - --max-time 15 --resolve www.imathmental.com:443:127.0.0.1 -H 'CF-IPCountry: EG' https://www.imathmental.com/ | tr -d '\r' | grep -i '^set-cookie: imath-country-detected=' | sed -E 's/^[^=]*=([^;]*).*/\1/' | head -n1 || true)"
+          echo "smoke geo: CF-IPCountry EG -> app cookie '${geo}' (want EG)"; [ "$geo" = EG ] || FAILED=1
+
+          if [ "$FAILED" != 0 ]; then
+            echo "SMOKE TEST FAILED"
+            if [ -n "$PREV" ] && [ -d "$PREV" ] && [ "$PREV" != "$REL" ]; then
+              echo "rolling back to $PREV"
+              ln -sfn "$PREV" "$R/current.new" && mv -T "$R/current.new" "$R/current"
+              pm2 startOrReload "$R/current/ecosystem.config.js" --update-env && pm2 save >/dev/null
+            fi
+            echo "last app errors:"; tail -n 30 "$R/logs/im-web.err.log" 2>/dev/null || true
+            exit 1
+          fi
+          # keep the 3 most recent releases (never the current one)
+          CUR="$(readlink -f "$R/current")"
+          ls -1d "$R"/releases/* | sort -r | tail -n +4 | while read -r d; do [ "$(readlink -f "$d")" = "$CUR" ] || rm -rf "$d"; done
+          echo "deployed $REL_NAME"; pm2 describe im-web | grep -E 'status|memory|restarts' || true
+          REMOTE
+          rm -f key
