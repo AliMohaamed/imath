@@ -181,3 +181,13 @@ x86_64, Ubuntu 24.04.5, 2.5 GB RAM free, 107 GB disk free, IPv4 62.83.16.12, por
 no existing imathmental config. Node resolves `localhost` to `::1`, so the app listens on `[::1]:3300` and step4 proxies there.
 Baseline: edusuite.software 200, api.edusuite.software 404, www/admin.techworldegypt.com 307.
 Note: `pm2-deploy` is enabled but inactive (deploy's PM2 was started outside systemd); it resurrects the saved list on reboot. Not changed.
+
+## 12. Steps 2–5 done (2026-11-25)
+
+- Step 2: imath-ci key `SHA256:l+fvTsYC1aELj+5JRsjFmjxhnvfT4XEH1hSw71hJE9k` added; techworld key kept.
+- Step 3: `imath.pem`/`imath.key` installed (imathmental.com + *.imathmental.com, expires 2041-11-21).
+- Step 4: Nginx `imath` live, upstream `[::1]:3300`; edusuite/techworld unchanged; apex 301 single hop with path + query.
+- Step 5: env installed (`NEXT_PUBLIC_CONVEX_URL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`; bot @imath_leads_bot →
+  supergroup "إشعارات iMath"). Convex URL sha256 `949c12012dd9`.
+- Owner decisions: `CONVEX_SERVER_SECRET` stays empty for the migration (not on Vercel; fix assessments after cutover as a
+  separate step). Vercel Build Command is the default `next build`, so Vercel never deployed Convex: no workflow change.
