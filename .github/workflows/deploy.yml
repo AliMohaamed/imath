@@ -1,8 +1,7 @@
 name: Deploy to VPS
 on:
   push:
-    # `self-host` only while the migration is being set up; remove it before merging to main.
-    branches: [main, self-host]
+    branches: [main]
     # docs and one-off server scripts don't change what runs on the server
     paths-ignore:
       - "docs/**"
