@@ -4,6 +4,8 @@ import type { NextConfig } from "next";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
+  // Self-contained server bundle for the VPS (see docs/self-hosting-plan.md); same runtime behavior as `next start`.
+  output: "standalone",
   reactCompiler: true,
   images: {
     formats: ["image/avif", "image/webp"],
